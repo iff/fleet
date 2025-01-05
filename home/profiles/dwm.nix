@@ -26,11 +26,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      dmenu-rs
-      feh
-      gthumb
-      scrot
+    home.packages = [
+      pkgs.dmenu-rs
+      pkgs.feh
+      pkgs.gthumb
+      pkgs.scrot
+      # TODO try pkgs.dwm-status
       dwm-status
     ];
 
