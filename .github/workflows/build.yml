@@ -16,7 +16,7 @@ jobs:
             target: blackhole
           - os: ubuntu-latest
             target: nixos
-          - os: macos-14
+          - os: macos-15
             target: urithiru
     runs-on: ${{ matrix.os }}
 
