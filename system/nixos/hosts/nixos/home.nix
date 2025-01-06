@@ -5,10 +5,13 @@
     _1password-gui
     geeqie
     google-chrome
+    neovide
     protonmail-desktop
     roam-research
     spotify
     syncthing
+    transmission_4-gtk
+    vlc
   ];
 
   dots = {
