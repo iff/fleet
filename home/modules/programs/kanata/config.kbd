@@ -47,7 +47,7 @@
 	syms (layer-toggle syms)
 
 	ectl (tap-hold-release 0 200 esc lctl)
-	spcs (multi spc (tap-hold-press 200 200 XX (multi bspc (layer-while-held syms))))
+	spcs (multi spc (tap-hold-release 200 200 XX (multi bspc (layer-while-held syms))))
 
 	lsft (one-shot-press 10000 lsft)
 	rsft (one-shot-press 10000 rsft)
@@ -68,7 +68,7 @@
 		tab	q	w	f	p	b		j	l	u	y	F11	del	XX	\
 		@ectl	a	r	s	t	g		m	n	e	i	o	bspc	ret	
 		@lsft	z	x	c	d	v		k	h	,	.	rctl	@rsft
-		@num	lctl	lalt	lmet			@spcs		@rsft	ralt	left	up	down	right
+		@num	lctl	lalt	lmet			@spcs		@syms	ralt	left	up	down	right
 )
 
 ;; TODO
