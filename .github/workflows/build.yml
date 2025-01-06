@@ -13,8 +13,6 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            target: blackhole
-          - os: ubuntu-latest
             target: nixos
           - os: macos-14
             target: urithiru
