@@ -1,5 +1,14 @@
 { pkgs, ... }:
 
+let
+  wrapped-uv = pkgs.writeScriptBin "uv" ''
+    #!${pkgs.zsh}/bin/zsh
+    set -eu -o pipefail
+    path=(${pkgs.python313}/bin ${pkgs.python310}/bin $path)
+    export UV_CACHE_DIR=/scratch/.cache/uv
+    ${pkgs.uv}/bin/uv $@
+  '';
+in
 {
   home.packages = with pkgs; [
     _1password-gui
@@ -13,8 +22,7 @@
     sshfs
     ssm-session-manager-plugin
     syncthing
-    uv
-    python310
+    wrapped-uv
   ];
 
   dots = {
