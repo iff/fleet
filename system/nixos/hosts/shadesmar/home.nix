@@ -3,10 +3,15 @@
 {
   home.packages = with pkgs; [
     _1password-gui
+    cmake
     geeqie
     google-chrome
+    lnav
     spotify
+    sshfs
     syncthing
+    uv
+    python310
   ];
 
   dots = {
