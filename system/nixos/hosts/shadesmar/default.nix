@@ -22,14 +22,6 @@
     data-root = "/scratch/docker-sm";
   };
 
-  # users.users.yineichen = {
-  #   isNormalUser = true;
-  #   extraGroups = [ "wheel" "systemd-journal" "audio" "video" "input" "networkmanager" "docker" ];
-  #   shell = pkgs.zsh;
-  #   packages = with pkgs; [
-  #   ];
-  # };
-
   # nvidia docker
   # systemd.services.containerd.path = with pkgs; [
   #   containerd

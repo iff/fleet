@@ -16,8 +16,7 @@
 
     # TODO move
     programs.zsh.enable = true;
-    # FIXME: user
-    users.users.yineichen = {
+    users.users.${config.dots.modules.user.name} = {
       isNormalUser = true;
       extraGroups = [ "wheel" "systemd-journal" "audio" "video" "input" "networkmanager" "docker" ];
       shell = pkgs.zsh;
