@@ -3,7 +3,9 @@
 {
   home.packages = with pkgs; [
     _1password-gui
+    awscli2
     cmake
+    eigen
     geeqie
     google-chrome
     lnav
