@@ -39,6 +39,7 @@
     {
       device = "/dev/disk/by-uuid/38a43ffb-f216-46b6-a3ef-7619d65c215a";
       fsType = "btrfs";
+      options = [ "noatime" "ssd" "discard=async" "space_cache=v2" "commit=120" ];
     };
   fileSystems."/boot/efi" =
     {
@@ -49,6 +50,7 @@
     {
       device = "/dev/disk/by-uuid/923aa534-f79d-43fa-8532-fc6a5f0cfd6a";
       fsType = "btrfs";
+      options = [ "noatime" "ssd" "discard=async" "space_cache=v2" "commit=120" ];
     };
   fileSystems."/data" =
     {
@@ -61,6 +63,12 @@
       fsType = "ext4";
       options = [ "ro" ];
     };
+
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+    fileSystems = [ "/" "/scratch" ];
+  };
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
