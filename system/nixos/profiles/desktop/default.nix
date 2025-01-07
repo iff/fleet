@@ -83,10 +83,7 @@ in
       powerManagement.enable = true;
       powerManagement.finegrained = false;
 
-      # todo at some point try open source kernel modules
-      # but need a new gpu for that
-      open = false;
-
+      open = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
