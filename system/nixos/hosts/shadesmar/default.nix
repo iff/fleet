@@ -14,6 +14,8 @@
     };
   };
 
+  programs.fuse.userAllowOther = true;
+
   # https://nixos.wiki/wiki/Docker
   virtualisation.docker.enable = true;
   virtualisation.docker.daemon.settings = {

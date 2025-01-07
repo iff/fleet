@@ -11,6 +11,7 @@
     lnav
     spotify
     sshfs
+    ssm-session-manager-plugin
     syncthing
     uv
     python310
