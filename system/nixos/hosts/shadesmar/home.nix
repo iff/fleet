@@ -1,13 +1,28 @@
 { pkgs, ... }:
 
 let
-  wrapped-uv = pkgs.writeScriptBin "uv" ''
+  # TODO see https://docs.astral.sh/uv/configuration/environment/
+  uvBin = pkgs.writeScriptBin "uv" ''
     #!${pkgs.zsh}/bin/zsh
     set -eu -o pipefail
-    path=(${pkgs.python313}/bin ${pkgs.python310}/bin $path)
+    export path=(${pkgs.python313}/bin ${pkgs.python310}/bin $path)
+    export UV_PYTHON_PREFERENCE=only-system
     export UV_CACHE_DIR=/scratch/.cache/uv
     ${pkgs.uv}/bin/uv $@
   '';
+  uvxBin = pkgs.writeScriptBin "uvx" ''
+    #!${pkgs.zsh}/bin/zsh
+    set -eu -o pipefail
+    export path=(${pkgs.python313}/bin ${pkgs.python310}/bin $path)
+    export UV_PYTHON_PREFERENCE=only-system
+    export UV_CACHE_DIR=/scratch/.cache/uv
+    ${pkgs.uv}/bin/uvx $@
+  '';
+  wrapped-uv = pkgs.symlinkJoin {
+    name = "wrapped-uv";
+    # NOTE symlinkJoin allows clashes, the first in the list wins
+    paths = [ uvBin uvxBin pkgs.uv ];
+  };
 in
 {
   home.packages = with pkgs; [
