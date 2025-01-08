@@ -30,22 +30,9 @@
     };
     # TODO does this add kernel modules? can i set options?
     supportedFilesystems = [ "zfs" ];
-
-    # for now use GRUB to dual boot with ubuntu
-    #   loader = {
-    #     efi = {
-    #       canTouchEfiVariables = true;
-    #       efiSysMountPoint = "/boot/efi";
-    #     };
-    #     grub = {
-    #       efiSupport = true;
-    #       device = "nodev";
-    #       useOSProber = true;
-    #     };
-    #   };
-    #
   };
 
+  # needed for ZFS
   networking.hostId = "e163c59c";
 
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -80,27 +67,9 @@
       fsType = "ext4";
     };
 
-  # fileSystems."/" =
-  #   {
-  #     device = "/dev/disk/by-uuid/38a43ffb-f216-46b6-a3ef-7619d65c215a";
-  #     fsType = "btrfs";
-  #     options = [ "noatime" "ssd" "discard=async" "space_cache=v2" "commit=120" ];
-  #   };
-  # fileSystems."/boot/efi" =
-  #   {
-  #     device = "/dev/disk/by-uuid/54EC-62DC";
-  #     fsType = "vfat";
-  #   };
-  # fileSystems."/uhome" =
-  #   {
-  #     device = "/dev/disk/by-uuid/7c79a22d-2996-4638-9106-08e957c1d722";
-  #     fsType = "ext4";
-  #     options = [ "ro" ];
-  #   };
-  #
-  # services.btrfs.autoScrub = {
-  #   enable = true;
-  #   interval = "weekly";
-  #   fileSystems = [ "/" "/scratch" ];
-  # };
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+    fileSystems = [ "/scratch" ];
+  };
 }
