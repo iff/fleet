@@ -8,12 +8,12 @@ let
       #!/usr/bin/env zsh
       set -eu -o pipefail
 
-      if [[ -f ./.venv/bin/ruff ]]; then
-          ./.venv/bin/ruff check --fix-only --select 'I' -s - | ./.venv/bin/ruff format -s -
-          exit $?
-      fi
+      # if [[ -f ./.venv/bin/ruff ]]; then
+      #     ./.venv/bin/ruff check --fix-only --select 'I' -s - | ./.venv/bin/ruff format -s -
+      #     exit $?
+      # fi
 
-      ruff check --fix-only --select 'I' -s - | ruff format -s -
+      ${pkgs.ruff}/bin/ruff check --fix-only --select 'I' -s - | ${pkgs.ruff}/bin/ruff format -s -
     '';
 
   treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: with p; [

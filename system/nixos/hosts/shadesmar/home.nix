@@ -28,8 +28,6 @@ in
   home.packages = with pkgs; [
     _1password-gui
     awscli2
-    cmake
-    eigen
     geeqie
     google-chrome
     lnav
@@ -37,7 +35,11 @@ in
     sshfs
     ssm-session-manager-plugin
     syncthing
-    wrapped-uv
+    # TODO below should be in direnv
+    # but linking fails due to python pollution
+    # cmake
+    # eigen
+    # wrapped-uv
   ];
 
   dots = {
