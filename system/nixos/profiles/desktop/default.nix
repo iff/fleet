@@ -25,6 +25,15 @@ in
     #   };
     # };
 
+    services.getty = {
+      # autologinOnce = true;
+      # autologinUser = lib.mkDefault "dkuettel"; # TODO for iso install
+      extraArgs = [ "--skip-login" ];
+      # TODO a way to never ever ask for user? or at least not echo when typing?
+      loginOptions = config.dots.modules.user.name;
+      # TODO if i ever run remotely, how to keep the monitor off?
+    };
+
     services.pipewire = {
       enable = true;
       alsa.enable = true;
@@ -83,10 +92,7 @@ in
       powerManagement.enable = true;
       powerManagement.finegrained = false;
 
-      # todo at some point try open source kernel modules
-      # but need a new gpu for that
-      open = false;
-
+      open = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 

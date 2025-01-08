@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+set -eux -o pipefail
+
+DISK=/dev/disk/by-id/nvme-WDC_PC_SN530_SDBPNPZ-1T00-1002_21207C450901
+
+# args=(
+#     --script
+#     --align=optimal
+#     $DISK
+#     --
+#     mklabel gpt
+#     mkpart EFI 1mb 1gb
+#     mkpart zfs-system 1gb '100%'
+#     set 1 esp on
+# )
+# sudo parted $args  || true
+
+opts=(
+    # -O see https://openzfs.github.io/openzfs-docs/man/v2.2/7/zfsprops.7.html
+    -O encryption=off
+    -O compression=lz4
+    -O mountpoint=none
+    -O xattr=sa
+    -O atime=off
+    # -O relatime=on
+    -O acltype=posixacl
+    -O canmount=off
+    -O dnodesize=auto
+    # -O normalization=formD
+    # -o see https://openzfs.github.io/openzfs-docs/man/v2.2/7/zpoolprops.7.html
+    -o ashift=12
+    -o autotrim=on
+    # NOTE only valid while this system is up, no later effect (?)
+    -R /mnt
+)
+sudo zpool create $opts system $DISK-part2
+
+sudo zfs create -o canmount=noauto -o mountpoint=legacy system/nix
+sudo zfs create -o canmount=noauto -o mountpoint=legacy system/state
+
+sudo mount -o X-mount.mkdir -t zfs system/state /mnt
+sudo mount -o X-mount.mkdir -t zfs system/nix /mnt/nix
+
+sudo mkfs.vfat -n EFI $DISK-part1
+sudo mount -t vfat -o umask=077,fmask=077,dmask=077,iocharset=iso8859-1,X-mount.mkdir $DISK-part1 /mnt/boot
+
+# sudo -i
+
+# nixos-install --root /mnt --flake ..
+
+# nixos-enter --root /mnt -c 'passwd yineichen'
+
+# sudo umount -R /mnt
+# sudo zpool export -a
+
+# sudo reboot
