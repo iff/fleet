@@ -64,6 +64,16 @@ in
       # egl-wayland
       wayland-protocols
     ] ++ lib.optionals (cfg.wm == "dwm") [
+      # TODO will be hyprland
+      # dracula-theme
+      # adwaita-icon-theme
+      # mako
+      # wl-clipboard
+      # tools:
+      inputs.hypr-contrib.packages.${pkgs.system}.grimblast
+      hyprpaper
+      rofi-wayland
+    ] ++ lib.optionals (cfg.wm == "dwm") [
       xorg.xinit
     ];
 
@@ -119,6 +129,12 @@ in
     # wayland and sway setup below
 
     programs.xwayland.enable = mkIf (cfg.wm == "sway") true;
+
+    # TODO should be hyprland
+    programs.hyprland = mkIf (cfg.wm == "dwm") {
+      enable = true;
+      xwayland.enable = true;
+    };
 
     # FIXME use home-manager to use on Ubuntu?
     programs.sway = mkIf (cfg.wm == "sway") {
