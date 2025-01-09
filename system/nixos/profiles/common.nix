@@ -23,13 +23,17 @@
       openssh.enable = true;
     };
 
-    # https://nixos.wiki/wiki/Docker - check rootless docker
-    # but issues with nvidia
-    virtualisation.docker.enable = true;
+    virtualisation.docker = {
+      enable = true;
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
+    };
 
     users.users.${config.dots.modules.user.name} = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "systemd-journal" "audio" "video" "input" "networkmanager" "docker" ];
+      extraGroups = [ "wheel" "systemd-journal" "audio" "video" "input" "networkmanager" ];
       shell = pkgs.zsh;
       packages = with pkgs; [
       ];
