@@ -1,0 +1,87 @@
+{
+  "settings": {
+    "layer": "top",
+    "position": "top"
+  },
+  "modules-left": [
+    "wlr/workspaces",
+    "mpd"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "pulseaudio",
+    "memory",
+    "cpu",
+    "temperature",
+    "network",
+    "clock",
+    "tray"
+  ],
+  "wlr/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate"
+  },
+  "pulseaudio": {
+    "scroll-step": 1,
+    "format": "{icon} {volume}%",
+    "format-muted": "󰖁 Muted",
+    "format-icons": {
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "states": {
+      "warning": 85
+    },
+    "on-click": "pamixer -t",
+    "tooltip": false
+  },
+  "clock": {
+    "interval": 1,
+    "format": "{:%I:%M %p}",
+    "tooltip": true
+  },
+  "memory": {
+    "interval": 1,
+    "format": "󰍛 {percentage}%",
+    "states": {
+      "warning": 85
+    }
+  },
+  "cpu": {
+    "interval": 1,
+    "format": "󰻠 {usage}%"
+  },
+  "mpd": {
+    "max-length": 25,
+    "format": "<span foreground='#bb9af7'></span> {title}",
+    "format-paused": " {title}",
+    "format-stopped": "<span foreground='#bb9af7'></span>",
+    "format-disconnected": "",
+    "on-click": "mpc --quiet toggle",
+    "on-click-right": "mpc update; mpc ls | mpc add",
+    "on-click-middle": "kitty --class='ncmpcpp' ncmpcpp ",
+    "on-scroll-up": "mpc --quiet prev",
+    "on-scroll-down": "mpc --quiet next",
+    "smooth-scrolling-threshold": 5,
+    "tooltip-format": "{title} - {artist} ({elapsedTime:%M:%S}/{totalTime:%H:%M:%S})"
+  },
+  "network": {
+    "format-disconnected": "󰯡 Disconnected",
+    "format-ethernet": "󰀂 {ifname} ({ipaddr})",
+    "format-linked": "󰖪 {essid} (No IP)",
+    "format-wifi": "󰖩 {essid}",
+    "interval": 1,
+    "tooltip": false
+  },
+  "temperature": {
+    "tooltip": false,
+    "format": " {temperatureC}°C"
+  },
+  "tray": {
+    "icon-size": 13,
+    "spacing": 5
+  }
+}
