@@ -14,6 +14,7 @@
     };
   };
 
+  # needed for sshfs
   programs.fuse.userAllowOther = true;
 
   # https://nixos.wiki/wiki/Docker
@@ -28,6 +29,13 @@
   #   nvidia-container-toolkit
   # ];
   hardware.nvidia-container-toolkit.enable = true;
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  };
+
+  services.blueman.enable = true;
 
   dots = {
     modules = {

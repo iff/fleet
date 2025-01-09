@@ -11,6 +11,8 @@
     ssm-session-manager-plugin
   ];
 
+  services.blueman-applet.enable = true;
+
   dots = {
     profiles = {
       dwm.enable = true;
