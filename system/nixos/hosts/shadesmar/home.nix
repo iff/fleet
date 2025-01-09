@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     _1password-gui
     geeqie
-    lnav
     syncthing
     # work
     awscli2

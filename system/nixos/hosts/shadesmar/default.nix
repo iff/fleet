@@ -17,17 +17,12 @@
   # needed for sshfs
   programs.fuse.userAllowOther = true;
 
-  # https://nixos.wiki/wiki/Docker
-  virtualisation.docker.enable = true;
+  # data root on another disk
   virtualisation.docker.daemon.settings = {
     data-root = "/scratch/docker-sm";
   };
 
   # nvidia docker
-  # systemd.services.containerd.path = with pkgs; [
-  #   containerd
-  #   nvidia-container-toolkit
-  # ];
   hardware.nvidia-container-toolkit.enable = true;
 
   hardware.bluetooth = {

@@ -6,34 +6,6 @@
     i18n.defaultLocale = "en_US.UTF-8";
     networking.networkmanager.enable = true;
 
-    services = {
-      cron.enable = true;
-      openssh.enable = true;
-    };
-
-    services.tailscale.enable = true;
-    virtualisation.docker.enable = true;
-
-    # TODO move
-    programs.zsh.enable = true;
-    users.users.${config.dots.modules.user.name} = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" "systemd-journal" "audio" "video" "input" "networkmanager" "docker" ];
-      shell = pkgs.zsh;
-      packages = with pkgs; [
-      ];
-    };
-
-    # some programs need SUID wrappers, can be configured further or are
-    # started in user sessions.
-    programs.mtr.enable = true;
-    programs.gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-    };
-
-    hardware.keyboard.zsa.enable = true;
-
     environment.systemPackages = with pkgs; [
       curl
       git
@@ -43,6 +15,36 @@
       tree
       vim
     ];
+
+    hardware.keyboard.zsa.enable = true;
+
+    services = {
+      cron.enable = true;
+      openssh.enable = true;
+    };
+
+    # https://nixos.wiki/wiki/Docker - check rootless docker
+    # but issues with nvidia
+    virtualisation.docker.enable = true;
+
+    users.users.${config.dots.modules.user.name} = {
+      isNormalUser = true;
+      extraGroups = [ "wheel" "systemd-journal" "audio" "video" "input" "networkmanager" "docker" ];
+      shell = pkgs.zsh;
+      packages = with pkgs; [
+      ];
+    };
+
+    # TODO move
+    programs.zsh.enable = true;
+
+    # some programs need SUID wrappers, can be configured further or are
+    # started in user sessions.
+    programs.mtr.enable = true;
+    programs.gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+    };
 
     security.sudo = {
       enable = true;
