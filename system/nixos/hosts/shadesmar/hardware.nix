@@ -53,6 +53,11 @@
       fsType = "zfs";
       depends = [ "/" ];
     };
+    "/var/lib/docker" = {
+      device = "system/docker";
+      fsType = "zfs";
+      depends = [ "/" ];
+    };
   };
 
   fileSystems."/scratch" =

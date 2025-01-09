@@ -17,10 +17,7 @@
   # needed for sshfs
   programs.fuse.userAllowOther = true;
 
-  # data root on another disk
-  virtualisation.docker.daemon.settings = {
-    data-root = "/scratch/docker-sm";
-  };
+  virtualisation.docker.storageDriver = "zfs";
 
   # nvidia docker
   hardware.nvidia-container-toolkit.enable = true;
