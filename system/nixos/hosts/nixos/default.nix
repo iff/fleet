@@ -8,6 +8,8 @@
 
   services.tailscale.enable = true;
 
+  virtualisation.docker.storageDriver = "btrfs";
+
   dots = {
     modules = {
       user.home = ./home.nix;
