@@ -2,7 +2,6 @@
 
 {
   home.packages = with pkgs; [
-    _1password-gui
     geeqie
     google-chrome
     neovide

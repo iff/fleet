@@ -2,7 +2,6 @@
 
 {
   home.packages = with pkgs; [
-    _1password-gui
     geeqie
     syncthing
     # work
