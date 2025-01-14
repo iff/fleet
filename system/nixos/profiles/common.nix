@@ -44,10 +44,11 @@
 
     virtualisation.docker = {
       enable = true;
-      rootless = {
-        enable = true;
-        setSocketVariable = true;
-      };
+      # issues with nvidia
+      # rootless = {
+      #   enable = true;
+      #   setSocketVariable = true;
+      # };
     };
 
     users.mutableUsers = false;
