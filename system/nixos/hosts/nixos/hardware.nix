@@ -1,4 +1,4 @@
-{ config, lib,  modulesPath, ... }:
+{ config, lib, modulesPath, ... }:
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
@@ -11,13 +11,20 @@
     };
 
     loader = {
+      timeout = 0; # TODO or null for wait, or 0 for on-key?
       efi = {
         canTouchEfiVariables = true;
+        # TODO why do I have that enabled?
         efiSysMountPoint = "/boot/efi";
       };
-      systemd-boot.enable = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 100;
+        consoleMode = "0"; # all options often take long to appear
+      };
     };
 
+    supportedFilesystems = [ "btrfs" ];
   };
 
   swapDevices =
@@ -44,11 +51,11 @@
       fsType = "vfat";
     };
 
-  # fileSystems."/mirrored" =
-  #   {
-  #     device = "/dev/darktower/nixos";
-  #     fsType = "ext4";
-  #   };
+  fileSystems."/mirrored" =
+    {
+      device = "/dev/darktower/nixos";
+      fsType = "ext4";
+    };
 
   # powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
