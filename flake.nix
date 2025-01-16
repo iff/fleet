@@ -240,7 +240,7 @@
       };
 
       nixosConfigurations = mapAttrs' intoNixOs {
-        nixos = { };
+        kharbranth = { };
         shadesmar = { user = "yineichen"; };
       };
 

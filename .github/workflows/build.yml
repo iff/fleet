@@ -13,7 +13,7 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            target: nixos
+            target: kharbranth
           - os: macos-14
             target: urithiru
     runs-on: ${{ matrix.os }}
