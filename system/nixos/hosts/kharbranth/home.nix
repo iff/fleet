@@ -8,7 +8,6 @@
     protonmail-desktop
     roam-research
     spotify
-    syncthing
     transmission_4-gtk
     vlc
   ];
