@@ -17,14 +17,14 @@
         options.urAccepted = -1;
         devices = {
           kharbranth = { id = "FX6KDKI-UPZE5RA-KEL7OX7-WER52KY-6WVQ6CY-HNK3UX3-23W3CEK-3HWTMAY"; };
-          # shadesmar = { id = ""; }; # TODO 
+          shadesmar = { id = "QWXKQOD-JWPR4VE-KQBV47P-HU33L32-TTKOG75-6LKCKGG-PJH3CQ2-SVNHMAR"; };
         };
-        # folders = {
-        #   work = {
-        #     path = "~/sync/work";
-        #     devices = [ "kharbranth" "shadesmar" ];
-        #   };
-        # };
+        folders = {
+          work = {
+            path = "~/sync/work";
+            devices = [ "kharbranth" "shadesmar" ];
+          };
+        };
       };
     };
     systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
