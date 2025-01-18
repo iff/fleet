@@ -36,6 +36,7 @@ in
       font_normal = "ZedMono Nerd Font";
     };
     osh.enable = true;
+    syncthing.enable = true;
     zen.enable = true;
   };
 }

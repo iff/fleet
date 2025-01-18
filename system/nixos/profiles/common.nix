@@ -6,29 +6,6 @@
     i18n.defaultLocale = "en_US.UTF-8";
     networking.networkmanager.enable = true;
 
-    services.syncthing = {
-      enable = true;
-      group = "users";
-      user = config.dots.modules.user.name;
-      dataDir = "/home/${config.dots.modules.user.name}/sync";
-      overrideFolders = true;
-      overrideDevices = true;
-      settings = {
-        options.urAccepted = -1;
-        devices = {
-          kharbranth = { id = "FX6KDKI-UPZE5RA-KEL7OX7-WER52KY-6WVQ6CY-HNK3UX3-23W3CEK-3HWTMAY"; };
-          shadesmar = { id = "QWXKQOD-JWPR4VE-KQBV47P-HU33L32-TTKOG75-6LKCKGG-PJH3CQ2-SVNHMAR"; };
-        };
-        folders = {
-          work = {
-            path = "~/sync/work";
-            devices = [ "kharbranth" "shadesmar" ];
-          };
-        };
-      };
-    };
-    systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
-
     environment.systemPackages = with pkgs; [
       curl
       git
