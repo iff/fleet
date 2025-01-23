@@ -89,6 +89,7 @@ in
         (plug "cmp-path-nvim")
         (plug "cmp-luasnip-nvim")
         (plug "lspkind-nvim")
+        (plug "ptags-nvim")
 
         # telescope
         (plug "plenary-nvim")
@@ -116,6 +117,7 @@ in
 
   home = {
     packages = with pkgs; [
+      inputs.ptags-nvim.packages.x86_64-linux.app
       basedpyright
       pyformat
       clang-tools

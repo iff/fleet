@@ -278,6 +278,24 @@ function M.on_attach_python(client, bufnr)
         vim.keymap.set('n', lhs, rhs, { buffer = bufnr, desc = desc })
     end
 
+    local ptags = require('ptags')
+    local function ptags_local()
+        ptags.telescope({ vim.fn.expand('%') })
+    end
+
+    local function ptags_workspace()
+        local sources = {
+            vim.fn.glob('python', false, true) or { '.' },
+            vim.fn.glob('libs/*/python', false, true),
+            vim.fn.glob('notebooks/', false, true),
+        }
+        sources = vim.iter(sources):flatten(math.huge):totable()
+        ptags.telescope(sources)
+    end
+
+    nmap('ge', ptags_local, 'ptags local symbols')
+    nmap('gi', ptags_workspace, 'ptags workspace symbols')
+
     nmap('tI', function()
         local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
         local issues = vim.diagnostic.get(0, { lnum = lnum })

@@ -182,6 +182,11 @@
       flake = false;
     };
 
+    ptags-nvim = {
+      url = github:dkuettel/ptags.nvim/uv;
+      flake = true;
+    };
+
     # hugging face code completion
     # hfcc = {
     #   url = github:huggingface/hfcc.nvim;
