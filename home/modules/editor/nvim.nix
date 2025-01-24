@@ -117,7 +117,6 @@ in
 
   home = {
     packages = with pkgs; [
-      inputs.ptags-nvim.packages.x86_64-linux.app
       basedpyright
       pyformat
       clang-tools
@@ -131,7 +130,7 @@ in
       nodePackages.typescript-language-server
       stylua
       taplo
-    ];
+    ] ++ lib.optionals pkgs.stdenv.isLinux [ inputs.ptags-nvim.packages.x86_64-linux.app ];
   };
 
   xdg.configFile."nvim".source = ./nvim;
