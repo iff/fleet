@@ -73,7 +73,8 @@ in
       plugins = with pkgs.vimPlugins; [
         (plug "hop-nvim")
         (plug "fugitive-nvim")
-        (plug "gitsigns-nvim")
+        # (plug "gitsigns-nvim")
+        gitsigns-nvim
         (plug "lsp-indicator-nvim")
         (plug "funky-formatter-nvim")
         (plug "funky-contexts-nvim")
