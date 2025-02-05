@@ -53,6 +53,12 @@ let
     buildPhase = ''
       ${if name == "telescope-fzf-native-nvim" then "make" else ""}
     '';
+    # hack to fix build tests
+    dependencies = [
+      pkgs.vimPlugins.nvim-cmp
+      pkgs.vimPlugins.telescope-nvim
+      pkgs.vimPlugins.plenary-nvim
+    ];
   };
 in
 {
@@ -67,7 +73,8 @@ in
       plugins = with pkgs.vimPlugins; [
         (plug "hop-nvim")
         (plug "fugitive-nvim")
-        (plug "gitsigns-nvim")
+        # (plug "gitsigns-nvim")
+        gitsigns-nvim
         (plug "lsp-indicator-nvim")
         (plug "funky-formatter-nvim")
         (plug "funky-contexts-nvim")
@@ -80,7 +87,8 @@ in
 
         # lsp (minimal)
         (plug "nvim-lspconfig")
-        (plug "nvim-cmp")
+        # (plug "nvim-cmp")
+        nvim-cmp
         (plug "cmp-lsp-nvim")
         (plug "luasnip-nvim")
 
@@ -92,7 +100,8 @@ in
         (plug "ptags-nvim")
 
         # telescope
-        (plug "plenary-nvim")
+        # (plug "plenary-nvim")
+        plenary-nvim
         (plug "telescope-nvim")
         (plug "telescope-fzf-native-nvim")
         (plug "telescope-hop-nvim")
