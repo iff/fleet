@@ -90,13 +90,11 @@
     };
 
     nix = {
+      channel.enable = false;
       settings = {
+        experimental-features = [ "nix-command" "flakes" ];
         auto-optimise-store = true;
       };
-
-      extraOptions = ''
-        experimental-features = nix-command flakes
-      '';
 
       gc = {
         automatic = true;
