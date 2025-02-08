@@ -183,7 +183,7 @@
     };
 
     ptags-nvim = {
-      url = github:dkuettel/ptags.nvim/uv;
+      url = github:dkuettel/ptags.nvim;
       flake = true;
     };
 
