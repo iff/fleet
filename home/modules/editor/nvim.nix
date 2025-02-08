@@ -139,7 +139,8 @@ in
       nodePackages.typescript-language-server
       stylua
       taplo
-    ] ++ lib.optionals pkgs.stdenv.isLinux [ inputs.ptags-nvim.packages.x86_64-linux.app ];
+      inputs.ptags-nvim.packages.${pkgs.system}.app
+    ];
   };
 
   xdg.configFile."nvim".source = ./nvim;
