@@ -239,7 +239,6 @@
 
       homeConfigurations = mapAttrs' intoHomeManager {
         darktower = { };
-        blackhole = { user = "yineichen"; };
         roshar = { system = "aarch64-darwin"; };
         urithiru = { system = "aarch64-darwin"; };
       };
