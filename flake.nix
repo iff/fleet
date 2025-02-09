@@ -238,7 +238,6 @@
       #   builtins.attrNames (f nonPluginInputNames inputs);
 
       homeConfigurations = mapAttrs' intoHomeManager {
-        darktower = { };
         roshar = { system = "aarch64-darwin"; };
         urithiru = { system = "aarch64-darwin"; };
       };
