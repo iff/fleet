@@ -57,10 +57,10 @@
       flake = false;
     };
 
-    gitsigns-nvim = {
-      url = github:lewis6991/gitsigns.nvim;
-      flake = false;
-    };
+    # gitsigns-nvim = {
+    #   url = github:lewis6991/gitsigns.nvim;
+    #   flake = false;
+    # };
 
     lsp-indicator-nvim = {
       url = github:dkuettel/lsp-indicator.nvim;
@@ -102,10 +102,10 @@
       flake = false;
     };
 
-    nvim-cmp = {
-      url = github:hrsh7th/nvim-cmp;
-      flake = false;
-    };
+    # nvim-cmp = {
+    #   url = github:hrsh7th/nvim-cmp;
+    #   flake = false;
+    # };
 
     cmp-lsp-nvim = {
       url = github:hrsh7th/cmp-nvim-lsp;
@@ -137,10 +137,10 @@
       flake = false;
     };
 
-    plenary-nvim = {
-      url = github:nvim-lua/plenary.nvim;
-      flake = false;
-    };
+    # plenary-nvim = {
+    #   url = github:nvim-lua/plenary.nvim;
+    #   flake = false;
+    # };
 
     telescope-nvim = {
       url = github:nvim-telescope/telescope.nvim;
@@ -162,10 +162,10 @@
       flake = false;
     };
 
-    rustacean-nvim = {
-      url = github:mrcjkb/rustaceanvim;
-      flake = true;
-    };
+    # rustacean-nvim = {
+    #   url = github:mrcjkb/rustaceanvim;
+    #   flake = true;
+    # };
 
     neodev-nvim = {
       url = github:folke/neodev.nvim;
