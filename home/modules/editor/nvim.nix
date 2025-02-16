@@ -55,9 +55,10 @@ let
     '';
     # hack to fix build tests
     dependencies = [
+      # pkgs.vimPlugins.neotest
       pkgs.vimPlugins.nvim-cmp
-      pkgs.vimPlugins.telescope-nvim
       pkgs.vimPlugins.plenary-nvim
+      pkgs.vimPlugins.telescope-nvim
     ];
   };
 in
@@ -107,7 +108,8 @@ in
         (plug "telescope-hop-nvim")
         (plug "telescope-ui-select-nvim")
 
-        (plug "rustacean-nvim")
+        # (plug "rustacean-nvim")
+        rustaceanvim
 
         (plug "neodev-nvim")
         (plug "kmonad-vim")
