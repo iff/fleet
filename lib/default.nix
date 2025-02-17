@@ -54,8 +54,18 @@ rec {
 
             nix = {
               settings = {
-                substituters = [ "https://iff-dotfiles.cachix.org" ];
-                trusted-public-keys = [ "iff-dotfiles.cachix.org-1:9PzCJ44z3MuyvrvjkbbMWCDl5Rrf9nt3OZHq446Wn58=" ];
+                substituters = [
+                  "https://cache.nixos.org"
+                  "https://iff-dotfiles.cachix.org"
+                  # "https://cachix.cachix.org"
+                  # "https://nix-community.cachix.org"
+                ];
+                trusted-public-keys = [
+                  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+                  "iff-dotfiles.cachix.org-1:9PzCJ44z3MuyvrvjkbbMWCDl5Rrf9nt3OZHq446Wn58="
+                  # "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
+                  # "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+                ];
               };
               package = pkgs.nixVersions.stable;
               extraOptions = "experimental-features = nix-command flakes";
