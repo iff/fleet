@@ -24,7 +24,7 @@ jobs:
         run: sudo mkdir /nix
 
       - name: maximize space
-        uses: easimon/maximize-build-space@v9
+        uses: easimon/maximize-build-space@v10
         if: contains(matrix.os, 'ubuntu')
         with:
           root-reserve-mb: 512
@@ -42,7 +42,7 @@ jobs:
           fetch-depth: 0
 
       - name: install nix
-        uses: cachix/install-nix-action@v27
+        uses: cachix/install-nix-action@v30
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
           nix_path: nixpkgs=channel:nixos-unstable
