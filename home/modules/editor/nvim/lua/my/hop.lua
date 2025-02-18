@@ -10,7 +10,7 @@ function mod.setup()
         keys = 'ntseriufhdywoa',
     })
 
-    vim.keymap.set({'n', 'v'}, ' ', hop.hint_char2, { desc = 'hop 2char' })
+    vim.keymap.set({'n', 'v'}, '  ', hop.hint_char2, { desc = 'hop 2char' })
     vim.keymap.set('i', '<F11> ', function()
         hop.hint_char1({
             direction = require('hop.hint').HintDirection.AFTER_CURSOR,
