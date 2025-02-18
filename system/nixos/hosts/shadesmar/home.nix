@@ -185,9 +185,13 @@ let
       args+=(--env DISPLAY=:0)
 
       # aws config
-      args+=(-v $HOME/.aws:/home/localuser/.aws)
+      # args+=(-v $HOME/.aws:/home/localuser/.aws)
+
       # home
-      # TODO only .aws?
+      # NOTE we need .Xauthority to get X11 inside -- so if we ever stop mounting home!
+      # TODO only 
+      #   .aws
+      #   .Xauthority
       if [ $(pwd) != $HOME ]; then
           id_mount $HOME
       fi
@@ -253,20 +257,18 @@ let
       args+=(--env DISPLAY=:0)
 
       # aws config
-      args+=(-v $HOME/.aws:/home/localuser/.aws)
       id_mount $HOME/.aws
+      id_mount $HOME/.Xauthority
+      id_mount $HOME/.cache
 
-      # home - needed for creds?
-      # if [ $(pwd) != $HOME ]; then
-      #     id_mount $HOME
-      # fi
+      args+=(-v /var/run/docker.sock:/var/run/docker.sock)
+      args+=(--group-add $(stat -c '%g' /var/run/docker.sock))
 
-      # data and mounts
+      # data
       id_mount /efs
       id_mount /scratch
       id_mount /data
       id_mount /s3
-      # id_mount /tmp
 
       # mount github directory for gha weekly updates
       args+=(--mount type=bind,source=$nn/.github,destination=/xp/src/nn/.github)
@@ -283,7 +285,7 @@ let
       args+=(--user 1000)
 
       # limit memory
-      args+=(--memory "25g")
+      # args+=(--memory "25g")
       args+=(--shm-size=4gb)
 
       args+=(--pid=host)
