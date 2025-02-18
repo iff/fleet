@@ -55,7 +55,6 @@ let
     '';
     # hack to fix build tests
     dependencies = [
-      # pkgs.vimPlugins.neotest
       pkgs.vimPlugins.nvim-cmp
       pkgs.vimPlugins.plenary-nvim
       pkgs.vimPlugins.telescope-nvim
@@ -115,10 +114,9 @@ in
         (plug "kmonad-vim")
         (plug "resty-vim")
 
-        # interesting navigation and term/tmux commands: https://github.com/ThePrimeagen/harpoon/tree/harpoon2
+        which-key-nvim
 
-        # hugging face code completion
-        # (plug "hfcc")
+        # interesting navigation and term/tmux commands: https://github.com/ThePrimeagen/harpoon/tree/harpoon2
 
         # letting Nix manage treesitter: https://nixos.wiki/wiki/Treesitter
         treesitter
