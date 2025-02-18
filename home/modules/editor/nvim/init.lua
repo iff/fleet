@@ -31,7 +31,7 @@ local options = function()
     set.swapfile = false
 
     set.backspace = { 'indent', 'eol', 'start', 'nostop' }
-    set.scrolloff = 9999
+    set.scrolloff = 8 -- 9999
     set.jumpoptions = { 'view' }
     set.wildmode = 'longest:full'
 
