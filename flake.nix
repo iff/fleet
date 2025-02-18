@@ -41,7 +41,7 @@
       flake = false;
       # see https://github.com/zen-browser/desktop/releases
       # TODO eventually https://github.com/NixOS/nixpkgs/issues/327982
-      url = "tarball+https://github.com/zen-browser/desktop/releases/download/1.6b/zen.linux-x86_64.tar.bz2";
+      url = "tarball+https://github.com/zen-browser/desktop/releases/download/1.7.6b/zen.linux-x86_64.tar.xz";
     };
 
 
