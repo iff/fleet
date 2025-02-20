@@ -7,11 +7,6 @@ let
   cfg = config.dots.zen;
   src = inputs.zen;
 
-  zen-unscaled = pkgs.writeScriptBin "zen-unscaled"
-    ''
-      GDK_SCALE= GDK_DPI_SCALE= zen
-    '';
-
   runtimeLibs = with pkgs; [
     libGL
     libGLU
@@ -99,6 +94,30 @@ let
       wrapProgram $out/opt/zen/vaapitest --set LD_LIBRARY_PATH "${pkgs.lib.makeLibraryPath runtimeLibs}"
     '';
   };
+
+  wrapped = pkgs.writeShellScriptBin "zen-unscaled" "GDK_SCALE= GDK_DPI_SCALE= exec -a $0 ${zen}/bin/zen $@";
+
+  dispatch = pkgs.writeScriptBin "zen-dispatch" ''
+    #!${pkgs.zsh}/bin/zsh
+    set -eu -o pipefail
+    if [[ $1 =~ '.*eztv\.re.*' ]]; then
+      exec -a $0 zen-unscaled --private-window $@
+    fi
+    exec -a $0 zen-unscaled --new-tab $@
+  '';
+
+  niff = pkgs.writeScriptBin "niff" ''
+    #!${pkgs.zsh}/bin/zsh
+    set -eu -o pipefail
+    exec -a $0 zen-unscaled --new-window https://roamresearch.com/#/app/iff $@
+  '';
+
+  nwlog = pkgs.writeScriptBin "nwlog" ''
+    #!${pkgs.zsh}/bin/zsh
+    set -eu -o pipefail
+    exec -a $0 zen-unscaled --new-window https://roamresearch.com/#/app/wlog $@
+  '';
+
 in
 {
   options.dots.zen = {
@@ -107,6 +126,35 @@ in
 
   config = mkIf cfg.enable
     {
-      home.packages = [ zen zen-unscaled ];
+      home.packages = [
+        wrapped
+        dispatch
+        niff
+        nwlog
+      ];
+
+      xdg = {
+        enable = true;
+        desktopEntries = {
+          zen = {
+            name = "zen";
+            genericName = "Web Browser";
+            exec = "zen-dispatch %U";
+            terminal = false;
+            categories = [ "Application" "Network" "WebBrowser" ];
+            mimeType = [ "text/html" "text/xml" ];
+          };
+        };
+        mimeApps = {
+          enable = true;
+          defaultApplications = {
+            "text/html" = "zen.desktop";
+            "x-scheme-handler/http" = "zen.desktop";
+            "x-scheme-handler/https" = "zen.desktop";
+            "x-scheme-handler/about" = "zen.desktop";
+            "x-scheme-handler/unknown" = "zen.desktop";
+          };
+        };
+      };
     };
 }
