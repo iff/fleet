@@ -76,6 +76,8 @@ in
         # (plug "gitsigns-nvim")
         gitsigns-nvim
         (plug "lsp-indicator-nvim")
+        (plug "auspicious-autosave-nvim")
+        (plug "lavish-layouts-nvim")
         (plug "funky-formatter-nvim")
         (plug "funky-contexts-nvim")
         (plug "comment-nvim")

@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "auspicious-autosave-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1740744614,
+        "narHash": "sha256-GOD9KjURLLnKPLZfxU90KzRIl2yg1VoJ1/AO/2GKFNY=",
+        "owner": "dkuettel",
+        "repo": "auspicious-autosave.nvim",
+        "rev": "1c70d552a29eddd56d4a614431564e1ad55d211b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dkuettel",
+        "repo": "auspicious-autosave.nvim",
+        "type": "github"
+      }
+    },
     "cmp-buffer-nvim": {
       "flake": false,
       "locked": {
@@ -428,6 +444,22 @@
         "type": "github"
       }
     },
+    "lavish-layouts-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1740765278,
+        "narHash": "sha256-BfUb5NDeyOblpsc/wAAq14Rhr5MdQKpxF8kTHhI77n4=",
+        "owner": "dkuettel",
+        "repo": "lavish-layouts.nvim",
+        "rev": "562c2143218d774d662a341c8c15ae44b39fd823",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dkuettel",
+        "repo": "lavish-layouts.nvim",
+        "type": "github"
+      }
+    },
     "lsp-indicator-nvim": {
       "flake": false,
       "locked": {
@@ -758,6 +790,7 @@
     },
     "root": {
       "inputs": {
+        "auspicious-autosave-nvim": "auspicious-autosave-nvim",
         "cmp-buffer-nvim": "cmp-buffer-nvim",
         "cmp-lsp-nvim": "cmp-lsp-nvim",
         "cmp-luasnip-nvim": "cmp-luasnip-nvim",
@@ -772,6 +805,7 @@
         "hypr-contrib": "hypr-contrib",
         "iff-dwm": "iff-dwm",
         "kmonad-vim": "kmonad-vim",
+        "lavish-layouts-nvim": "lavish-layouts-nvim",
         "lsp-indicator-nvim": "lsp-indicator-nvim",
         "lspkind-nvim": "lspkind-nvim",
         "lualine-nvim": "lualine-nvim",

@@ -80,8 +80,9 @@ local load = function()
     require('keymap').setup()
 
     require('Comment').setup()
+    require('auspicious-autosave').setup()
+
     require('my/hop').setup()
-    require('my/autosave').setup()
     require('my/git').setup()
 
     require('my/telescope').setup()

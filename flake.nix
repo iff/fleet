@@ -72,6 +72,16 @@
       flake = false;
     };
 
+    lavish-layouts-nvim = {
+      url = github:dkuettel/lavish-layouts.nvim;
+      flake = false;
+    };
+
+    auspicious-autosave-nvim = {
+      url = github:dkuettel/auspicious-autosave.nvim;
+      flake = false;
+    };
+
     funky-contexts-nvim = {
       url = github:dkuettel/funky-contexts.nvim;
       flake = false;
