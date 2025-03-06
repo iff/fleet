@@ -27,6 +27,7 @@
     powerOnBoot = false;
   };
 
+  services.dbus.implementation = "broker";
   services.blueman.enable = true;
 
   dots = {
