@@ -314,6 +314,7 @@ in
 {
   home.packages = with pkgs; [
     geeqie
+    spotify
     # work
     awscli2
     ssm-session-manager-plugin
