@@ -83,14 +83,15 @@
 		XX	XX	XX	XX			XX			XX	XX	XX	XX	XX	XX
 )
 
+;; TODO this might not work with the current numpad mod?
 (deflayer numpad
 		@reset	XX	XX	XX	XX	XX	XX		XX	XX	XX	XX	XX	XX	XX
 	;; |____3____||____3____||____3+___||____2+___||____2____||____2____|                              |____2____||____2____||____2+___||____3+___||____3____||____3____||____3____|
 		XX	XX	XX	XX	XX	XX	XX		XX	XX	XX	XX	XX	XX	XX
 	;; |____4____||____4____||____3____||____2____||____1____||____1____|                   |____1____||____1____||____2____||____3____||____4____||____4____||____4____||____4____|
-		XX	XX	XX	XX	XX	XX		XX	7	8	9	XX	XX	XX	XX
-		XX	XX	XX	XX	XX	XX		XX	4	5	6	0	XX	XX
-		XX	XX	XX	XX	XX	XX		XX	1	2	3	XX	XX
+		XX	XX	XX	up	XX	XX		XX	XX	XX	F13	XX	XX	XX	XX
+		XX	1	2	3	4	5		6	7	8	9	0	XX	XX
+		XX	@s*	left	down	right	+		XX	XX	XX	XX	XX	XX
 		XX	XX	XX	XX			XX			XX	XX	XX	XX	XX	XX
 )
 
