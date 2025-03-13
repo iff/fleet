@@ -128,6 +128,7 @@ in
 
   home = {
     packages = with pkgs; [
+      ripgrep
       basedpyright
       pyformat
       clang-tools
