@@ -8,6 +8,8 @@
 
   services.tailscale.enable = true;
 
+  services.dbus.implementation = "broker";
+
   virtualisation.docker.storageDriver = "btrfs";
 
   dots = {
