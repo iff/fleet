@@ -3,7 +3,8 @@ local M = {}
 function M.setup()
     vim.g['fugitive_no_maps'] = 1
 
-    vim.keymap.set('n', 'aa', ':tab Git<enter>')
+    -- FIXME want gg
+    vim.keymap.set('n', 'gn', ':tab Git<enter>')
 
     vim.api.nvim_create_autocmd('User', {
         pattern = { 'FugitiveIndex', 'FugitiveObject' },
@@ -25,7 +26,7 @@ function M.setup()
                 vim.keymap.set(mode, l, r, opts)
             end
 
-            map('n', 'ae', function()
+            map('n', 'ge', function()
                 if vim.wo.diff then
                     vim.cmd.normal({ ']c', bang = true })
                 else
@@ -33,7 +34,7 @@ function M.setup()
                 end
             end)
 
-            map('n', 'au', function()
+            map('n', 'gu', function()
                 if vim.wo.diff then
                     vim.cmd.normal({ '[c', bang = true })
                 else
