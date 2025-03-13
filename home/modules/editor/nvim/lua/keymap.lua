@@ -10,7 +10,8 @@ function M.setup()
 
     -- M.legacy_mappings()
 
-    M.set_mappings_plain()
+    -- M.set_mappings_plain()
+    require('mappings').apply()
 end
 
 function M.ftplugins()

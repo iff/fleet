@@ -67,6 +67,63 @@ function M.setup()
     M.setup_yaml(capabilities)
     M.setup_rust(capabilities)
 
+    --- just call the vim builtins and accept the wonkiness
+    local function plain(fn)
+        local function op(make)
+            make()
+            fn()
+        end
+        return op
+    end
+
+    --- do everything ourselves, sync for no confusion
+    local function full(method)
+        local function op(make)
+            -- TODO wip, eventually restore, and also use a different color!
+            vim.opt.cursorline = true
+            vim.cmd('redraw!')
+            -- vim.cmd("sleep 800m")
+            local params = vim.lsp.util.make_position_params()
+            local replies, error = vim.lsp.buf_request_sync(0, method, params, 1000)
+            if error then
+                vim.print({ replies = replies, error = error })
+                vim.cmd.echomsg([["lsp error"]])
+                return
+            end
+            local candidates = {}
+            for client_id, reply in pairs(replies or {}) do
+                if reply.error then
+                    vim.print({ replies = replies, error = error })
+                    vim.cmd.echomsg([["lsp error"]])
+                    return
+                end
+                local offset_encoding = vim.lsp.get_client_by_id(client_id).offset_encoding
+                for _, result in pairs(reply.result or {}) do
+                    table.insert(candidates, { result = result, offset_encoding = offset_encoding })
+                end
+            end
+            if #candidates == 0 then
+                vim.cmd.echomsg([["no candidates"]])
+                return
+            end
+            -- TODO offer selection? does builtin do that?
+            if #candidates > 1 then
+                vim.print(candidates)
+                vim.cmd.echomsg([["many candidates"]])
+            end
+            local selected = candidates[1]
+            vim.opt.cursorline = false
+            make()
+            vim.lsp.util.jump_to_location(selected.result, selected.offset_encoding, false)
+            vim.cmd('normal! zt')
+        end
+        return op
+    end
+
+    local ops = require('mappings').ops
+    ops.go_to_definition = full('textDocument/definition')
+    -- ops.go_to_definition = plain(vim.lsp.buf.definition)
+
     vim.diagnostic.config({
         -- underline = { severity = vim.diagnostic.severity.ERROR },
         virtual_text = {
@@ -183,23 +240,23 @@ function M.on_attach(client, bufnr)
 
     local b = vim.lsp.buf
 
-    nmap('tt', lsp_jumper('textDocument/definition'), 'go to definition')
-    nmap('ty', lsp_jumper('textDocument/definition', 'tab split'), 'go to definition in a new tab')
-    nmap(
-        'ti',
-        lsp_jumper('textDocument/definition', 'set splitright | vsplit | set splitright!'),
-        'go to definition in split right'
-    )
-    nmap('tn', lsp_jumper('textDocument/definition', 'vsplit'), 'go to definition in split left')
-    nmap('te', lsp_jumper('textDocument/definition', 'split'), 'go to definition in split down')
-    nmap(
-        'tu',
-        lsp_jumper('textDocument/definition', 'set splitbelow! | split | set splitbelow!'),
-        'go to definition in split up'
-    )
+    -- nmap('tt', lsp_jumper('textDocument/definition'), 'go to definition')
+    -- nmap('ty', lsp_jumper('textDocument/definition', 'tab split'), 'go to definition in a new tab')
+    -- nmap(
+    --     'ti',
+    --     lsp_jumper('textDocument/definition', 'set splitright | vsplit | set splitright!'),
+    --     'go to definition in split right'
+    -- )
+    -- nmap('tn', lsp_jumper('textDocument/definition', 'vsplit'), 'go to definition in split left')
+    -- nmap('te', lsp_jumper('textDocument/definition', 'split'), 'go to definition in split down')
+    -- nmap(
+    --     'tu',
+    --     lsp_jumper('textDocument/definition', 'set splitbelow! | split | set splitbelow!'),
+    --     'go to definition in split up'
+    -- )
 
     local D = vim.diagnostic
-    nmap('t,', function()
+    nmap('a,', function()
         D.open_float({
             prefix = function(d, _, _)
                 -- returns string and optional highlight group
@@ -207,21 +264,21 @@ function M.on_attach(client, bufnr)
             end,
         })
     end, 'diagnostics float')
-    nmap('t.', b.hover, 'hover symbol')
-    nmap('tl', b.references, 'find references')
-    nmap('t;', b.code_action, 'code action')
-    nmap('_', function()
+    nmap('a.', b.hover, 'hover symbol')
+    nmap('al', b.references, 'find references')
+    nmap('a;', b.code_action, 'code action')
+    nmap('a_', function()
         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), nil)
     end, 'toggle inlay hints')
-    nmap('to', b.rename, 'rename symbol')
+    nmap('ao', b.rename, 'rename symbol')
 
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
     local D = vim.diagnostic
-    nmap('tk', function()
+    nmap('ak', function()
         D.jump({ count = -1 })
         vim.cmd('normal! zz')
     end, 'diagnostics previous')
-    nmap('th', function()
+    nmap('ah', function()
         D.jump({ count = 1 })
         vim.cmd('normal! zz')
     end, 'diagnostics next')

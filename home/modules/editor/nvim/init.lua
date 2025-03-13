@@ -77,8 +77,6 @@ local load = function()
 
     options()
 
-    require('keymap').setup()
-
     require('Comment').setup()
     require('auspicious-autosave').setup()
 
@@ -89,6 +87,8 @@ local load = function()
     require('my/lspconfig').setup()
     require('my/treesitter').setup()
     require('my/funky').setup()
+
+    require('keymap').setup()
 
     -- local hfcc = require('hfcc')
     --
