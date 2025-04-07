@@ -1035,14 +1035,14 @@
     "zen": {
       "flake": false,
       "locked": {
-        "lastModified": 1742571351,
-        "narHash": "sha256-3HHW7EW/l7Svb49K7Xjk8owwo7XAEbSuAj74/VHFKAE=",
+        "lastModified": 1743830248,
+        "narHash": "sha256-nqH/jA6RwVez1OYKycuUqitF9e9x1twurzKdEicbTsE=",
         "type": "tarball",
-        "url": "https://github.com/zen-browser/desktop/releases/download/1.10.1b/zen.linux-x86_64.tar.xz"
+        "url": "https://github.com/zen-browser/desktop/releases/download/1.11.1b/zen.linux-x86_64.tar.xz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/zen-browser/desktop/releases/download/1.10.1b/zen.linux-x86_64.tar.xz"
+        "url": "https://github.com/zen-browser/desktop/releases/download/1.11.1b/zen.linux-x86_64.tar.xz"
       }
     },
     "zsh-syntax-highlighting": {
