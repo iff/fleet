@@ -1,51 +1,51 @@
 # dkuettels async prompt
 function prompt_compute {
 
-    if [[ $(pwd -P) == (/efs|/efs/*|/s3/*) ]]; then
-        print -- 'prompt_state=󰒲'
-        # echo '󰏥'
-        return
-    fi
-
-    local git_path
-    if git_path=$(git rev-parse --show-toplevel); then
-        if [[ $git_path != $(pwd) ]]; then
-            print -- 'prompt_path=%F{4}%B\e[4m'${git_path/#$HOME/\~}'\e[0m%b/'$(realpath --relative-to=$git_path $(pwd))'%f'
-        fi
-        # NOTE plain 'git status' with no arguments can be slow because it checks all submodules
-        # NOTE parsing like below is actually 2x faster than zsh's vcs_info
-        # NOTE --porcelain=v1 would be preferred, but then --show-stash is ignored
-        local args=(--branch --ignore-submodules=all --untracked-files=normal --ahead-behind --show-stash)
-        print -n -- "prompt_git='"
-        # could use 'timeout --kill-after=0.01s 0.01s cmd' to stop git info when it takes too long on a slow filesystem
-        (git -c advice.statusHints=false status $args |& awk -v ORS='' '
-            BEGIN { has=1; flags=0; stashed=0; print " %F{3}" }
-            /^fatal: not a git repository/ { has=0 }
-            /^On branch / { print " " $3 " " }
-            /^HEAD detached at / { print " " $4 " " }
-            /^Your branch is up to date with / { }
-            /^Your branch is ahead of / { print " " }
-            /^Your branch is behind / { print " " }
-            /^Your branch and .+ have diverged/ { print " " }
-            /^nothing to commit, working tree clean/ { }
-            /^Unmerged paths:/ { print "󰅚"; flags++ }
-            /^Changes to be committed:/ { print "󰆗"; flags++ }
-            /^Changes not staged for commit:/ { print "󰙝"; flags++ }
-            /^Untracked files:/ { print ""; flags++ }
-            /^Your stash currently has / { stashed=1 }
-            END {
-                if (has==0) print ""
-                if (has==1 && flags==0) print "󰄴"
-                if (has==1 && stashed==1) print " 󰊰"
-                print "%f"
-            }
-        ') || true
-        print -- "'"
-    else
-        print -- 'prompt_git='
-    fi
-
-    print -- 'prompt_state='
+    # if [[ $(pwd -P) == (/efs|/efs/*|/s3/*) ]]; then
+    #     print -- 'prompt_state=󰒲'
+    #     # echo '󰏥'
+    #     return
+    # fi
+    #
+    # local git_path
+    # if git_path=$(git rev-parse --show-toplevel); then
+    #     if [[ $git_path != $(pwd) ]]; then
+    #         print -- 'prompt_path=%F{4}%B\e[4m'${git_path/#$HOME/\~}'\e[0m%b/'$(realpath --relative-to=$git_path $(pwd))'%f'
+    #     fi
+    #     # NOTE plain 'git status' with no arguments can be slow because it checks all submodules
+    #     # NOTE parsing like below is actually 2x faster than zsh's vcs_info
+    #     # NOTE --porcelain=v1 would be preferred, but then --show-stash is ignored
+    #     local args=(--branch --ignore-submodules=all --untracked-files=normal --ahead-behind --show-stash)
+    #     print -n -- "prompt_git='"
+    #     # could use 'timeout --kill-after=0.01s 0.01s cmd' to stop git info when it takes too long on a slow filesystem
+    #     (git -c advice.statusHints=false status $args |& awk -v ORS='' '
+    #         BEGIN { has=1; flags=0; stashed=0; print " %F{3}" }
+    #         /^fatal: not a git repository/ { has=0 }
+    #         /^On branch / { print " " $3 " " }
+    #         /^HEAD detached at / { print " " $4 " " }
+    #         /^Your branch is up to date with / { }
+    #         /^Your branch is ahead of / { print " " }
+    #         /^Your branch is behind / { print " " }
+    #         /^Your branch and .+ have diverged/ { print " " }
+    #         /^nothing to commit, working tree clean/ { }
+    #         /^Unmerged paths:/ { print "󰅚"; flags++ }
+    #         /^Changes to be committed:/ { print "󰆗"; flags++ }
+    #         /^Changes not staged for commit:/ { print "󰙝"; flags++ }
+    #         /^Untracked files:/ { print ""; flags++ }
+    #         /^Your stash currently has / { stashed=1 }
+    #         END {
+    #             if (has==0) print ""
+    #             if (has==1 && flags==0) print "󰄴"
+    #             if (has==1 && stashed==1) print " 󰊰"
+    #             print "%f"
+    #         }
+    #     ') || true
+    #     print -- "'"
+    # else
+    #     print -- 'prompt_git='
+    # fi
+    #
+    # print -- 'prompt_state='
 }
 
 zmodload zsh/zpty
