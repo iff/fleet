@@ -120,7 +120,7 @@ function M.setup()
         return op
     end
 
-    local ops = require('mappings').ops
+    local ops = require('yi/mappings').ops
     ops.go_to_definition = full('textDocument/definition')
     -- ops.go_to_definition = plain(vim.lsp.buf.definition)
 

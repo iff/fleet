@@ -342,7 +342,7 @@ function M.set_ops()
     -- because there are still subtleties when it comes to the jump stack?
 
     -- TODO builtin.resume could be interesting when jumping around with diagnostics!
-    local ops = require('mappings').ops
+    local ops = require('yi/mappings').ops
 
     ops.pick_file = as_op(builtin.find_files, jump_find_files)
     ops.pick_grep = as_op(builtin.live_grep, jump_live_grep)

@@ -6,7 +6,7 @@ function M.setup()
     M.cmd_mode()
     M.setup_term_runners()
 
-    require('mappings').apply()
+    require('yi/mappings').apply()
 end
 
 function M.ftplugins()
