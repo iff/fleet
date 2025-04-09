@@ -22,6 +22,7 @@ let
           return
       fi
 
+      # TODO either . or nn/nn will be the path we need to show
       local git_path
       if git_path=$(git rev-parse --show-toplevel); then
           # NOTE plain 'git status' with no arguments can be slow because it checks all submodules
@@ -92,7 +93,7 @@ in
       set -g status-style "fg=#abb1bb,bg=#232831"
 
       set -g status-left-style NONE
-      set -g status-left "#[fg=#232831,bg=#81a1c1,bold] #{session_name}: #(tmux-git) #[fg=#81a1c1,bg=#232831,nobold,nounderscore,noitalics]"
+      set -g status-left "#[fg=#232831,bg=#81a1c1,bold] #{session_name} #(tmux-git) #[fg=#81a1c1,bg=#232831,nobold,nounderscore,noitalics]"
 
       set -g status-right-style NONE
       set -g status-right "#[fg=#232831,bg=#232831,nobold,nounderscore,noitalics][fg=#81a1c1,bg=#232831] #{prefix_highlight} #[fg=#abb1bb,bg=#232831,nobold,nounderscore,noitalics]#[fg=#232831,bg=#abb1bb] %H:%M #[fg=#81a1c1,bg=#abb1bb,nobold,nounderscore,noitalics]#[fg=#232831,bg=#81a1c1,bold] #h "
