@@ -383,39 +383,41 @@ function M.for_windows()
     return {
         map { [[w]], n, "windows" },
         map { [[ww]], n, "new window", fn = layouts.new_from_split },
-        map { [[wo]], n, "alternate window", rhs = "<c-w>p" },
         map { [[<c-u>]], n, "previous window", fn = layouts.previous },
         map { [[<c-e>]], n, "next window", fn = layouts.next },
         map { [[<c-n>]], n, "focus window", fn = layouts.focus },
         map { [[w ]], n, "focus window", fn = layouts.focus },
         map { [[w,]], n, "close window", fn = layouts.close }, -- [[wc]]
         map { [[w.]], n, "only window", rhs = "<cmd>wincmd o<enter>" },
+        map { [[wd]], n, "close window and delete buffer", fn = layouts.close_and_delete },
 
-        -- TODO maybe see https://vi.stackexchange.com/questions/3879/duplicate-tab-with-windows
-        -- map([[wt]], "n", "new tab", cmd("tab split"))
-        -- map([[wc]], "n", "close tab", cmd("tabclose"))
+        -- tabs
+        -- map { [[w  ]], n, "new tab", rhs = "<cmd>tab split<enter>" },
+        -- map { [[w ,]], n, "close tab", rhs = "<cmd>tabclose<enter>" },
+        -- map { [[w .]], n, "only tab", rhs = "<cmd>tabonly<enter>" },
+        -- map { [[w n]], n, "previous tab", rhs = "<cmd>-tabnext<enter>" },
+        -- map { [[w i]], n, "next tab", rhs = "<cmd>+tabnext<enter>" },
 
         -- TODO changing layout should be a user command, not a binding, right?
         map { [[wlm]], n, "layout main", fn = layouts.switch_main },
         map { [[wls]], n, "layout stacked", fn = layouts.switch_stacked },
-        -- map { [[wlt]], n, "layout tiled", fn = layouts.switch_tiled },
 
-        map { [[wn]], n, "new window from files", fn = jump(M.ops.pick_file) },
-        map { [[wg]], n, "new window from live grep", fn = jump(M.ops.pick_grep) },
-        map { [[wb]], n, "new window from buffers", fn = jump(M.ops.pick_buffer) },
-        map { [[wh]], n, "new window from help tags", fn = jump(M.ops.pick_help) },
-        map { [[wk]], n, "new window from man pages", fn = jump(M.ops.pick_man) },
-        map { [[wak]], n, "new window from all man pages", fn = jump(M.ops.pick_man_all) },
-        map { [[wm]], n, "new window from marks", fn = jump(M.ops.pick_mark) },
-
-        map { [[we]], n, "jump to buffer symbols", fn = jump(M.ops.pick_buffer_symbol) },
-        map { [[wu]], n, "jump to project symbols", fn = jump(M.ops.pick_project_symbol) },
-        map { [[wd.]], n, "jump to buffer diagnostics", fn = jump(M.ops.pick_buffer_diagnostics) },
-        map { [[wad.]], n, "jump to buffer diagnostics", fn = jump(M.ops.pick_buffer_diagnostics_all) },
-        map { [[wd,]], n, "jump to project diagnostics", fn = jump(M.ops.pick_project_diagnostics) },
-        map { [[wad,]], n, "jump to project diagnostics", fn = jump(M.ops.pick_project_diagnostics_all) },
-
-        map { [[wt]], n, "go to definition", fn = jump(M.ops.go_to_definition) },
+        -- map { [[wn]], n, "new window from files", fn = jump(M.ops.pick_file) },
+        -- map { [[wg]], n, "new window from live grep", fn = jump(M.ops.pick_grep) },
+        -- map { [[wb]], n, "new window from buffers", fn = jump(M.ops.pick_buffer) },
+        -- map { [[wh]], n, "new window from help tags", fn = jump(M.ops.pick_help) },
+        -- map { [[wk]], n, "new window from man pages", fn = jump(M.ops.pick_man) },
+        -- map { [[wak]], n, "new window from all man pages", fn = jump(M.ops.pick_man_all) },
+        -- map { [[wm]], n, "new window from marks", fn = jump(M.ops.pick_mark) },
+        --
+        -- map { [[we]], n, "jump to buffer symbols", fn = jump(M.ops.pick_buffer_symbol) },
+        -- map { [[wu]], n, "jump to project symbols", fn = jump(M.ops.pick_project_symbol) },
+        -- map { [[wd.]], n, "jump to buffer diagnostics", fn = jump(M.ops.pick_buffer_diagnostics) },
+        -- map { [[wad.]], n, "jump to buffer diagnostics", fn = jump(M.ops.pick_buffer_diagnostics_all) },
+        -- map { [[wd,]], n, "jump to project diagnostics", fn = jump(M.ops.pick_project_diagnostics) },
+        -- map { [[wad,]], n, "jump to project diagnostics", fn = jump(M.ops.pick_project_diagnostics_all) },
+        --
+        -- map { [[wt]], n, "go to definition", fn = jump(M.ops.go_to_definition) },
     }
 end
 
@@ -441,10 +443,12 @@ function M.for_jumps()
 
         map { [[te]], n, "jump to buffer symbols", fn = jump(M.ops.pick_buffer_symbol) },
         map { [[tu]], n, "jump to project symbols", fn = jump(M.ops.pick_project_symbol) },
-        map { [[td.]], n, "jump to buffer diagnostics", fn = jump(M.ops.pick_buffer_diagnostics) },
-        map { [[tad.]], n, "jump to buffer all diagnostics", fn = jump(M.ops.pick_buffer_diagnostics_all) },
-        map { [[td,]], n, "jump to project diagnostics", fn = jump(M.ops.pick_project_diagnostics) },
-        map { [[tad,]], n, "jump to project all diagnostics", fn = jump(M.ops.pick_project_diagnostics_all) },
+
+        map { [[tde]], n, "jump to buffer diagnostics", fn = jump(M.ops.pick_buffer_diagnostics) },
+        map { [[tade]], n, "jump to buffer all diagnostics", fn = jump(M.ops.pick_buffer_diagnostics_all) },
+
+        map { [[tdu]], n, "jump to project diagnostics", fn = jump(M.ops.pick_project_diagnostics) },
+        map { [[tadu]], n, "jump to project all diagnostics", fn = jump(M.ops.pick_project_diagnostics_all) },
 
         -- TODO is that jumps? or just lsp?
         map { [[tt]], n, "go to definition", fn = jump(M.ops.go_to_definition) },
