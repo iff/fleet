@@ -122,7 +122,7 @@ local function highlight()
     }
 
     vim.wo.cursorline = true
-    vim.api.nvim_set_hl(0, "CursorLine", { bg = "#d79921" })
+    vim.api.nvim_set_hl(0, "CursorLine", { bg = "#81a1c1" })
     vim.cmd("redraw!")
 
     local function reset()
