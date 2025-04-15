@@ -499,10 +499,11 @@ function M.for_jumps()
         map { [[=]], n, "highlight references", fn = l.highlight_references },
         map { [[?]], n, "clear highlight references", fn = l.clear_highlight_references },
         -- TODO range actions also exist, not the same as union of actions, more like "make try except" and stuff
-        map { [[@]], n, "code action", fn = l.code_action },
-        map { [[@]], v, "code action", fn = l.code_action },
-        map { [[_]], n, "toggle inlay hints", fn = l.toggle_inlay_ints },
-        map { [[<c-u>]], i, "show function signature", fn = l.show_function_signature },
+        map { [[a;]], n, "code action", fn = l.code_action },
+        map { [[a;]], v, "code action", fn = l.code_action },
+        map { [[a_]], n, "toggle inlay hints", fn = l.toggle_inlay_ints },
+        -- was F11-t
+        map { [[at]], i, "show function signature", fn = l.show_function_signature },
         -- TODO again this would be better just a command behind a lsp prefix, like for layouts?
         map { [[ao]], n, "rename symbol", fn = l.rename_symbol },
         map { [[ai]], n, "add ignore", fn = l.add_ignore },

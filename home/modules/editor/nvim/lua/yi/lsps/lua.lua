@@ -59,7 +59,6 @@ function M.setup(capabilities)
 
     -- see https://github.com/folke/neodev.nvim
     -- sets up things for neovim lua development
-    -- vim.cmd("packadd neodev.nvim")
     -- require("neodev").setup({})
 
     -- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls

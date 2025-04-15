@@ -55,6 +55,9 @@ function M.setup_cmp()
                 }
             end,
         },
+        experimental = {
+            ghost_text = true,
+        },
         -- see https://github.com/hrsh7th/nvim-cmp/wiki/List-of-sources
         -- TODO removed buffer as source, but still seems to be happening ...
         sources = cmp.config.sources {
@@ -77,6 +80,13 @@ function M.setup_cmp()
             },
         },
     }
+
+    -- enable completing paths in :
+    -- cmp.setup.cmdline(":", {
+    --     sources = cmp.config.sources {
+    --         { name = "path" },
+    --     },
+    -- })
 end
 
 function M.complete_flat()
