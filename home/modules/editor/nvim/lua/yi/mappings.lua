@@ -1,7 +1,11 @@
 local M = {}
 
--- consider https://colemakmods.github.io/mod-dh/model.html
--- when it comes to reachability at first
+---@type "default" | "search" | "diagnostic"
+M.mode = "default"
+
+local n, i, v, o, nv, ni = "n", "i", "v", "o", "nv", "ni"
+
+-- consider https://colemakmods.github.io/mod-dh/model.html when it comes to reachability
 
 ---@alias Map {
 ---   lhs: string,
@@ -15,6 +19,7 @@ local M = {}
 ---@param maps? Map[] mappings (defaults to M.get())
 function M.apply(maps)
     maps = maps or M.get()
+    M.clear()
     M.apply_plain(maps)
     -- M.apply_which_key(maps)
     -- M.apply_legendary(maps)
@@ -37,13 +42,13 @@ function M.get()
     vim.list_extend(maps, M.for_jumps())
     vim.list_extend(maps, M.for_comma())
     vim.list_extend(maps, M.for_undos())
+    vim.list_extend(maps, M.for_completion())
     return maps
 end
 
 --- apply using nvim api
 ---@param maps Map[] mappings to apply
 function M.apply_plain(maps)
-    M.clear()
     for _, map in ipairs(maps) do
         for _, mode in ipairs(vim.iter(string.gmatch(map.mode, ".")):totable()) do
             if map.rhs then
@@ -62,13 +67,24 @@ function M.clear()
     -- see :help default_mappings and other places
     -- currently just removing what i bumped into
     -- there was a way to clear all, including built-in I think
-    -- NOTE difference between deleting and unsetting a default
-    for _, lhs in ipairs { "<c-w>d", "<c-w><c-d>" } do
-        vim.keymap.del("n", lhs)
+
+    -- NOTE difference between deleting a mapping and unsetting a default
+
+    local del = vim.keymap.del
+    del(n, "<c-w>d")
+    del(n, "<c-w><c-d>")
+    -- TODO damn ... because this happens after us? comes from matchit, a pack, but it's before the config path
+    -- but we run init directly, so that happens before somehow?
+    -- its a mess, plugins happen after my init ... so how can i undo things from them?
+    -- how can i make my init run at the very end then?
+    -- del(o, "[%") -- NOTE comes from "matchit"
+    vim.cmd([[let loaded_matchit = 1]]) -- TODO as a hack now, still dont know how to not get overwritten by plugins
+
+    local function uns(mode, lhs)
+        vim.keymap.set(mode, lhs, "<nop>")
     end
-    for _, lhs in ipairs { "o", "q" } do
-        vim.keymap.set("n", lhs, "<nop>")
-    end
+    uns(n, "o")
+    uns(n, "q")
 end
 
 --- apply to which key (not setting any maps)
@@ -150,7 +166,6 @@ function M.for_moves()
         end
         return expr
     end
-    local nv = "nv"
     return {
         -- plain
         map { [[n]], nv, "cursor left", expr = vv("h") },
@@ -160,12 +175,12 @@ function M.for_moves()
         map { [[<up>]], nv, "view and cursor up", rhs = "1<c-u>" },
         map { [[<down>]], nv, "view and cursor down", rhs = "1<c-d>" },
         -- words
-        map { [[l]], nv, "word back", expr = vv("b") },
-        map { [[ l]], nv, "word end back", expr = vv("ge") },
-        map { [[<c-l>]], nv, "WORD back", expr = vv("B") },
-        map { [[y]], nv, "word forward", expr = vv("w") },
-        map { [[ y]], nv, "word end forward", expr = vv("e") },
-        map { [[<c-y>]], nv, "WORD forward", expr = vv("W") },
+        map { [[l]], nv, "previous word start", expr = vv("b") },
+        map { [[ l]], nv, "previous word end", expr = vv("ge") },
+        map { [[<c-l>]], nv, "previous WORD start", expr = vv("B") },
+        map { [[y]], nv, "next word start", expr = vv("w") },
+        map { [[ y]], nv, "next word end", expr = vv("e") },
+        map { [[<c-y>]], nv, "next WORD end", expr = vv("W") },
         -- bigger
         map { [[ n]], nv, "view and cursor to start of text in line", expr = vv("0^") }, -- [[m]]
         map { [[aan]], nv, "cursor to start of line", expr = vv("0") }, -- [[am]]
@@ -182,14 +197,12 @@ function M.for_moves()
 
         -- contextual
         map { [[ ,]], nv, "go to last insert and center", rhs = "`^zz" },
-        map { [[-]], nv, "go to last insert and center", rhs = "`^zz" },
         map { [[<]], nv, "go to previous jump location", rhs = "<c-o>" },
-        map { [[<a-n>]], nv, "go to previous jump location", rhs = "<c-o>" },
+        map { [[<backspace>]], nv, "jump back (tag stack)", rhs = "<ctrl-t>" },
     }
 end
 
 function M.for_inserts()
-    local n, v = "n", "v"
     return {
         map { [[s]], n, "inserts" },
         map { [[sn]], n, "insert before block cursor", rhs = "i" },
@@ -200,7 +213,7 @@ function M.for_inserts()
         map { [[ssy]], n, "insert at end of WORD", rhs = "hEa" },
         map { [[so]], n, "insert at end of line", rhs = "A" },
         map { [[sm]], n, "insert at beginning of line text", rhs = "^i" },
-        map { [[ssm]], n, "insert at beginning of line", rhs = "0i" },
+        -- map { [[ssm]], n, "insert at beginning of line", rhs = "0i" },
         map { [[su]], n, "insert new line above", rhs = "O" },
         map { [[ssu]], n, "insert new line at top", rhs = "ggO" },
         map { [[se]], n, "insert new line below", rhs = "o" },
@@ -214,7 +227,6 @@ function M.for_inserts()
 end
 
 function M.for_edit()
-    local i = "i"
     return {
         -- TODO almost not worth it?
         map { [[<c-u>]], i, "new line above", rhs = "<esc>O" },
@@ -223,13 +235,10 @@ function M.for_edit()
 end
 
 function M.for_changes()
-    local n, v, nv = "n", "v", "nv"
     return {
-        -- TODO this means operator pending, but the next [[rr]] might interfere?
-        map { [[r]], n, "replace", rhs = "c" },
+        map { [[r]], nv, "change", rhs = "c" },
         map { [[rr]], n, "replace single character", rhs = "r" },
-        map { [[j]], nv, "join lines", rhs = "J" },
-        map { [[r]], v, "replace over visual", rhs = "c" },
+        map { [[J]], nv, "join lines", rhs = "J" },
         map { [[d]], nv, "delete", rhs = "d" },
         map { [[<delete>]], n, "delete under cursor", rhs = "x" },
         map { [[.]], n, "repeat", rhs = "." },
@@ -237,7 +246,6 @@ function M.for_changes()
 end
 
 function M.for_indentation()
-    local n, v = "n", "v"
     return {
         -- TODO shift makes more sense? and shift up down too?
         -- TODO does repeat maken sense here anyway? if we repeat with . after?
@@ -257,40 +265,38 @@ function M.for_indentation()
 end
 
 function M.for_operators()
-    local o = "o"
     return {
-        -- operators
-        -- TODO re for word, rre for WORD? similar to s and ss for alternate? but then how to make it work for x, c, d? space instead?
-        -- or switch around once again, mark and then operation?
-        -- TODO but still, is it possible to make operators, plain nav, and s-inserts be "the same"?
-        map { [[e]], o, "inner word", rhs = "iw" },
-        map { [[u]], o, "inner WORD", rhs = "iW" },
-        map { [[ e]], o, "inner WORD with space", rhs = "aW" },
+        -- just like "moves"
         map { [[l]], o, "to start of word", rhs = "b" },
         map { [[ l]], o, "to start of WORD", rhs = "B" },
         map { [[y]], o, "to end of word", rhs = "e" },
         map { [[ y]], o, "to end of WORD", rhs = "E" },
         map { [[n]], o, "line", rhs = "Vl" },
         map { [[ n]], o, "to start of line", rhs = "^" },
-        map { [[an]], o, "to start of line", rhs = "^" },
         map { [[ i]], o, "to end of line", rhs = "$" },
-        map { [[ai]], o, "to end of line", rhs = "$" },
+        map { [[e]], o, "inner word", rhs = "iw" },
+        map { [[ e]], o, "inner word with space", rhs = "aw" },
+        map { [[u]], o, "inner WORD", rhs = "iW" },
+        map { [[ u]], o, "inner WORD with space", rhs = "aW" },
+
+        -- other
+        map { [[.]], o, "character", rhs = "l" },
         map { [[(]], o, "inner ()", rhs = "i(" },
         map { [[)]], o, "outer ()", rhs = "a(" },
         map { [[[]], o, "inner []", rhs = "i[" },
         map { "]", o, "outer []", rhs = "a[" },
         map { [[{]], o, "inner {}", rhs = "i{" },
         map { [[}]], o, "outer {}", rhs = "a{" },
-        map { [[.]], o, "character", rhs = "l" },
-        map { [[m]], o, 'inner ""', rhs = 'i"' },
-        map { [[ m]], o, 'outer ""', rhs = 'a"' },
-        map { [[o]], o, "inner ''", rhs = "i'" },
-        map { [[ o]], o, "outer ''", rhs = "a'" },
+        map { [["]], o, 'inner ""', rhs = 'i"' },
+        map { [[ "]], o, 'outer ""', rhs = 'a"' },
+        map { [[']], o, "inner ''", rhs = "i'" },
+        map { [[ ']], o, "outer ''", rhs = "a'" },
+        map { [[<]], o, "inner <>", rhs = "i<" },
+        map { [[>]], o, "outer <>", rhs = "a<" },
     }
 end
 
 function M.for_visual()
-    local n, v = "n", "v"
     return {
         map { [[v]], n, "visual lines", rhs = "V" },
         -- map([[v]], "v", "visual characters", "v") -- instead use column moves to switch to characters
@@ -308,8 +314,7 @@ function M.for_copy_paste()
     -- TODO the original y and p are not mapped, and we cant use registers on purpose then
     -- TODO is it better more analytic? paste is just paste, and a thing that moves to end or start?
     -- NOTE both x and c keep cursor where it was
-
-    local n, v = "n", "v"
+    -- TODO is there a way to paste and use the indentation from the cursor (not the text)
     return {
         map { [[c]], n, "copy", rhs = [["zy]] },
         map { [[c]], v, "copy", rhs = [[mz"zy`z]] },
@@ -355,7 +360,6 @@ function M.for_copy_paste()
 end
 
 function M.for_search()
-    local n = "n"
     return {
         map { [[f]], n, "search" },
         map { [[ff]], n, "from the beginning", rhs = "gg0/" },
@@ -369,17 +373,65 @@ function M.for_search()
     }
 end
 
+function M.with_mode(set_mode, rhs)
+    local function fn()
+        set_mode()
+        return rhs
+    end
+    return fn
+end
+
+function M.with_search(rhs)
+    return M.with_mode(M.set_search, rhs)
+end
+
+function M.set_search()
+    M.mode = "search"
+    local maps = {
+        map { [[<c-k>]], n, "previous match", rhs = "Nzz" },
+        map { [[<c-h>]], n, "next match", rhs = "nzz" },
+    }
+    M.apply_plain(maps)
+    vim.cmd.redrawstatus()
+end
+
+function M.with_default(rhs)
+    return M.with_mode(M.set_default, rhs)
+end
+
+function M.set_default()
+    M.mode = "default"
+    -- TODO clear actual mappings?
+    vim.cmd.redrawstatus()
+end
+
+function M.set_diagnostic()
+    M.mode = "diagnostic"
+    local maps = {
+        map {
+            [[<c-k>]],
+            n,
+            "previous match",
+            fn = function()
+                vim.diagnostic.jump { count = -1, float = true }
+            end,
+        },
+        map {
+            [[<c-h>]],
+            n,
+            "next match",
+            fn = function()
+                vim.diagnostic.jump { count = 1, float = true }
+            end,
+        },
+    }
+    M.apply_plain(maps)
+    vim.cmd.redrawstatus()
+end
+
 ---@return Map[] mappings
 function M.for_windows()
     local layouts = require("lavish-layouts")
-    ---@param op fun(make?: fun())
-    ---@return fun() fn
-    local function jump(op)
-        return function()
-            op(layouts.new)
-        end
-    end
-    local n = "n"
     return {
         map { [[w]], n, "windows" },
         map { [[ww]], n, "new window", fn = layouts.new_from_split },
@@ -401,138 +453,110 @@ function M.for_windows()
         -- TODO changing layout should be a user command, not a binding, right?
         map { [[wlm]], n, "layout main", fn = layouts.switch_main },
         map { [[wls]], n, "layout stacked", fn = layouts.switch_stacked },
-
-        -- map { [[wn]], n, "new window from files", fn = jump(M.ops.pick_file) },
-        -- map { [[wg]], n, "new window from live grep", fn = jump(M.ops.pick_grep) },
-        -- map { [[wb]], n, "new window from buffers", fn = jump(M.ops.pick_buffer) },
-        -- map { [[wh]], n, "new window from help tags", fn = jump(M.ops.pick_help) },
-        -- map { [[wk]], n, "new window from man pages", fn = jump(M.ops.pick_man) },
-        -- map { [[wak]], n, "new window from all man pages", fn = jump(M.ops.pick_man_all) },
-        -- map { [[wm]], n, "new window from marks", fn = jump(M.ops.pick_mark) },
-        --
-        -- map { [[we]], n, "jump to buffer symbols", fn = jump(M.ops.pick_buffer_symbol) },
-        -- map { [[wu]], n, "jump to project symbols", fn = jump(M.ops.pick_project_symbol) },
-        -- map { [[wd.]], n, "jump to buffer diagnostics", fn = jump(M.ops.pick_buffer_diagnostics) },
-        -- map { [[wad.]], n, "jump to buffer diagnostics", fn = jump(M.ops.pick_buffer_diagnostics_all) },
-        -- map { [[wd,]], n, "jump to project diagnostics", fn = jump(M.ops.pick_project_diagnostics) },
-        -- map { [[wad,]], n, "jump to project diagnostics", fn = jump(M.ops.pick_project_diagnostics_all) },
-        --
-        -- map { [[wt]], n, "go to definition", fn = jump(M.ops.go_to_definition) },
     }
 end
 
 ---@return Map[] mappings
 function M.for_jumps()
-    ---@param op fun(make: fun())
-    ---@return fun() fn
-    local function jump(op)
-        return function()
-            op(function() end)
-        end
-    end
-    local n = "n"
+    -- TODO want to make this generic, and dynamic
+    local t = require("yi.telescope")
+    local l = require("yi.lsp")
+
     return {
         map { [[t]], n, "jumps" },
-        map { [[tn]], n, "jump to files", fn = jump(M.ops.pick_file) },
-        map { [[tg]], n, "jump to live grep", fn = jump(M.ops.pick_grep) },
-        map { [[tb]], n, "jump to buffers", fn = jump(M.ops.pick_buffer) },
-        map { [[th]], n, "jump to help tags", fn = jump(M.ops.pick_help) },
-        map { [[tk]], n, "jump to man pages", fn = jump(M.ops.pick_man) },
-        map { [[tak]], n, "jump to all man pages", fn = jump(M.ops.pick_man_all) },
-        map { [[tm]], n, "jump to marks", fn = jump(M.ops.pick_mark) },
 
-        map { [[te]], n, "jump to buffer symbols", fn = jump(M.ops.pick_buffer_symbol) },
-        map { [[tu]], n, "jump to project symbols", fn = jump(M.ops.pick_project_symbol) },
+        map {
+            [[td ]],
+            n,
+            "jump to next diagnostic",
+            fn = function()
+                M.set_diagnostic()
+                vim.diagnostic.jump { count = 1, float = true }
+            end,
+        },
 
-        map { [[tde]], n, "jump to buffer diagnostics", fn = jump(M.ops.pick_buffer_diagnostics) },
-        map { [[tade]], n, "jump to buffer all diagnostics", fn = jump(M.ops.pick_buffer_diagnostics_all) },
-
-        map { [[tdu]], n, "jump to project diagnostics", fn = jump(M.ops.pick_project_diagnostics) },
-        map { [[tadu]], n, "jump to project all diagnostics", fn = jump(M.ops.pick_project_diagnostics_all) },
-
-        -- TODO is that jumps? or just lsp?
-        map { [[tt]], n, "go to definition", fn = jump(M.ops.go_to_definition) },
-
-        -- TODO again, not quite the same as t... and w...
-        map { [[tr]], n, "show references", fn = vim.lsp.buf.references },
+        map { [[tr]], n, "jump to references", fn = t.pick_references },
+        map { [[tar]], n, "jump to previous references", fn = t.pick_previous_references },
+        -- TODO wrong place a bit
         map { [[E]], n, "next entry", rhs = "<cmd>cn<enter>" },
         map { [[U]], n, "previous entry", rhs = "<cmd>cN<enter>" },
+        map {
+            [[a.]],
+            n,
+            "show lsp hover",
+            fn = function()
+                -- TODO cant find where we can set those defaults
+                vim.lsp.buf.hover { border = "double", anchor_bias = "above" }
+            end,
+        },
+        map {
+            [[a,]],
+            n,
+            "show diagnostic",
+            fn = vim.diagnostic.open_float,
+        },
+        -- TODO would be nicer to have the same binding to toggle
+        map { [[=]], n, "highlight references", fn = l.highlight_references },
+        map { [[?]], n, "clear highlight references", fn = l.clear_highlight_references },
+        -- TODO range actions also exist, not the same as union of actions, more like "make try except" and stuff
+        map { [[@]], n, "code action", fn = l.code_action },
+        map { [[@]], v, "code action", fn = l.code_action },
+        map { [[_]], n, "toggle inlay hints", fn = l.toggle_inlay_ints },
+        map { [[<c-u>]], i, "show function signature", fn = l.show_function_signature },
+        -- TODO again this would be better just a command behind a lsp prefix, like for layouts?
+        map { [[ao]], n, "rename symbol", fn = l.rename_symbol },
+        map { [[ai]], n, "add ignore", fn = l.add_ignore },
+
+        map { [[tt]], n, "definition", fn = l.go_to_definition },
+        map { [[tn]], n, "files", fn = t.pick_file },
+        map { [[tg]], n, "live grep", fn = t.pick_grep },
+        map { [[tb]], n, "buffers", fn = t.pick_buffer },
+        map { [[th]], n, "help tags", fn = t.pick_help },
+        map { [[tk]], n, "man pages", fn = t.pick_man },
+        map { [[t k]], n, "all man pages", fn = t.pick_man_all },
+        map { [[tm]], n, "marks", fn = t.pick_mark },
+        map { [[tfc]], n, "config files", fn = t.pick_file_config },
+        map { [[te]], n, "buffer symbols", fn = t.pick_buffer_symbol },
+        map { [[tu]], n, "project symbols", fn = t.pick_project_symbol },
+        map { [[tde]], n, "buffer diagnostics", fn = t.pick_buffer_diagnostics },
+        map { [[tdae]], n, "buffer all diagnostics", fn = t.pick_buffer_diagnostics_all },
+        map { [[tdu]], n, "project diagnostics", fn = t.pick_project_diagnostics },
+        map { [[tdau]], n, "project all diagnostics", fn = t.pick_project_diagnostics_all },
     }
 end
-
----@param name string name
----@return fun(make: fun()) operation
-local function nop(name)
-    ---@param make fun() prepare a (new) window before jumping
-    return function(make)
-        vim.cmd.echomsg([["]] .. "No op is set for '" .. name .. [['"]])
-    end
-end
-
-local function na(name)
-    return function()
-        vim.cmd.echomsg([["]] .. "No op is set for '" .. name .. [['"]])
-    end
-end
-
-M.ops = {
-    pick_file = nop("pick file"),
-    pick_grep = nop("pick grep"),
-    pick_buffer = nop("pick buffer"),
-    pick_help = nop("pick help"),
-    pick_man = nop("pick man"),
-    pick_man_all = nop("pick all man"),
-    pick_mark = nop("pick mark"),
-    pick_buffer_symbol = nop("pick buffer symbol"),
-    pick_project_symbol = nop("pick project symbol"),
-    pick_buffer_diagnostics = nop("pick buffer diagnostics"),
-    pick_buffer_diagnostics_all = nop("pick buffer diagnostics all"),
-    pick_project_diagnostics = nop("pick project diagnostics"),
-    pick_project_diagnostics_all = nop("pick project diagnostics all"),
-    go_to_definition = nop("go to definition"),
-    format_buffer = na("format buffer"),
-    git = na("git"),
-}
 
 -- TODO comma is already used for last insert maybe?
 -- TODO call it misc?
 function M.for_comma()
-    local n = "n"
     local function reset_view_and_format()
         vim.cmd([[normal! 0^]])
-        M.ops.format_buffer()
+        require("yi.formatter").format_buffer()
     end
+    local g = require("yi.fugitive")
     return {
         map { [[,]], n, "misc" },
-        -- TODO make only when available
-        -- map { [[,/]], n, "which key", fn = require("which-key").show },
-        -- TODO write all and then exit whatever, too dangerous?
         map { [[,x]], n, "(try) save and exit (anyway)", rhs = "<cmd>silent! wa<enter><cmd>qa!<enter>" },
-        -- map { [[, ]], n, "legendary", fn = require("legendary").find },
-        -- map { [[<esc>]], n, "format buffer", fn = reset_view_and_format },
-        -- map { [[,g]], n, "git", fn = M.ops.git },
+        map { [[<c-d>]], ni, "(try) save and exit (anyway)", rhs = "<cmd>silent! wa<enter><cmd>qa!<enter>" },
+
+        -- formatter and git
+        map { [[==]], n, "format buffer", fn = reset_view_and_format },
+        map { [[gn]], n, "git", fn = g.git },
     }
 end
 
 function M.for_undos()
-    local n = "n"
     return {
         map { [[<c-w>]], n, "undo", rhs = "u" },
         map { [[<c-f>]], n, "redo", rhs = "<c-r>" },
     }
 end
 
--- pre-operator visuals
--- TODO w used for windows and stuff now
--- grp([[w]], "n", "visuals")
--- map([[wen]], "n", "inner ()", "vi(")
--- map([[wun]], "n", "outer ()", "va(")
--- map([[wee]], "n", "inner []", "vi[")
--- map([[wue]], "n", "outer []", "va[")
--- map([[wei]], "n", "inner []", "vi{")
--- map([[wui]], "n", "outer []", "va{")
-
--- TODO can we have a switch to move cursor and window with neiu, and timeout back to normal? behind b?
--- does which key do that with the hydra thing?
+function M.for_completion()
+    local c = require("yi.completion")
+    return {
+        map { [[<c-t>]], i, "complete flat", fn = c.complete_flat },
+        map { [[<c-l>]], i, "complete full", fn = c.complete_full },
+    }
+end
 
 return M

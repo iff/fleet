@@ -1,6 +1,6 @@
 local leader_map = function()
-    vim.g.mapleader = ','
-    vim.g.maplocalleader = ','
+    vim.g.mapleader = ","
+    vim.g.maplocalleader = ","
 end
 
 local disable_distribution_plugins = function()
@@ -30,10 +30,10 @@ local options = function()
     set.writebackup = false
     set.swapfile = false
 
-    set.backspace = { 'indent', 'eol', 'start', 'nostop' }
+    set.backspace = { "indent", "eol", "start", "nostop" }
     set.scrolloff = 8 -- 9999
-    set.jumpoptions = { 'view' }
-    set.wildmode = 'longest:full'
+    set.jumpoptions = { "view" }
+    set.wildmode = "longest:full"
 
     set.tabstop = 4
     set.softtabstop = 4
@@ -43,28 +43,39 @@ local options = function()
     set.autoindent = true
     set.copyindent = true
     set.textwidth = 0
-    set.indentexpr = ''
-    set.indentkeys = ''
-    set.cinkeys = ''
-    set.formatoptions = ''
+    set.indentexpr = ""
+    set.indentkeys = ""
+    set.cinkeys = ""
+    set.formatoptions = ""
 
     set.modeline = false
     set.modelines = 0
 
     set.smoothscroll = true
-    set.mouse = ''
+    set.mouse = ""
 
     set.timeout = false
     set.ttimeout = true
 
     set.cmdwinheight = 10
 
-    vim.api.nvim_create_autocmd({ 'VimResized' }, {
-        desc = 'relayout on resize',
+    vim.api.nvim_create_autocmd({ "VimResized" }, {
+        desc = "relayout on resize",
         callback = function()
             local t = vim.api.nvim_get_current_tabpage()
-            vim.cmd('tabdo wincmd =')
+            vim.cmd("tabdo wincmd =")
             vim.api.nvim_set_current_tabpage(t)
+        end,
+    })
+
+    -- flash yanking
+    vim.api.nvim_create_autocmd("TextYankPost", {
+        pattern = "*",
+        callback = function()
+            vim.highlight.on_yank {
+                higroup = "IncSearch",
+                timeout = 100,
+            }
         end,
     })
 end
@@ -73,46 +84,28 @@ local load = function()
     disable_distribution_plugins()
     leader_map()
 
-    require('theme').setup()
+    require("theme").setup()
 
     options()
 
-    require('Comment').setup()
-    require('auspicious-autosave').setup()
+    -- no config
+    require("Comment").setup()
+    require("auspicious-autosave").setup()
 
-    require('my/hop').setup()
-    require('my/git').setup()
+    -- my config
+    require("my/hop").setup()
+    -- require('my/telescope').setup()
+    -- require('my/lspconfig').setup()
+    require("my/treesitter").setup()
 
-    require('my/telescope').setup()
-    require('my/lspconfig').setup()
-    require('my/treesitter').setup()
-    require('my/funky').setup()
+    require("yi.telescope").setup()
+    require("yi.completion").setup()
+    require("yi.lsp").setup(require("yi.completion").get_capabilities())
+    require("yi.fugitive").setup()
+    require("yi.formatter").setup()
+    require("yi.diagnostic").setup()
 
-    require('keymap').setup()
-
-    -- local hfcc = require('hfcc')
-    --
-    -- hfcc.setup({
-    --     -- api_token = '', -- cf Install paragraph
-    --     model = 'bigcode/starcoder', -- can be a model ID or an http(s) endpoint
-    --     -- parameters that are added to the request body
-    --     query_params = {
-    --         max_new_tokens = 60,
-    --         temperature = 0.2,
-    --         top_p = 0.95,
-    --         stop_token = '<|endoftext|>',
-    --     },
-    --     -- set this if the model supports fill in the middle
-    --     fim = {
-    --         enabled = true,
-    --         prefix = '<fim_prefix>',
-    --         middle = '<fim_middle>',
-    --         suffix = '<fim_suffix>',
-    --     },
-    --     debounce_ms = 80,
-    --     accept_keymap = '<Tab>',
-    --     dismiss_keymap = '<S-Tab>',
-    -- })
+    require("keymap").setup()
 end
 
 load()

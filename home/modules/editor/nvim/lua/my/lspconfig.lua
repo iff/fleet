@@ -30,30 +30,30 @@ local M = {}
 --     end
 -- end
 
-local function lsp_jumper(method, before)
-    -- methods (lua vim.print(vim.tbl_keys(vim.lsp.handlers)))
-    --   textDocument/definition
-    return function()
-        local params = vim.lsp.util.make_position_params()
-        local function handler(_, result, ctx, _)
-            -- full signature: err, result, ctx, config
-            local offset_encoding = vim.lsp.get_client_by_id(ctx.client_id).offset_encoding
-            if vim.islist(result) then
-                -- TODO we only use the first result
-                -- like the original, it would be better to open quickfix with options?
-                result = result[1]
-            end
-            if before then
-                vim.cmd(before)
-            end
-            vim.lsp.util.jump_to_location(result, offset_encoding, false)
-            vim.cmd('normal! zt')
-        end
-        -- TODO kinda works, but still async, user might get bored, switches buffer/windows, and then it gets weird
-        -- TODO there is now buf_request_sync to make this easier?
-        vim.lsp.buf_request(0, method, params, handler)
-    end
-end
+-- local function lsp_jumper(method, before)
+--     -- methods (lua vim.print(vim.tbl_keys(vim.lsp.handlers)))
+--     --   textDocument/definition
+--     return function()
+--         local params = vim.lsp.util.make_position_params()
+--         local function handler(_, result, ctx, _)
+--             -- full signature: err, result, ctx, config
+--             local offset_encoding = vim.lsp.get_client_by_id(ctx.client_id).offset_encoding
+--             if vim.islist(result) then
+--                 -- TODO we only use the first result
+--                 -- like the original, it would be better to open quickfix with options?
+--                 result = result[1]
+--             end
+--             if before then
+--                 vim.cmd(before)
+--             end
+--             vim.lsp.util.jump_to_location(result, offset_encoding, false)
+--             vim.cmd('normal! zt')
+--         end
+--         -- TODO kinda works, but still async, user might get bored, switches buffer/windows, and then it gets weird
+--         -- TODO there is now buf_request_sync to make this easier?
+--         vim.lsp.buf_request(0, method, params, handler)
+--     end
+-- end
 
 function M.setup()
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -61,20 +61,19 @@ function M.setup()
 
     M.setup_lua(capabilities)
     M.setup_basedpyright(capabilities)
-    -- M.setup_python(capabilities)
     M.setup_typescript(capabilities)
     M.setup_clangd(capabilities)
     M.setup_yaml(capabilities)
     M.setup_rust(capabilities)
 
-    --- just call the vim builtins and accept the wonkiness
-    local function plain(fn)
-        local function op(make)
-            make()
-            fn()
-        end
-        return op
-    end
+    -- --- just call the vim builtins and accept the wonkiness
+    -- local function plain(fn)
+    --     local function op(make)
+    --         make()
+    --         fn()
+    --     end
+    --     return op
+    -- end
 
     --- do everything ourselves, sync for no confusion
     local function full(method)
@@ -239,22 +238,6 @@ function M.on_attach(client, bufnr)
     end
 
     local b = vim.lsp.buf
-
-    -- nmap('tt', lsp_jumper('textDocument/definition'), 'go to definition')
-    -- nmap('ty', lsp_jumper('textDocument/definition', 'tab split'), 'go to definition in a new tab')
-    -- nmap(
-    --     'ti',
-    --     lsp_jumper('textDocument/definition', 'set splitright | vsplit | set splitright!'),
-    --     'go to definition in split right'
-    -- )
-    -- nmap('tn', lsp_jumper('textDocument/definition', 'vsplit'), 'go to definition in split left')
-    -- nmap('te', lsp_jumper('textDocument/definition', 'split'), 'go to definition in split down')
-    -- nmap(
-    --     'tu',
-    --     lsp_jumper('textDocument/definition', 'set splitbelow! | split | set splitbelow!'),
-    --     'go to definition in split up'
-    -- )
-
     local D = vim.diagnostic
     nmap('a,', function()
         D.open_float({
@@ -350,8 +333,13 @@ function M.on_attach_python(client, bufnr)
         ptags.telescope(sources)
     end
 
-    nmap('ge', ptags_local, 'ptags local symbols')
-    nmap('gi', ptags_workspace, 'ptags workspace symbols')
+    -- FIXME how?
+    -- local ops = require('mappings').ops
+    -- local t = require('telescope')
+    -- ops.pick_buffer_symbol = t.as_op(ptags_local, t.jump_lsp_symbol)
+    -- ops.pick_project_symbol = t.as_op(ptags_workspace, t.jump_lsp_symbol)
+    nmap('we', ptags_local, 'ptags local symbols')
+    nmap('wu', ptags_workspace, 'ptags workspace symbols')
 
     nmap('tI', function()
         local lnum = vim.api.nvim_win_get_cursor(0)[1] - 1
