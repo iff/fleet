@@ -73,7 +73,7 @@ local options = function()
         pattern = "*",
         callback = function()
             vim.highlight.on_yank {
-                higroup = "IncSearch",
+                higroup = "@comment.Note",
                 timeout = 100,
             }
         end,
