@@ -43,11 +43,11 @@
 
 (platform (macos) (defalias
 	reset (layer-switch colemak)
-	num (layer-toggle numpad)
+	num (layer-switch numpad)
 	syms (layer-toggle syms)
 
 	ectl (tap-hold-release 0 200 esc lctl)
-	spcs (multi spc (tap-hold-release 200 200 XX (multi bspc (layer-while-held syms))))
+	;;spcs (multi spc (tap-hold-release 200 200 XX (multi bspc (layer-while-held syms))))
 
 	lsft (one-shot-press 10000 lsft)
 	rsft (one-shot-press 10000 rsft)
@@ -63,12 +63,12 @@
 (deflayer colemak
 		@reset	F1	F2	XX	XX	XX	@light		@mdprev	@mdpp	@mdnext	@mute	@unmute	XX	@lock
 	;; |____3____||____3____||____3+___||____2+___||____2____||____2____|                              |____2____||____2____||____2+___||____3+___||____3____||____3____||____3____|
-		XX	XX	XX	F12	F12	@num	XX		XX	XX	XX	XX	-	=	bspc
+		XX	XX	XX	F12	F12	@num	XX		@num	XX	XX	XX	-	=	bspc
 	;; |____4____||____4____||____3____||____2____||____1____||____1____|                   |____1____||____1____||____2____||____3____||____4____||____4____||____4____||____4____|
 		tab	q	w	f	p	b		j	l	u	y	F11	del	XX	\
 		@ectl	a	r	s	t	g		m	n	e	i	o	bspc	ret	
 		@lsft	z	x	c	d	v		k	h	,	.	rctl	@rsft
-		@num	lctl	lalt	lmet			spc		@syms	@num	left	up	down	right
+		@syms	lctl	lalt	lmet			spc		@syms	ralt	left	up	down	right
 )
 
 ;; TODO
@@ -78,21 +78,21 @@
 		XX	XX	XX	XX	XX	XX	XX		XX	XX	XX	XX	XX	XX	XX
 	;; |____4____||____4____||____3____||____2____||____1____||____1____|                   |____1____||____1____||____2____||____3____||____4____||____4____||____4____||____4____|
 		XX	@s!	@s#	@s{	@s}	XX		`	\	/	@s&	@s*	XX	XX	XX
-		XX	@s:	@s$	@spo	@spc	@s_		@s~	S-'	@s>	-	=	tab	ret
-		'	@s%	@s^	[	]	@s@		@s?	;	@s<	@s|	+	rsft
-		XX	XX	XX	XX			XX			XX	XX	XX	XX	XX	XX
+		'	@s:	@s$	@spo	@spc	@s_		@s~	S-'	@s>	-	=	tab	ret
+		XX	@s%	@s^	[	]	@s@		@s?	;	@s<	@s|	+	rsft
+		XX	XX	XX	XX			ret			XX	XX	XX	XX	XX	XX
 )
 
 ;; TODO this might not work with the current numpad mod?
 (deflayer numpad
 		@reset	XX	XX	XX	XX	XX	XX		XX	XX	XX	XX	XX	XX	XX
 	;; |____3____||____3____||____3+___||____2+___||____2____||____2____|                              |____2____||____2____||____2+___||____3+___||____3____||____3____||____3____|
-		XX	XX	XX	XX	XX	XX	XX		XX	XX	XX	XX	XX	XX	XX
+		XX	XX	XX	XX	XX	@reset	XX		@reset	XX	XX	XX	XX	XX	XX
 	;; |____4____||____4____||____3____||____2____||____1____||____1____|                   |____1____||____1____||____2____||____3____||____4____||____4____||____4____||____4____|
 		XX	XX	XX	up	XX	XX		XX	XX	XX	F13	XX	XX	XX	XX
-		XX	1	2	3	4	5		6	7	8	9	0	XX	XX
-		XX	@s*	left	down	right	+		XX	XX	XX	XX	XX	XX
-		XX	XX	XX	XX			XX			XX	XX	XX	XX	XX	XX
+		XX	1	2	3	4	.		@s:	7	8	9	0	XX	XX
+		XX	@s*	,	down	5	+		XX	6	XX	XX	XX	XX
+		XX	XX	XX	left			XX			right	XX	XX	XX	XX	XX
 )
 
 (deflayer roam
