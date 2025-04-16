@@ -586,6 +586,7 @@ function M.for_comma()
         require("yi.formatter").format_buffer()
     end
     local g = require("yi.fugitive")
+    local h = require("hop")
     return {
         map { [[,]], n, "misc" },
         map { [[,x]], n, "(try) save and exit (anyway)", rhs = "<cmd>silent! wa<enter><cmd>qa!<enter>" },
@@ -594,6 +595,20 @@ function M.for_comma()
         -- formatter and git
         map { [[==]], n, "format buffer", fn = reset_view_and_format },
         map { [[gn]], n, "git", fn = g.git },
+
+        -- hop
+        map { [[  ]], n, "hop 2char", fn = h.hint_char2 },
+        map { [[  ]], v, "hop 2char", fn = h.hint_char2 },
+        -- TODO fixme if still needed?
+        -- map {
+        --     [[<F11>]],
+        --     i,
+        --     "jump on same line in insert mode",
+        --     expr = todo h.hint_char1 {
+        --         direction = require("hop.hint").HintDirection.AFTER_CURSOR,
+        --         current_line_only = true,
+        --     },
+        -- },
 
         -- term aliases
         map { [[,g]], n, "run .tmux/g", rhs = ":vsplit | term zsh -c '$(pwd)/.tmux/g'<CR>" },

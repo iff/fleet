@@ -93,11 +93,9 @@ local load = function()
     require("auspicious-autosave").setup()
 
     -- my config
-    require("my/hop").setup()
-    -- require('my/telescope').setup()
-    -- require('my/lspconfig').setup()
     require("my/treesitter").setup()
 
+    require("yi.hop").setup()
     require("yi.telescope").setup()
     require("yi.completion").setup()
     require("yi.lsp").setup(require("yi.completion").get_capabilities())
@@ -105,9 +103,9 @@ local load = function()
     require("yi.formatter").setup()
     require("yi.diagnostic").setup()
 
-    require('yi.mappings').apply()
+    require("yi.mappings").apply()
 
-    -- TODO find a better place
+    -- TODO find a better place for ft
     vim.cmd([[
         autocmd FileType python imap <buffer> <F11>b breakpoint()
         autocmd FileType python imap <buffer> <F11>a # TODO
