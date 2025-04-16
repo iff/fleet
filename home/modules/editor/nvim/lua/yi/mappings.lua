@@ -523,6 +523,7 @@ function M.for_jumps()
         map { [[tdae]], n, "buffer all diagnostics", fn = t.pick_buffer_diagnostics_all },
         map { [[tdu]], n, "project diagnostics", fn = t.pick_project_diagnostics },
         map { [[tdau]], n, "project all diagnostics", fn = t.pick_project_diagnostics_all },
+        map { [[tc]], n, "files diff to main", fn = t.pick_diff_files },
     }
 end
 

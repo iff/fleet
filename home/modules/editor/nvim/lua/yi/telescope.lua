@@ -43,22 +43,6 @@ local function at_top()
 end
 
 -- TODO
-function M.git_diff_files(opts)
-    local pickers = require("telescope.pickers")
-    local finders = require("telescope.finders")
-    local conf = require("telescope.config").values
-    local list = vim.fn.systemlist("git diff --name-only master 2>/dev/null | git diff --name-only main")
-
-    pickers
-        .new(opts, {
-            prompt_title = "git diff to main/master",
-            finder = finders.new_table { results = list },
-            sorter = conf.generic_sorter(opts),
-        })
-        :find()
-end
-
--- TODO
 local function laforge()
     require("telescope.pickers.layout_strategies").laforge = function(self, max_columns, max_lines, layout_config)
         -- local resolve = require("telescope.config.resolve")
@@ -414,6 +398,21 @@ function M.pick_project_diagnostics_all()
         no_unlisted = false,
         severity_limit = vim.diagnostic.severity.HINT,
     }
+end
+
+function M.pick_diff_files()
+    local pickers = require("telescope.pickers")
+    local finders = require("telescope.finders")
+    local conf = require("telescope.config").values
+    local list = vim.fn.systemlist("git diff --name-only master 2>/dev/null | git diff --name-only main")
+
+    pickers
+        .new({}, {
+            prompt_title = "git diff to main/master",
+            finder = finders.new_table { results = list },
+            sorter = conf.generic_sorter {},
+        })
+        :find()
 end
 
 return M
