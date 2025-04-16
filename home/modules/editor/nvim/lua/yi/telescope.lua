@@ -4,45 +4,6 @@ local M = {}
 
 local builtin = require("telescope.builtin")
 
-function M.setup()
-    local telescope = require("telescope")
-    local actions = require("telescope.actions")
-
-    -- see https://github.com/nvim-telescope/telescope.nvim
-    -- TODO see again dependencies, fd and stuff, bundle it?
-    telescope.setup {
-        defaults = {
-            layout_strategy = "flex",
-            layout_config = {},
-            mappings = {
-                i = {
-                    ["<c-e>"] = actions.move_selection_next,
-                    ["<c-u>"] = actions.move_selection_previous,
-                    ["<enter>"] = actions.select_default,
-                },
-                n = {
-                    ["e"] = "move_selection_next",
-                    ["u"] = "move_selection_previous",
-                    ["<enter>"] = actions.select_default,
-                },
-            },
-        },
-        extensions = {
-            -- see https://github.com/nvim-telescope/telescope-fzf-native.nvim
-            fzf = {},
-            -- see https://github.com/nvim-telescope/telescope-ui-select.nvim
-            ["ui-select"] = {},
-        },
-    }
-    telescope.load_extension("fzf")
-    telescope.load_extension("ui-select")
-end
-
-local function at_top()
-    vim.cmd([[normal! zt]])
-end
-
--- TODO
 local function laforge()
     require("telescope.pickers.layout_strategies").laforge = function(self, max_columns, max_lines, layout_config)
         -- local resolve = require("telescope.config.resolve")
@@ -85,7 +46,6 @@ local function laforge()
         }
     end
 
-    -- local defaults = require('telescope.themes').get_ivy({ layout_config = { height = 0.4 } })
     local defaults = {
         -- TODO how to make the layout strat and the rest go together? many things are not independent, like sorting_strategy
         layout_strategy = "laforge",
@@ -95,35 +55,63 @@ local function laforge()
         selection_caret = " 󰧚 ",
     }
     defaults.scroll_strategy = "limit"
-    defaults.mappings = {
-        i = {
-            ["<c-j>"] = actions.move_selection_next,
-            ["<c-k>"] = actions.move_selection_previous,
-            ["<enter>"] = actions.select_default,
-            ["<c-v>"] = actions.select_vertical,
-            ["<c-s>"] = actions.select_horizontal,
-            ["<c-t>"] = actions.select_tab,
-            ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
-            ["<s-tab>"] = actions.toggle_all,
-            ["<c-f>"] = function(prompt_bufnr)
-                telescope.extensions.hop._hop(prompt_bufnr, { callback = actions.select_default })
-            end,
-        },
-        n = {
-            ["q"] = actions.close,
-            ["y"] = "move_selection_next",
-            ["l"] = "move_selection_previous",
-            ["<enter>"] = actions.select_default,
-            ["n"] = actions.select_vertical,
-            ["u"] = actions.select_horizontal,
-            ["t"] = actions.select_tab,
-            ["<tab>"] = actions.toggle_selection + actions.move_selection_next,
-            ["<s-tab>"] = actions.toggle_all,
-        },
-    }
     defaults.path_display = { "truncate" }
+    return defaults
 end
 
+local function flex()
+    return {
+        layout_strategy = "flex",
+        layout_config = {},
+    }
+end
+
+function M.setup()
+    local telescope = require("telescope")
+    local actions = require("telescope.actions")
+
+    -- defaults = flex()
+    defaults = laforge()
+
+    defaults["mappings"] = {
+        i = {
+            ["<c-e>"] = actions.move_selection_next,
+            ["<c-u>"] = actions.move_selection_previous,
+            ["<enter>"] = actions.select_default,
+        },
+        n = {
+            ["e"] = "move_selection_next",
+            ["u"] = "move_selection_previous",
+            ["<enter>"] = actions.select_default,
+        },
+    }
+
+    -- see https://github.com/nvim-telescope/telescope.nvim
+    -- TODO see again dependencies, fd and stuff, bundle it?
+    ---@diagnostic disable-next-line:redundant-parameter
+    telescope.setup {
+        defaults = defaults,
+        -- {
+        --     layout_strategy = "flex",
+        --     layout_config = {},
+        --     mappings = mappings,
+        -- },
+        extensions = {
+            -- see https://github.com/nvim-telescope/telescope-fzf-native.nvim
+            fzf = {},
+            -- see https://github.com/nvim-telescope/telescope-ui-select.nvim
+            ["ui-select"] = {},
+        },
+    }
+    telescope.load_extension("fzf")
+    telescope.load_extension("ui-select")
+end
+
+local function at_top()
+    vim.cmd([[normal! zt]])
+end
+
+---@diagnostic disable-next-line: unused-local, unused-function
 local function jump_find_files(entry)
     -- { "config/lua/dk/mappings.lua",
     --   index = 4,
@@ -136,6 +124,7 @@ local function jump_find_files(entry)
     vim.cmd.edit(vim.fn.fnameescape(entry[1]))
 end
 
+---@diagnostic disable-next-line: unused-local, unused-function
 local function jump_help_tags(entry)
     -- {
     --   cmd = "/*:map-nowait*",
@@ -175,6 +164,7 @@ local function jump_lsp_symbol(entry)
     at_top()
 end
 
+---@diagnostic disable-next-line: unused-local, unused-function
 local function jump_live_grep(entry)
     -- { "dev/run-tmux-bound-gg:5:12:# tmux new-window iloop run --until -- nix run '.?submodules=1#default' -- config/lua/dk/nvim.lua",
     --   col = 12,
@@ -193,6 +183,7 @@ local function jump_live_grep(entry)
     at_top()
 end
 
+---@diagnostic disable-next-line: unused-local, unused-function
 local function jump_buffers(entry)
     -- {
     --   bufnr = 1,
@@ -210,6 +201,7 @@ local function jump_buffers(entry)
     vim.cmd.edit(vim.fn.fnameescape(entry.filename))
 end
 
+---@diagnostic disable-next-line: unused-local, unused-function
 local function jump_diagnostics(entry)
     -- {
     --   col = 1,
@@ -229,6 +221,7 @@ local function jump_diagnostics(entry)
     at_top()
 end
 
+---@diagnostic disable-next-line: unused-local, unused-function
 local function jump_man(entry)
     -- {
     --   description = "search for files in a directory hierarchy",
@@ -246,6 +239,7 @@ local function jump_man(entry)
     vim.cmd.edit("man://" .. entry.value .. "(" .. entry.section .. ")")
 end
 
+---@diagnostic disable-next-line: unused-local, unused-function
 local function jump_marks(entry)
     -- {
     --   col = 39,
@@ -352,7 +346,6 @@ function M.pick_project_symbol()
         end
         ptags_workspace()
     else
-        local builtin = require("telescope.builtin")
         local make = function() end
         as_op(builtin.lsp_dynamic_workspace_symbols(), jump_lsp_symbol)(make)
     end
@@ -366,7 +359,6 @@ function M.pick_buffer_symbol()
         end
         ptags_local()
     else
-        local builtin = require("telescope.builtin")
         local make = function() end
         as_op(builtin.lsp_document_symbols, jump_lsp_symbol)(make)
     end
