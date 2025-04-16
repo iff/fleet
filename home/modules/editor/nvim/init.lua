@@ -93,8 +93,6 @@ local load = function()
     require("auspicious-autosave").setup()
 
     -- my config
-    require("my/treesitter").setup()
-
     require("yi.hop").setup()
     require("yi.telescope").setup()
     require("yi.completion").setup()
@@ -102,6 +100,7 @@ local load = function()
     require("yi.fugitive").setup()
     require("yi.formatter").setup()
     require("yi.diagnostic").setup()
+    require("my.treesitter").setup()
 
     require("yi.mappings").apply()
 
