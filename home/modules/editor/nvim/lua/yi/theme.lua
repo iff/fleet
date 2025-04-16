@@ -88,7 +88,7 @@ function M.setup()
             globalstatus = false,
         },
         sections = {
-            lualine_a = { show_file },
+            lualine_a = { "mode", show_file },
             -- lualine_a = { window_nr, show_file },
             lualine_b = {},
             lualine_c = {},

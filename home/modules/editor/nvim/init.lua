@@ -84,7 +84,7 @@ local load = function()
     disable_distribution_plugins()
     leader_map()
 
-    require("theme").setup()
+    require("yi.theme").setup()
 
     options()
 
