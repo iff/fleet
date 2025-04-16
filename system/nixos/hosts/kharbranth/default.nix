@@ -6,6 +6,9 @@
   # TODO causing issues with DHCP often restarting loosing connection
   # networking.interfaces.enp0s31f6.useDHCP = true;
 
+  programs.steam.enable = true;
+  programs.steam.protontricks.enable = true;
+
   services.tailscale.enable = true;
 
   services.dbus.implementation = "broker";
