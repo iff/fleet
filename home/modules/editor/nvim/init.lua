@@ -105,7 +105,24 @@ local load = function()
     require("yi.formatter").setup()
     require("yi.diagnostic").setup()
 
-    require("keymap").setup()
+    require('yi.mappings').apply()
+
+    -- TODO find a better place
+    vim.cmd([[
+        autocmd FileType python imap <buffer> <F11>b breakpoint()
+        autocmd FileType python imap <buffer> <F11>a # TODO
+        autocmd FileType rust imap <buffer> <F11>a todo!()
+    ]])
+
+    -- TODO find a better place
+    -- make sure we always scroll to the last line in term buffers
+    vim.cmd([[
+      augroup TermScroll
+        autocmd!
+        autocmd BufWinEnter,WinEnter term://* startinsert | autocmd BufWritePost <buffer> normal! G
+        autocmd TermOpen * startinsert
+      augroup END
+    ]])
 end
 
 load()

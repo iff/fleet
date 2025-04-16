@@ -29,6 +29,8 @@ end
 function M.get()
     ---@type Map[]
     local maps = {}
+    vim.list_extend(maps, M.fixes())
+    vim.list_extend(maps, M.cmd_mode())
     vim.list_extend(maps, M.for_moves())
     vim.list_extend(maps, M.for_inserts())
     vim.list_extend(maps, M.for_edit())
@@ -85,6 +87,7 @@ function M.clear()
     end
     uns(n, "o")
     uns(n, "q")
+    uns(n, "Q")
 end
 
 --- apply to which key (not setting any maps)
@@ -151,6 +154,55 @@ local function map(args)
         rhs = args.rhs,
         expr = args.expr,
         fn = args.fn,
+    }
+end
+
+function M.fixes()
+    local function cr()
+        local expr = function()
+            if vim.o.buftype == "quickfix" then
+                return ":.cc<CR>"
+            else
+                -- TODO maybe bind something interesting here?
+                return "<CR>"
+            end
+        end
+        return expr
+    end
+    -- FIXME might need? { replace_keycodes = true }
+
+    return {
+        map { [[<CR>]], n, "fix cr for quickfix", expr = cr() },
+    }
+end
+
+function M.cmd_mode()
+    -- TODO where and how?
+    vim.api.nvim_create_autocmd("CmdwinEnter", {
+        callback = function()
+            vim.keymap.set({ "n", "v" }, "<esc>", "<c-w>c", { buffer = true })
+        end,
+    })
+
+    local function super_command(mode)
+        local expr = function()
+            local old = vim.opt.splitkeep
+            vim.opt.splitkeep = "topline"
+            vim.api.nvim_create_autocmd("CmdwinLeave", {
+                callback = function()
+                    vim.opt.splitkeep = old -- NOTE to prevent the main view from jumping
+                    return true
+                end,
+                once = true,
+            })
+            return "q:" .. mode
+        end
+        return expr
+    end
+
+    return {
+        map { ":", n, "command mode in insert mode", expr = super_command("i") },
+        map { ";", n, "command mode in normal mode", expr = super_command("k") },
     }
 end
 
@@ -542,6 +594,12 @@ function M.for_comma()
         -- formatter and git
         map { [[==]], n, "format buffer", fn = reset_view_and_format },
         map { [[gn]], n, "git", fn = g.git },
+
+        -- term aliases
+        map { [[,g]], n, "run .tmux/g", rhs = ":vsplit | term zsh -c '$(pwd)/.tmux/g'<CR>" },
+        map { [[,t]], n, "xj tail last", rhs = ":vsplit | term zsh -c 'xj t -1'<CR>" },
+        map { [[,s]], n, "xj ls", rhs = ":vsplit | term zsh -c 'xj ls'<CR>" },
+        map { [[<ESC>]], "t", "normal mode (term)", rhs = [[<C-\><C-n>]] },
     }
 end
 
