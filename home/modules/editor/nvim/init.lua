@@ -100,7 +100,7 @@ local load = function()
     require("yi.fugitive").setup()
     require("yi.formatter").setup()
     require("yi.diagnostic").setup()
-    require("my.treesitter").setup()
+    require("yi.treesitter").setup()
 
     require("yi.mappings").apply()
 
