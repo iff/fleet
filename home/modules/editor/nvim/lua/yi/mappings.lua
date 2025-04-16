@@ -475,7 +475,7 @@ function M.for_jumps()
             end,
         },
 
-        map { [[tr]], n, "jump to references", fn = t.pick_references },
+        map { [[tr]], n, "jump to references", fn = l.pick_references },
         map { [[tar]], n, "jump to previous references", fn = t.pick_previous_references },
         -- TODO wrong place a bit
         map { [[E]], n, "next entry", rhs = "<cmd>cn<enter>" },

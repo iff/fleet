@@ -19,6 +19,10 @@ function M.show_function_signature()
     vim.lsp.buf.signature_help { border = "double", anchor_bias = "above" }
 end
 
+function M.pick_references()
+    vim.lsp.buf.references()
+end
+
 function M.highlight_references()
     vim.lsp.buf.document_highlight()
 end
