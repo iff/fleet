@@ -589,7 +589,7 @@ function M.for_comma()
     local h = require("hop")
     return {
         map { [[,]], n, "misc" },
-        map { [[,x]], n, "(try) save and exit (anyway)", rhs = "<cmd>silent! wa<enter><cmd>qa!<enter>" },
+        -- map { [[,x]], n, "(try) save and exit (anyway)", rhs = "<cmd>silent! wa<enter><cmd>qa!<enter>" },
         map { [[<c-d>]], ni, "(try) save and exit (anyway)", rhs = "<cmd>silent! wa<enter><cmd>qa!<enter>" },
 
         -- formatter and git
