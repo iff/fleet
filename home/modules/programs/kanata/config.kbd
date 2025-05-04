@@ -92,7 +92,7 @@
 		XX	XX	XX	up	XX	XX		XX	XX	XX	F13	XX	XX	XX	XX
 		XX	1	2	3	4	.		@s:	7	8	9	0	bspc	XX
 		XX	@s*	,	down	5	+		XX	6	XX	XX	XX	XX
-		XX	XX	XX	left			XX			right	XX	XX	XX	XX	XX
+		XX	XX	XX	left			spc			right	XX	XX	XX	XX	XX
 )
 
 (deflayer roam
