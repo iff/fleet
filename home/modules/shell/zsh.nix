@@ -25,13 +25,16 @@
         dk = "docker kill $(docker ps -q)";
       };
 
-      initExtraBeforeCompInit = ''
-        path+="$HOME/.nix-profile/bin"
-      ''
-      + builtins.readFile ./zsh/config.zsh
-      + builtins.readFile ./zsh/prompt.zsh
-      + builtins.readFile ./zsh/completion.zsh
-      + builtins.readFile ./zsh/hooks.zsh; # needs to be last
+      initContent = lib.mkOrder 550 (
+        # FIXME is this really needed?
+        ''
+          path+="$HOME/.nix-profile/bin"
+        ''
+        + builtins.readFile ./zsh/config.zsh
+        + builtins.readFile ./zsh/prompt.zsh
+        + builtins.readFile ./zsh/completion.zsh
+        + builtins.readFile ./zsh/hooks.zsh # needs to be last
+      );
 
       # TODO or set to empty and control?
       completionInit = ''
