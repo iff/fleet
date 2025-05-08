@@ -292,8 +292,16 @@ local function as_op(picker, jump, opts)
     end
 end
 
+function M.pick_resume()
+    builtin.resume()
+end
+
 function M.pick_file()
     builtin.find_files()
+end
+
+function M.pick_jumplist()
+    builtin.jumplist { initial_mode = "normal" }
 end
 
 function M.pick_file_config()
@@ -306,6 +314,10 @@ end
 
 function M.pick_buffer()
     builtin.buffers()
+end
+
+function M.pick_references()
+    builtin.lsp_references()
 end
 
 function M.pick_help()
@@ -393,18 +405,11 @@ function M.pick_project_diagnostics_all()
 end
 
 function M.pick_diff_files()
-    local pickers = require("telescope.pickers")
-    local finders = require("telescope.finders")
-    local conf = require("telescope.config").values
-    local list = vim.fn.systemlist("git diff --name-only master 2>/dev/null | git diff --name-only main")
-
-    pickers
-        .new({}, {
-            prompt_title = "git diff to main/master",
-            finder = finders.new_table { results = list },
-            sorter = conf.generic_sorter {},
-        })
-        :find()
+    builtin.find_files {
+        prompt_title = "files with diff",
+        find_command = { "zsh", "-c", "git diff --name-only master 2>/dev/null || git diff --name-only main" },
+        initial_mode = "normal",
+    }
 end
 
 return M
