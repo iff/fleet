@@ -72,6 +72,8 @@
       fsType = "ext4";
     };
 
+  services.zfs.autoScrub.enable = true;
+
   services.btrfs.autoScrub = {
     enable = true;
     interval = "weekly";
