@@ -224,7 +224,7 @@
           inherit system;
 
           config.allowUnfreePredicate = pkg: builtins.elem (self.lib.getName pkg)
-            [ "1password" "1password-gui" "1password-cli" "google-chrome" "nvidia-settings" "nvidia-x11" "roam-research" "spotify" "steam" "steam-unwrapped" ];
+            [ "1password" "1password-gui" "1password-cli" "google-chrome" "keymapp" "nvidia-settings" "nvidia-x11" "roam-research" "spotify" "steam" "steam-unwrapped" ];
         }
       );
 

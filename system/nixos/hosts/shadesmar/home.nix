@@ -314,6 +314,8 @@ in
 {
   home.packages = with pkgs; [
     geeqie
+    keymapp
+    roam-research
     spotify
     # work
     awscli2
