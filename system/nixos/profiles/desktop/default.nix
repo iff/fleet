@@ -4,7 +4,7 @@ with lib;
 let
   cfg = config.dots.profiles.desktop;
 
-  wmList = [ "dwm" "sway" ];
+  wmList = [ "dwm" "sway" "hyprland" ];
 in
 {
   options.dots.profiles.desktop = {
@@ -12,7 +12,7 @@ in
     wm = mkOption {
       description = "window manager";
       type = types.enum (wmList);
-      default = "sway";
+      default = "hyprland";
     };
   };
 
@@ -50,7 +50,7 @@ in
     environment.systemPackages = with pkgs; [
       pamixer
       pulsemixer
-    ] ++ lib.optionals (cfg.wm == "sway") [
+    ] ++ lib.optionals (cfg.wm == "sway" || cfg.wm == "hyprland") [
       xdg-utils
       glib
       dracula-theme
@@ -63,13 +63,7 @@ in
       wayland-utils
       # egl-wayland
       wayland-protocols
-    ] ++ lib.optionals (cfg.wm == "dwm") [
-      # TODO will be hyprland
-      # dracula-theme
-      # adwaita-icon-theme
-      # mako
-      # wl-clipboard
-      # tools:
+    ] ++ lib.optionals (cfg.wm == "hyprland") [
       inputs.hypr-contrib.packages.${pkgs.system}.grimblast
       hyprpaper
       rofi-wayland
@@ -77,21 +71,21 @@ in
       xorg.xinit
     ];
 
-    # fonts.fontconfig = {
-    #   antialias = true;
-    #
-    #   # fixes antialiasing blur
-    #   hinting = {
-    #     enable = true;
-    #     style = "slight"; # no difference
-    #     autohint = true; # no difference
-    #   };
-    #
-    #   subpixel = {
-    #     rgba = "rgb";
-    #     lcdfilter = "default";
-    #   };
-    # };
+    fonts.fontconfig = mkIf (cfg.wm == "hyprland") {
+      antialias = true;
+
+      # fixes antialiasing blur
+      hinting = {
+        enable = true;
+        # style = "slight"; # no difference
+        # autohint = true; # no difference
+      };
+
+      subpixel = {
+        rgba = "rgb";
+        lcdfilter = "default";
+      };
+    };
 
     hardware.graphics = {
       enable = true;
@@ -111,7 +105,7 @@ in
 
     # xorg and dwm
 
-    services.xserver = mkIf (cfg.wm == "dwm") {
+    services.xserver = mkIf (cfg.wm == "dwm" || cfg.wm == "hyprland") {
       enable = true;
       xkb.layout = "us";
       videoDrivers = [ "nvidia" ];
@@ -128,15 +122,13 @@ in
 
     # wayland and sway setup below
 
-    programs.xwayland.enable = mkIf (cfg.wm == "sway") true;
+    programs.xwayland.enable = mkIf (cfg.wm == "sway" || cfg.wm == "hyprland") true;
 
-    # TODO should be hyprland
-    programs.hyprland = mkIf (cfg.wm == "dwm") {
+    programs.hyprland = mkIf (cfg.wm == "hyprland") {
       enable = true;
       xwayland.enable = true;
     };
 
-    # FIXME use home-manager to use on Ubuntu?
     programs.sway = mkIf (cfg.wm == "sway") {
       enable = true;
       wrapperFeatures.gtk = true;
@@ -147,14 +139,14 @@ in
     #   enable = true;
     # };
 
-    xdg.portal = mkIf (cfg.wm == "sway") {
+    xdg.portal = mkIf (cfg.wm == "sway" || cfg.wm == "hyprland") {
       enable = true;
       wlr.enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
       # gtkUsePortal = true;
     };
 
-    security.pam.services = mkIf (cfg.wm == "sway") {
+    security.pam.services = mkIf (cfg.wm == "sway" || cfg.wm == "hyprland") {
       swaylock = { };
     };
 

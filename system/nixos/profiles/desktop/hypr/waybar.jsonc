@@ -26,26 +26,14 @@
     "icon-size": 13
   },
   "pulseaudio": {
-    "scroll-step": 1,
-    "format": "{icon} {volume}%",
+    "format": "  {volume}%",
     "format-muted": "󰖁 Muted",
-    "format-icons": {
-      "default": [
-        "",
-        "",
-        ""
-      ]
-    },
-    "states": {
-      "warning": 85
-    },
-    "on-click": "pamixer -t",
     "tooltip": false
   },
   "clock": {
     "interval": 1,
     "format": "{:%I:%M %p}",
-    "tooltip": true
+    "tooltip": false
   },
   "memory": {
     "interval": 1,
@@ -59,15 +47,15 @@
     "format": "󰻠 {usage}%"
   },
   "network": {
-    "format-disconnected": "󰯡 Disconnected",
-    "format-ethernet": "󰀂 {ifname} ({ipaddr})",
-    "format-linked": "󰖪 {essid} (No IP)",
+    "format-disconnected": "󰯡 ",
+    "format-ethernet": "󰀂 ",
+    "format-linked": "󰖪 ",
     "interval": 1,
-    "tooltip": false
+    "tooltip": true
   },
   "temperature": {
-    "tooltip": false,
-    "format": " {temperatureC}°C"
+    "format": " {temperatureC}°C",
+    "tooltip": false
   },
   "tray": {
     "icon-size": 13,
