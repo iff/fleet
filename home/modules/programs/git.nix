@@ -48,16 +48,6 @@ let
               user="Yves Ineichen iff@yvesineichen.com"
               ;;
     
-          (git@github.com:ThingWorx/*)
-              key=work
-              user="Yves Ineichen yineichen@ptc.com"
-              ;;
-
-          (git@github.com:ptc-yineichen/*)
-              key=work
-              user="Yves Ineichen yineichen@ptc.com"
-              ;;
-    
           (*)
               echo 'no match for' $target >&2
               exit 1
