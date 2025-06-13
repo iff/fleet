@@ -3,7 +3,7 @@
   programs.zsh = lib.mkMerge [
     ({
       # FIXME only on work machine
-      initExtraBeforeCompInit = lib.optionalString pkgs.stdenv.isLinux ''
+      initContent = lib.optionalString pkgs.stdenv.isLinux ''
         ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
         ZSH_HIGHLIGHT_DIRS_BLACKLIST+=(/efs)
         ZSH_HIGHLIGHT_MAXLENGTH=2000
