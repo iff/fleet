@@ -254,7 +254,7 @@
 
       nixosConfigurations = mapAttrs' intoNixOs {
         kharbranth = { };
-        shadesmar = { user = "yineichen"; };
+        # shadesmar = { user = "yineichen"; };
       };
 
       # CI build helper

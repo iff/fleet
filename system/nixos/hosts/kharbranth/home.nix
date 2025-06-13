@@ -19,11 +19,11 @@
     };
     alacritty = {
       enable = true;
-      font_size = 12.0;
+      font_size = 14.0;
       font_normal = "ZedMono Nerd Font";
     };
     osh.enable = true;
-    syncthing.enable = true;
+    # syncthing.enable = true;
     zen.enable = true;
   };
 
