@@ -150,26 +150,6 @@ in
       swaylock = { };
     };
 
-    programs.swaylock = mkIf (cfg.wm == "sway" || cfg.wm == "hyprland") {
-      enable = true;
-      settings = {
-        screenshots = true;
-        clock = true;
-        indicator = true;
-        indicator-radius = 100;
-        indicator-thickness = 7;
-        effect-blur = "7x5";
-        effect-vignette = "0.5:0.5";
-        color = "00000000";
-        ring-color = "3b4252";
-        key-hl-color = "880033";
-        line-color = "00000000";
-        inside-color = "00000088";
-        separator-color = "00000000";
-        # grace = 2;
-      };
-    };
-
     # Hyprland hack
     # commit before removing things
     # Gedit 09540e9127dfa06eda722473300bb4c1708b8528:system/nixos/profiles/desktop/hyprland.nix
@@ -189,16 +169,6 @@ in
       #   enable = false;
       #   target = "graphical-session.target";
       # };
-    };
-
-    xdg.configFile = mkIf (cfg.wm == "hyprland") {
-      "waybar/config.jsonc".source = hypr/waybar.jsonc;
-      "waybar/style.css".source = hypr/waybar.css;
-      "hypr/hyprland.conf".source = hypr/hyprland.conf;
-      "hypr/hyprpaper.conf".text = ''
-        preload = ${../../../../home/profiles/mountains.jpg}
-        wallpaper = ,${../../../../home/profiles/mountains.jpg} 
-      '';
     };
   };
 }

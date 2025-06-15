@@ -14,7 +14,7 @@
 
   dots = {
     profiles = {
-      dwm.enable = true;
+      hyprland.enable = true;
       linux.enable = true;
     };
     alacritty = {
