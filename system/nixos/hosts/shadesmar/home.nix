@@ -355,46 +355,4 @@ in
     syncthing.enable = true;
     zen.enable = true;
   };
-
-  # Hyprland hack
-  xdg.configFile."hypr/hyprland.conf".source = ../../profiles/desktop/hypr/hyprland.conf;
-  xdg.configFile."hypr/hyprpaper.conf".text = ''
-    preload = ${../../../../home/profiles/mountains.jpg}
-    wallpaper = ,${../../../../home/profiles/mountains.jpg} 
-  '';
-
-  programs.swaylock = {
-    enable = true;
-    settings = {
-      screenshots = true;
-      clock = true;
-      indicator = true;
-      indicator-radius = 100;
-      indicator-thickness = 7;
-      effect-blur = "7x5";
-      effect-vignette = "0.5:0.5";
-      color = "00000000";
-      ring-color = "3b425200";
-      key-hl-color = "88003300";
-      line-color = "00000000";
-      inside-color = "00000088";
-      separator-color = "00000000";
-      # grace = 2;
-    };
-  };
-
-  nixpkgs.overlays = [
-    (final: prev: {
-      waybar = prev.waybar.overrideAttrs (oldAttrs: {
-        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-      });
-    })
-  ];
-
-  programs.waybar = {
-    enable = true;
-  };
-
-  xdg.configFile."waybar/config.jsonc".source = ../../profiles/desktop/hypr/waybar.jsonc;
-  xdg.configFile."waybar/style.css".source = ../../profiles/desktop/hypr/waybar.css;
 }
