@@ -193,15 +193,8 @@ in
 
     xdg.configFile = mkIf (cfg.wm == "hyprland") {
       "waybar/config.jsonc".source = hypr/waybar.jsonc;
-    };
-    xdg.configFile = mkIf (cfg.wm == "hyprland") {
       "waybar/style.css".source = hypr/waybar.css;
-    };
-
-    xdg.configFile = mkIf (cfg.wm == "hyprland") {
       "hypr/hyprland.conf".source = hypr/hyprland.conf;
-    };
-    xdg.configFile = mkIf (cfg.wm == "hyprland") {
       "hypr/hyprpaper.conf".text = ''
         preload = ${../../../../home/profiles/mountains.jpg}
         wallpaper = ,${../../../../home/profiles/mountains.jpg} 
