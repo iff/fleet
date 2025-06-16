@@ -114,12 +114,11 @@ in
       videoDrivers = [ "nvidia" ];
       # no display manager (https://nixos.wiki/wiki/Using_X_without_a_Display_Manager)
       displayManager.startx.enable = true;
-    };
-
-    services.xserver.windowManager.dwm = mkIf (cfg.wm == "dwm") {
-      enable = true;
-      package = pkgs.dwm.overrideAttrs {
-        src = builtins.getAttr "iff-dwm" inputs;
+      windowManager.dwm = mkIf (cfg.wm == "dwm") {
+        enable = true;
+        package = pkgs.dwm.overrideAttrs {
+          src = builtins.getAttr "iff-dwm" inputs;
+        };
       };
     };
 

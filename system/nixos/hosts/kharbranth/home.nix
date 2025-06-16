@@ -24,6 +24,6 @@
     };
     osh.enable = true;
     # syncthing.enable = true;
-    zen.enable = true;
+    firefox.enable = true;
   };
 }
