@@ -71,6 +71,7 @@ in
       xorg.xinit
     ];
 
+    # does not seem to help with fuzzy font in browser
     fonts.fontconfig = mkIf (cfg.wm == "hyprland") {
       antialias = true;
 
@@ -105,15 +106,19 @@ in
 
     # xorg and dwm
 
+    # TODO get nvidia drivers for hyprland?
+    # what is missing?
     services.xserver = mkIf (cfg.wm == "dwm" || cfg.wm == "hyprland") {
       enable = true;
       xkb.layout = "us";
       videoDrivers = [ "nvidia" ];
       # no display manager (https://nixos.wiki/wiki/Using_X_without_a_Display_Manager)
       displayManager.startx.enable = true;
-      # currently only for DWM
-      windowManager.dwm.enable = true;
-      windowManager.dwm.package = pkgs.dwm.overrideAttrs {
+    };
+
+    services.xserver.windowManager.dwm = mkIf (cfg.wm == "dwm") {
+      enable = true;
+      package = pkgs.dwm.overrideAttrs {
         src = builtins.getAttr "iff-dwm" inputs;
       };
     };
@@ -134,11 +139,6 @@ in
       wrapperFeatures.gtk = true;
     };
 
-    # FIXME only for homemananger sway
-    # security.polkit = mkIf (cfg.wm == "sway") {
-    #   enable = true;
-    # };
-
     xdg.portal = mkIf (cfg.wm == "sway" || cfg.wm == "hyprland") {
       enable = true;
       wlr.enable = true;
@@ -148,27 +148,6 @@ in
 
     security.pam.services = mkIf (cfg.wm == "sway" || cfg.wm == "hyprland") {
       swaylock = { };
-    };
-
-    # Hyprland hack
-    # commit before removing things
-    # Gedit 09540e9127dfa06eda722473300bb4c1708b8528:system/nixos/profiles/desktop/hyprland.nix
-    # missing: swaylock (additional features?), wlsunset
-
-    nixpkgs.overlays = [
-      (final: prev: {
-        waybar = prev.waybar.overrideAttrs (oldAttrs: {
-          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-        });
-      })
-    ];
-
-    programs.waybar = mkIf (cfg.wm == "hyprland") {
-      enable = true;
-      # systemd = {
-      #   enable = false;
-      #   target = "graphical-session.target";
-      # };
     };
   };
 }
