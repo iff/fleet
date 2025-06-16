@@ -36,15 +36,6 @@
       flake = false;
     };
 
-    # TODO fix arch?? or only use on linux
-    zen = {
-      flake = false;
-      # see https://github.com/zen-browser/desktop/releases
-      # TODO eventually https://github.com/NixOS/nixpkgs/issues/327982
-      url = "tarball+https://github.com/zen-browser/desktop/releases/download/1.12.5b/zen.linux-x86_64.tar.xz";
-    };
-
-
     # nvim plugins
 
     hop-nvim = {

@@ -12,6 +12,7 @@
       font_size = 17.0;
       font_normal = "ZedMono Nerd Font";
     };
+    firefox.enable = true;
     osh.enable = true;
     kanata.enable = true;
   };
