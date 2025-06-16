@@ -2,6 +2,38 @@
 
 with lib;
 let
+  wm = pkgs.writeScriptBin "wm"
+    ''
+      #!/usr/bin/env zsh
+      set -eux -o pipefail
+    
+      exec Hyprland
+    '';
+
+  toggle-wlsunset = pkgs.writeScriptBin "toggle-wlsunset"
+    ''
+      #!/usr/bin/env zsh
+      set -eux -o pipefail
+      
+      if systemctl --user is-active --quiet wlsunset.service; then
+          systemctl --user stop wlsunset.service
+      else
+          systemctl --user start wlsunset.service
+      fi
+    '';
+
+  wlsunset-status = pkgs.writeScriptBin "wlsunset-status"
+    ''
+      #!/usr/bin/env zsh
+      set -eux -o pipefail
+        
+      if systemctl --user is-active --quiet wlsunset.service; then
+          echo "󰛨 "
+      else
+          echo "󰛩 "
+      fi
+    '';
+
   cfg = config.dots.profiles.hyprland;
 in
 {
@@ -12,6 +44,9 @@ in
   config = mkIf cfg.enable {
     home.packages = [
       pkgs.swaylock-effects # see https://github.com/jirutka/swaylock-effects
+      wm
+      wlsunset-status
+      toggle-wlsunset
     ];
 
     services.wlsunset = {
@@ -34,10 +69,10 @@ in
 
     programs.waybar = {
       enable = true;
-      # systemd = {
-      #   enable = false;
-      #   target = "graphical-session.target";
-      # };
+      systemd = {
+        enable = true;
+        target = "graphical-session.target";
+      };
     };
 
     xdg.configFile = {

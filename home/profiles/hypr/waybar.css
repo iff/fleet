@@ -60,6 +60,10 @@ tooltip {
 tooltip label {
   color: #e4e8ef;
 }
+#custom-wlsunset {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 #mode,
 #clock,
 #memory,

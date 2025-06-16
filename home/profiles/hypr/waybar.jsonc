@@ -15,9 +15,15 @@
     "cpu",
     "temperature",
     "network",
+    "custom/wlsunset",
     "clock",
     "tray"
   ],
+  "custom/wlsunset": {
+    "exec": "wlsunset-status",
+    "interval": 5,
+    "on-click": "toggle-wlsunset"
+  },
   "hyprland/workspaces": {
     "format": "{icon}",
     "disable-scroll": true
