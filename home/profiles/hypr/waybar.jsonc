@@ -3,44 +3,100 @@
     "layer": "top",
     "position": "top"
   },
+
+  "margin-top": 3,
+  "margin-left": 3,
+  "margin-right": 3,
+
   "modules-left": [
-    "hyprland/workspaces"
+    "tray",
+    "custom/spacer3",
+    "custom/spacer2",
+    "hyprland/workspaces",
+    "custom/spacer2",
+    "custom/spacer3"
   ],
+
   "modules-center": [
     "hyprland/window"
   ],
+
   "modules-right": [
-    "pulseaudio",
-    "memory",
+    "custom/spacer1",
     "cpu",
     "temperature",
+    "memory",
+    "custom/nvidia",
     "network",
+    "custom/spacer1",
+    "pulseaudio",
+    "custom/spacer1",
     "custom/wlsunset",
-    "clock",
-    "tray"
+    "custom/spacer1",
+    "clock"
   ],
+
+  "custom/nvidia": {
+    "exec": "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,nounits,noheader | sed 's/\\([0-9]\\+\\), \\([0-9]\\+\\)/\\1% \\2°C/g'",
+    "format": "{}",
+    "interval": 2
+  },
+
   "custom/wlsunset": {
     "exec": "wlsunset-status",
+    "format": "󰛨  {}",
     "interval": 5,
     "on-click": "toggle-wlsunset"
   },
+
   "hyprland/workspaces": {
+    "disable-scroll": true,
+    "disable-scroll-wraparound": true,
+    "smooth-scrolling-threshold": 4,
+    "enable-bar-scroll": true,
     "format": "{icon}",
-    "disable-scroll": true
+    "show-special": true,
+    "special-visible-only": false,
+    "format-icons": {
+      "magic": " ",
+      "10": "󰊴 "
+    }
   },
+
   "hyprland/window": {
-    "icon-size": 13
+    "icon-size": 13,
+    "format": "{title}",
+    "max-length": 48,
+    "tooltip": false,
+    "icon": true
   },
+
   "pulseaudio": {
     "format": "  {volume}%",
     "format-muted": "󰖁 Muted",
     "tooltip": false
   },
+
   "clock": {
     "interval": 1,
-    "format": "{:%I:%M %p}",
-    "tooltip": false
+    "format": "{:%H:%M}",
+    "tooltip-format": "{:%d.%m.%Y   Week %W}\n\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "right", // Nicked from Archttila
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#cba6f7'><b>{}</b></span>",
+        "days": "<span color='#cdd6f4'><b>{}</b></span>",
+        "weeks": "<span color='#94e2d5'> W{}</span>",
+        "weekdays": "<span color='#f9e2af'><b>{}</b></span>",
+        "today": "<span color='#f5e0dc'><b><u>{}</u></b></span>"
+      }
+    },
+    "on-click": "google-chrome --app=https://calendar.google.com"
   },
+
   "memory": {
     "interval": 1,
     "format": "󰍛 {percentage}%",
@@ -48,10 +104,12 @@
       "warning": 85
     }
   },
+
   "cpu": {
     "interval": 1,
     "format": "󰻠 {usage}%"
   },
+
   "network": {
     "format-disconnected": "󰯡 ",
     "format-ethernet": "󰀂 ",
@@ -59,12 +117,29 @@
     "interval": 1,
     "tooltip": true
   },
+ 
   "temperature": {
     "format": " {temperatureC}°C",
     "tooltip": false
   },
+
   "tray": {
     "icon-size": 13,
-    "spacing": 5
+    "spacing": 8
+  },
+
+  "custom/spacer1": {
+    "format": " \\\\ ",
+    "tooltip": false
+  },
+
+  "custom/spacer2": {
+    "format": " ",
+    "tooltip": false
+  },
+
+  "custom/spacer3": {
+    "format": " // ",
+    "tooltip": false
   }
 }

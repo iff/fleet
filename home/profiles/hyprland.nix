@@ -28,9 +28,9 @@ let
       set -eux -o pipefail
         
       if systemctl --user is-active --quiet wlsunset.service; then
-          echo "󰛨 "
+          echo "on"
       else
-          echo "󰛩 "
+          echo "off"
       fi
     '';
 
