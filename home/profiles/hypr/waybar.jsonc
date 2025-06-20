@@ -111,11 +111,14 @@
   },
 
   "network": {
-    "format-disconnected": "󰯡 ",
-    "format-ethernet": "󰀂 ",
-    "format-linked": "󰖪 ",
-    "interval": 1,
-    "tooltip": true
+    "format-disconnected": "󱘖 ",
+    "format-ethernet": "󰈀 {bandwidthDownBits}",
+    "format-linked": "󰖪 {bandwidthDownBits}",
+    "tooltip": "{}",
+    "tooltip-format-wifi": "{ifname}\n{essid}\n{signalStrength}% \n{frequency} GHz\n󰇚 {bandwidthDownBits}\n󰕒 {bandwidthUpBits}",
+    "tooltip-format-ethernet": "{ifname}\n󰇚 {bandwidthDownBits} \n󰕒 {bandwidthUpBits}",
+    "interval": 2,
+    "min-length": 11
   },
  
   "temperature": {
