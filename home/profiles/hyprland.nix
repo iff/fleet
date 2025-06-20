@@ -81,8 +81,8 @@ in
       "waybar/style.css".source = hypr/waybar.css;
       "hypr/hyprland.conf".source = hypr/hyprland.conf;
       "hypr/hyprpaper.conf".text = ''
-        preload = ${./mountains.jpg}
-        wallpaper = ,${./mountains.jpg} 
+        preload = ${./moon.jpg}
+        wallpaper = ,${./moon.jpg} 
       '';
     };
   };
