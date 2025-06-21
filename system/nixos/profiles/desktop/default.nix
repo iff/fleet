@@ -101,20 +101,15 @@ in
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
-    # TODO also neede for sway but actually super instable at the moment
-    # services.xserver.videoDrivers = [ "nvidia" ];
-
-    # xorg and dwm
-
-    # TODO get nvidia drivers for hyprland?
-    # what is missing?
-    services.xserver = mkIf (cfg.wm == "dwm" || cfg.wm == "hyprland") {
+    services.xserver = {
+      # load nvidia driver for Xorg and Wayland (under xserver)
+      videoDrivers = [ "nvidia" ];
+    } // mkIf (cfg.wm == "dwm") {
       enable = true;
       xkb.layout = "us";
-      videoDrivers = [ "nvidia" ];
       # no display manager (https://nixos.wiki/wiki/Using_X_without_a_Display_Manager)
       displayManager.startx.enable = true;
-      windowManager.dwm = mkIf (cfg.wm == "dwm") {
+      windowManager.dwm = {
         enable = true;
         package = pkgs.dwm.overrideAttrs {
           src = builtins.getAttr "iff-dwm" inputs;
