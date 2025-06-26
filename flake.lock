@@ -3,11 +3,11 @@
     "auspicious-autosave-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1743341762,
-        "narHash": "sha256-D9BCgTrL7Sscw0sQ9Qbmfn13Nb10ZIwupkB40weHgM4=",
+        "lastModified": 1750888212,
+        "narHash": "sha256-2cw0xLGR2lfKjtB2JOoFAgEZm4kwaTx8YnFR/pCRO7o=",
         "owner": "dkuettel",
         "repo": "auspicious-autosave.nvim",
-        "rev": "9471289d6071b3f0c53d78ffc3e30dbf8e01fe54",
+        "rev": "110c7e9da60425a2d186fd9bf19e57ddc5f083b4",
         "type": "github"
       },
       "original": {
