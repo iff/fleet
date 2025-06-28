@@ -944,6 +944,12 @@ function M.for_jumps()
         { [[ao]], n, "rename symbol", fn = l.rename_symbol },
         { [[ai]], n, "add ignore", fn = l.add_ignore },
 
+        -- only rust atm
+        { [[ad]], n, "open docs in browser", fn = l.goto_docs_browser },
+        { [[a?]], n, "explain error", fn = l.explain_error },
+        { [[ar]], n, "render diagnostic", fn = l.open_diagnostic },
+        { [[ap]], n, "open package file", fn = l.open_pkg_manager },
+
         { [[tt]], n, "definition", fn = l.go_to_definition },
         { [[t ]], n, "resume", fn = t.pick_resume },
         { [[tn]], n, "files", fn = t.pick_file },
@@ -988,6 +994,7 @@ function M.for_comma()
         { [[,]], n, "misc" },
         -- map { [[,x]], n, "(try) save and exit (anyway)", rhs = "<cmd>silent! wa<enter><cmd>qa!<enter>" },
         { [[<c-d>]], ni, "(try) save and exit (anyway)", rhs = "<cmd>silent! wa<enter><cmd>qa!<enter>" },
+        { [[<c-s>]], ni, "save", rhs = "<cmd>silent! w<enter>" },
 
         -- formatter and git
         { [[==]], n, "format buffer", fn = reset_view_and_format },
