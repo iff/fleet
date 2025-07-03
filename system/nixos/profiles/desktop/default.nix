@@ -61,7 +61,7 @@ in
       wayland
       wayland-scanner
       wayland-utils
-      # egl-wayland
+      egl-wayland
       wayland-protocols
     ] ++ lib.optionals (cfg.wm == "hyprland") [
       inputs.hypr-contrib.packages.${pkgs.system}.grimblast
@@ -99,6 +99,7 @@ in
 
       open = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
+      nvidiaSettings = true;
     };
 
     services.xserver = {
