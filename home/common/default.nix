@@ -15,6 +15,7 @@
   fonts.fontconfig.enable = true;
 
   home.packages = [
+    pkgs._1password-cli
     pkgs.dua
     pkgs.eza
     pkgs.fd
