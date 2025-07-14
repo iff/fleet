@@ -19,7 +19,7 @@ local M = {}
 ---@type "default" | "search" | "diagnostic"
 M.mode = "default"
 
-local n, i, v, o, nv, ni = "n", "i", "v", "o", "nv", "ni"
+local n, i, v, o, nv, ni, c = "n", "i", "v", "o", "nv", "ni", "c"
 
 -- consider https://colemakmods.github.io/mod-dh/model.html when it comes to reachability
 
@@ -36,7 +36,7 @@ local n, i, v, o, nv, ni = "n", "i", "v", "o", "nv", "ni"
 
 ---@class (exact) FlatMap
 ---@field lhs string lhs
----@field mode "n" | "i" | "v" | "o" mode (just one)
+---@field mode "n" | "i" | "v" | "o" | "c" mode (just one)
 ---@field desc string desc
 ---@field rhs? string rhs
 ---@field expr? fun() expression
@@ -145,9 +145,11 @@ local function visualize_submode()
         window = vim.api.nvim_get_current_win(),
         -- TODO modes might change window, so that's not so easy
         -- use something else a bit more global for the indication?
-        cursorline = vim.wo[0].cursorline,
+        -- plus how did it even work when we switched windows?
+        -- cursorline = vim.wo[0].cursorline,
         -- highlight = vim.api.nvim_get_hl(0, { name = "CursorLine" }),
-        signcolumn = vim.api.nvim_get_hl(0, { name = "SignColumn" }),
+        -- signcolumn = vim.api.nvim_get_hl(0, { name = "SignColumn" }),
+        normal = vim.api.nvim_get_hl(0, { name = "Normal" }),
     }
 
     -- https://github.com/morhetz/gruvbox/tree/master?tab=readme-ov-file
@@ -161,20 +163,26 @@ local function visualize_submode()
     -- vim.wo.cursorline = true
     -- TODO underline or so could also be nice instead
     -- vim.api.nvim_set_hl(0, "CursorLine", { bg = colors.green })
-    vim.api.nvim_set_hl(0, "SignColumn", { bg = colors.yiblue })
+    -- vim.api.nvim_set_hl(0, "SignColumn", { bg = colors.green })
+    vim.api.nvim_set_hl(0, "Normal", { bg = colors.mix })
     vim.cmd.redraw()
 
     local function reset()
-        vim.wo[back.window].cursorline = back.cursorline
+        -- vim.wo[back.window].cursorline = back.cursorline
         -- vim.api.nvim_set_hl(
         --     0,
         --     "CursorLine",
         --     back.highlight ---@diagnostic disable-line: param-type-mismatch
         -- )
+        -- vim.api.nvim_set_hl(
+        --     0,
+        --     "SignColumn",
+        --     back.signcolumn ---@diagnostic disable-line: param-type-mismatch
+        -- )
         vim.api.nvim_set_hl(
             0,
-            "SignColumn",
-            back.signcolumn ---@diagnostic disable-line: param-type-mismatch
+            "Normal",
+            back.normal ---@diagnostic disable-line: param-type-mismatch
         )
     end
 
@@ -486,21 +494,27 @@ function M.for_moves()
     end
     local function fast_down()
         if vim.fn.winline() < vim.fn.winheight(0) / 2 then
-            return "j"
+            -- return "j"
+            return "gj" -- treats wrapped lines as they appear
         else
-            return "1<c-d>"
+            -- return "1<c-d>"
+            -- NOTE the above moves the cursor horizontally, the below works, but flickers a bit
+            return "gj<c-e>"
         end
     end
     local some_down = rapid(slow_down, fast_down)
 
     local function slow_up()
-        return "k"
+        -- return "k"
+        return "gk" -- treats wrapped lines as they appear
     end
     local function fast_up()
         if vim.fn.winline() > vim.fn.winheight(0) / 2 then
-            return "k"
+            return "gk" -- treats wrapped lines as they appear
         else
-            return "1<c-u>"
+            -- return "1<c-u>"
+            -- NOTE the above moves the cursor horizontally, the below works, but flickers a bit
+            return "gk<c-y>"
         end
     end
     local some_up = rapid(slow_up, fast_up)
@@ -681,6 +695,27 @@ function M.for_visual()
     }
 end
 
+---@param rhs string mapping
+---@param mode "" | "c" | "l" mode to paste in (irrespective of yanked mode)
+---@return fun()
+local function fn_pasted(rhs, mode)
+    return function()
+        local restore = vim.fn.getreginfo("z")
+        if mode ~= "" then
+            vim.fn.setreg("z", vim.fn.getreg("z"), mode)
+        end
+        -- TODO not sure about the escaping here, would nvim_feedkeys be better? also looks complicated there
+        vim.cmd.normal { rhs, bang = true }
+        if mode ~= "" then
+            vim.fn.setreg("z", restore.regcontents, restore.regtype)
+        end
+        local ns = vim.api.nvim_create_namespace("pasted")
+        -- TODO check if that works also for character-based stuff
+        -- because in normal vim ' is for line-based marks and ` is for character-based marks
+        vim.hl.range(0, ns, "IncSearch", "'[", "']", { timeout = 100 })
+    end
+end
+
 function M.for_copy_paste()
     -- copy paste
     -- NOTE we use register "z" so that other change operations dont interfere
@@ -712,34 +747,41 @@ function M.for_copy_paste()
         },
 
         { [[p]], n, "paste, adapt indentation, and stay" },
-        { [[pu]], n, "insert above", rhs = [[mz"z]P`z]] },
-        { [[pe]], n, "insert below", rhs = [[mz"z]p`z]] },
-        { [[pn]], n, "insert before", rhs = '"zP`]k' },
-        { [[pi]], n, "insert after", rhs = '"zp`[h' },
-        { [[pan]], n, "insert at beginning of text in line", rhs = [[mz0^"zP`z]] },
-        { [[pai]], n, "insert at end of line", rhs = [[mz$"zp`z]] },
+        { [[pu]], n, "insert above", fn = fn_pasted([[mz"z]P`z]], "l") },
+        { [[pe]], n, "insert below", fn = fn_pasted([[mz"z]p`z]], "l") },
+        { [[pn]], n, "insert before", fn = fn_pasted('"zP`]l', "c") },
+        { [[pi]], n, "insert after", fn = fn_pasted('"zp`[h', "c") },
+        { [[pm]], n, "insert at beginning of text in line", fn = fn_pasted([[mz0^"zP`z]], "c") },
+        { [[pan]], n, "insert at beginning of text in line", fn = fn_pasted([[mz0^"zP`z]], "c") },
+        { [[po]], n, "insert at end of line", fn = fn_pasted([[mz$"zp`z]], "c") },
+        { [[pai]], n, "insert at end of line", fn = fn_pasted([[mz$"zp`z]], "c") },
 
         { [[p ]], n, "but keep indentation" },
-        { [[p u]], n, "insert above", rhs = [[mz"zP`z]] },
-        { [[p e]], n, "insert below", rhs = [[mz"zp`z]] },
-        { [[p n]], n, "insert before", rhs = '"zP`]k' },
-        { [[p i]], n, "insert after", rhs = '"zp`[h' },
+        { [[p u]], n, "insert above", fn = fn_pasted([[mz"zP`z]], "l") },
+        { [[p e]], n, "insert below", fn = fn_pasted([[mz"zp`z]], "l") },
+        { [[p n]], n, "insert before", fn = fn_pasted('"zP`]k', "c") },
+        { [[p i]], n, "insert after", fn = fn_pasted('"zp`[h', "c") },
 
+        -- TODO do we want the but move versions? totally forgot. we move to where?
         { [[pp]], n, "but move" },
-        { [[ppu]], n, "insert above", rhs = '"z]P`[' },
-        { [[ppe]], n, "insert below", rhs = '"z]p`]' },
-        { [[ppn]], n, "insert before", rhs = '"zP`[' },
-        { [[ppi]], n, "insert after", rhs = '"zp`]' },
-        { [[ppan]], n, "insert at beginning of text in line", rhs = '0^"zP`[' },
-        { [[ppai]], n, "insert at end of line", rhs = '$"zp`z`]' },
+        { [[ppu]], n, "insert above", fn = fn_pasted('"z]P`[', "l") },
+        { [[ppe]], n, "insert below", fn = fn_pasted('"z]p`]', "l") },
+        { [[ppn]], n, "insert before", fn = fn_pasted('"zP`[', "c") },
+        { [[ppi]], n, "insert after", fn = fn_pasted('"zp`]', "c") },
+        { [[ppm]], n, "insert at beginning of text in line", fn = fn_pasted('0^"zP`[', "c") },
+        { [[ppan]], n, "insert at beginning of text in line", fn = fn_pasted('0^"zP`[', "c") },
+        { [[ppo]], n, "insert at end of line", fn = fn_pasted('$"zp`z`]', "c") },
+        { [[ppai]], n, "insert at end of line", fn = fn_pasted('$"zp`z`]', "c") },
 
         { [[pp ]], n, "but keep indentation" },
-        { [[pp u]], n, "insert above", rhs = '"zP`[' },
-        { [[pp e]], n, "insert below", rhs = '"zp`]' },
-        { [[pp n]], n, "insert before", rhs = '"zP`[' },
-        { [[pp i]], n, "insert after", rhs = '"zp`]' },
+        { [[pp u]], n, "insert above", fn = fn_pasted('"zP`[', "l") },
+        { [[pp e]], n, "insert below", fn = fn_pasted('"zp`]', "l") },
+        { [[pp m]], n, "insert before", fn = fn_pasted('"zP`[', "c") },
+        { [[pp n]], n, "insert before", fn = fn_pasted('"zP`[', "c") },
+        { [[pp o]], n, "insert after", fn = fn_pasted('"zp`]', "c") },
+        { [[pp i]], n, "insert after", fn = fn_pasted('"zp`]', "c") },
 
-        { [[p]], v, "replace visual with paste", rhs = [["zp]] },
+        { [[p]], v, "replace visual with paste", fn = fn_pasted([["zp]], "") },
     }
 end
 
@@ -845,6 +887,7 @@ function M.mode_windows()
         { [[f]], n, "focus window", fn = layouts.focus, maps = M.mode_default },
         { [[i]], n, "close window", fn = layouts.close },
         { [[c]], n, "close window", fn = layouts.close },
+        { [[,]], n, "close window", fn = layouts.close },
         { [[d]], n, "close window and delete buffer", fn = layouts.close_and_delete },
         { [[<esc>]], n, "end windows", maps = M.mode_default },
         { [[w]], n, "end windows", maps = M.mode_default },
@@ -900,6 +943,17 @@ function M.for_windows()
         -- trying out stacks
         { [[wm]], n, "stack push", fn = stack_push },
         { [[wo]], n, "stack pop", fn = stack_pop },
+
+        -- hacky shorts
+        {
+            [[wt]],
+            n,
+            "new window and t...",
+            fn = function()
+                layouts.new_from_split()
+                vim.fn.feedkeys("t")
+            end,
+        },
     }
 end
 
