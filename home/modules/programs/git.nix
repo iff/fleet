@@ -81,6 +81,9 @@ in
     signing.key = "165AEDEB";
 
     extraConfig = {
+      branch = {
+        sort = "-committerdate";
+      };
       core = {
         sshCommand = "git-ssh-dispatch";
         pager = "less -FRSX";
@@ -91,12 +94,46 @@ in
         ui = "true";
         diff = "auto";
       };
-      rerere = {
-        enabled = 1;
+      commit = {
+        verbose = true;
       };
-
+      diff = {
+        algorithm = "histogram";
+        colorMoved = "plain";
+        mnemonicPrefix = true;
+        renames = true;
+      };
+      fetch = {
+        prune = true;
+        pruneTags = true;
+        all = true;
+      };
+      init = {
+        defaultBranch = "main";
+      };
       merge = {
+        conflictstyle = "zdiff3";
         tool = "nvim";
+      };
+      pull = {
+        # not sure about this one?
+        rebasm = true;
+      };
+      push = {
+        autoSetupRemote = true;
+        # followingTags = true;
+      };
+      rebase = {
+        autoSquash = true;
+        autoStash = true;
+        updateRefs = true;
+      };
+      rerere = {
+        enabled = true;
+        autoupdate = true;
+      };
+      tag = {
+        sort = "version:refname";
       };
     };
 
