@@ -193,6 +193,7 @@ in
       # fixup
       fu = "commit --amend --reset-author -C HEAD";
       fuu = "!git add -u && git fu";
+      fua = "!f() { git commit --fixup=amend:$1; }; f";
     };
   };
 }
