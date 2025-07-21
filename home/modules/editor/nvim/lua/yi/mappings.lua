@@ -1070,8 +1070,6 @@ function M.for_comma()
 
         -- term aliases
         { [[,g]], n, "run .tmux/g", rhs = ":vsplit | term zsh -c '$(pwd)/.tmux/g'<CR>" },
-        { [[,t]], n, "xj tail last", rhs = ":vsplit | term zsh -c 'xj t -1'<CR>" },
-        { [[,s]], n, "xj ls", rhs = ":vsplit | term zsh -c 'xj ls'<CR>" },
         { [[<ESC>]], "t", "normal mode (term)", rhs = [[<C-\><C-n>]] },
     }
 end
