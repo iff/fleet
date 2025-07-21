@@ -117,7 +117,9 @@ in
       };
       pull = {
         # not sure about this one?
-        rebasm = true;
+        # maybe depends on repo
+        # adding alias for now
+        # rebase = true;
       };
       push = {
         autoSetupRemote = true;
@@ -143,7 +145,7 @@ in
       c = "commit";
       cm = "commit -m";
       co = "checkout";
-      coo = "!git checkout $(git branch -a --format '%(refname:short)' | sed 's~origin/~~' | sort | uniq | fzf)";
+      cf = "!git checkout $(git branch -a --format '%(refname:short)' | sed 's~origin/~~' | sort | uniq | fzf)";
       f = "fetch --all --tags --prune --force";
       m = "merge";
       p = "push";
@@ -174,6 +176,8 @@ in
       rbi = "rebase -i";
       rbc = "rebase --continue";
       rbim = "rebase -i main";
+      # instead of git pull --rebase
+      ro = "rebase origin/$(git branch --show-current)";
 
       ls-del = "ls-files -d";
       ls-mod = "ls-files -m";
