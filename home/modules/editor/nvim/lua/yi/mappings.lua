@@ -469,7 +469,9 @@ function M.cmd_mode()
 
     return validated_maps {
         { ":", n, "command mode in insert mode", expr = super_command("i") },
+        { ":", v, "command mode in insert mode", expr = super_command("i") },
         { ";", n, "command mode in normal mode", expr = super_command("k") },
+        { ";", v, "command mode in normal mode", expr = super_command("k") },
     }
 end
 
