@@ -21,7 +21,6 @@
         md = "mkdir -p";
         man = "man --no-justification";
         k = "kubectl";
-        v = "nvim";
         dk = "docker kill $(docker ps -q)";
       };
 

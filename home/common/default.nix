@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   home.stateVersion = "24.05";
@@ -24,6 +24,8 @@
     # fonts
     pkgs.fontconfig
     pkgs.nerd-fonts.zed-mono
+    # all systems with nvim
+    inputs.nihilistic-nvim.packages.${pkgs.system}.prod
   ];
 
   programs.direnv = {
