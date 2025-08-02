@@ -9,7 +9,7 @@
     };
     alacritty = {
       enable = true;
-      font_size = 17.0;
+      font_size = 19.0;
       font_normal = "ZedMono Nerd Font";
     };
     firefox.enable = true;
