@@ -52,7 +52,3 @@ On Nixos run: `sudo nixos-rebuild switch --flake '.#$(hostname)'`
 [nix-man]: https://nixos.org/manual/nix/stable/
 [nixpkgs-man]: https://nixos.org/manual/nixpkgs/stable/
 [nixos-man]: https://nixos.org/manual/nixos/stable/
-
-## References
-
-- [nyx](https://github.com/EdenEast/nyx)
