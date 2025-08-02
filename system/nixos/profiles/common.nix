@@ -53,7 +53,7 @@
 
     users.mutableUsers = false;
     users.users.root.initialHashedPassword = "";
-    users.users.${config.dots.modules.user.name} = {
+    users.users.${user} = {
       hashedPassword = "$y$j9T$zVsqwbdQAF3uPBPoAtvDw0$Jqj.F2ERf2ZdfWaFkmrv/2s5AppXeZ53RJ6xBxjvHM8";
       isNormalUser = true;
       extraGroups = [ "docker" "wheel" "systemd-journal" "audio" "video" "input" "networkmanager" ];
@@ -61,7 +61,6 @@
       packages = with pkgs; [ ];
     };
 
-    # TODO move
     programs.zsh.enable = true;
 
     # some programs need SUID wrappers, can be configured further or are
@@ -94,6 +93,7 @@
       settings = {
         experimental-features = [ "nix-command" "flakes" ];
         auto-optimise-store = true;
+        trusted-users = [ "${user}" ];
       };
 
       gc = {

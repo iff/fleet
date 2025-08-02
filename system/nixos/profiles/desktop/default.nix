@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, user, ... }:
 
 with lib;
 let
@@ -30,7 +30,7 @@ in
       # autologinUser = lib.mkDefault "dkuettel"; # TODO for iso install
       extraArgs = [ "--skip-login" ];
       # TODO a way to never ever ask for user? or at least not echo when typing?
-      loginOptions = config.dots.modules.user.name;
+      loginOptions = user;
       # TODO if i ever run remotely, how to keep the monitor off?
     };
 

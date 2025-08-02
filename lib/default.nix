@@ -12,8 +12,6 @@ let
     else x;
 in
 rec {
-  existsOrDefault = x: set: default: if hasAttr x set then getAttr x set else default;
-
   mkUserHome = { config, system ? "x86_64-linux" }:
     { ... }: {
       imports = [
@@ -88,7 +86,6 @@ rec {
     nameValuePair name (
       let
         pkgs = inputs.self.pkgsBySystem."${system}";
-        userConf = import (strToFile user ../user);
       in
       nixosSystem {
         inherit system;
@@ -149,7 +146,6 @@ rec {
                 extraSpecialArgs =
                   let
                     self = inputs.self;
-                    user = userConf;
                   in
                   # NOTE: Cannot pass name to home-manager as it passes `name` in to set the `hmModule`
                   { inherit inputs self system user; };
@@ -163,7 +159,6 @@ rec {
         specialArgs =
           let
             self = inputs.self;
-            user = userConf;
           in
           { inherit inputs name self system user; };
       }

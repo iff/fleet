@@ -1,4 +1,4 @@
-{ ... }:
+{ user, lib, self, system, ... }:
 
 {
   imports = [ ./hardware.nix ];
@@ -15,11 +15,9 @@
 
   virtualisation.docker.storageDriver = "btrfs";
 
+  home-manager.users."${user}" = self.lib.mkUserHome { inherit system; config = ./home.nix; };
+
   dots = {
-    modules = {
-      user.home = ./home.nix;
-      user.name = "iff";
-    };
     profiles = {
       desktop = {
         enable = true;
