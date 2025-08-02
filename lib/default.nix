@@ -102,7 +102,14 @@ rec {
             { inputs, ... }: {
               nixpkgs = {
                 inherit pkgs;
-                overlays = [ ];
+                overlays = [
+                  # Waybar overlay for experimental features (used by hyprland/sway profiles)
+                  (final: prev: {
+                    waybar = prev.waybar.overrideAttrs (oldAttrs: {
+                      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+                    });
+                  })
+                ];
               };
 
               environment.etc.nixpkgs.source = inputs.nixpkgs;

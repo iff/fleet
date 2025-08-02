@@ -113,13 +113,6 @@ in
 
     systemd.user.services.wlsunset.Install = { WantedBy = [ "graphical.target" ]; };
 
-    nixpkgs.overlays = [
-      (final: prev: {
-        waybar = prev.waybar.overrideAttrs (oldAttrs: {
-          mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-        });
-      })
-    ];
 
     programs.swaylock = {
       settings = {
