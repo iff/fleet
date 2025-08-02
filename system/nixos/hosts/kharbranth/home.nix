@@ -2,7 +2,8 @@
 
 {
   home.packages = with pkgs; [
-    geeqie
+    # ‘libsoup-2.74.3’ is marked as insecure, refusing to evaluate
+    # geeqie
     google-chrome
     neovide
     protonmail-desktop
