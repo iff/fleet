@@ -27,6 +27,7 @@ rec {
         "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
 
       # nvd diff after home-manager activation
+      # TODO also shows diff if nothing changed..
       home.activation.report-changes = lib.hm.dag.entryAfter [ "installPackages" ] ''
         PATH=$PATH:${lib.makeBinPath [ pkgs.nvd pkgs.nix ]}
         if [[ -d ~/.local/state/nix/profiles ]]; then
