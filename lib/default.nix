@@ -13,7 +13,7 @@ let
 in
 rec {
   mkUserHome = { config, system ? "x86_64-linux" }:
-    { ... }: {
+    { lib, pkgs, ... }: {
       imports = [
         (import ../home/common)
         (import ../home/modules)
@@ -25,6 +25,14 @@ rec {
       home.file.".nixpkgs".source = inputs.nixpkgs;
       home.sessionVariables."NIX_PATH" =
         "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
+
+      # nvd diff after home-manager activation
+      home.activation.report-changes = lib.hm.dag.entryAfter [ "installPackages" ] ''
+        PATH=$PATH:${lib.makeBinPath [ pkgs.nvd pkgs.nix ]}
+        if [[ -d ~/.local/state/nix/profiles ]]; then
+          nvd diff $(find ~/.local/state/nix/profiles -name "home-manager-*-link" -type l | sort -V | tail -2) || echo "No previous home-manager generation found"
+        fi
+      '';
 
       # set in host? fallback
       home.stateVersion = "24.05";
