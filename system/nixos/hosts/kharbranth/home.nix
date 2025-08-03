@@ -15,7 +15,6 @@ in
     # geeqie
     google-chrome
     neovide
-    nvd
     protonmail-desktop
     roam-research
     spotify
