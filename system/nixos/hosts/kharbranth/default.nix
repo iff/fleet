@@ -1,4 +1,4 @@
-{ user, lib, self, system, ... }:
+{ pkgs, user, lib, self, system, ... }:
 
 {
   imports = [ ./hardware.nix ];
@@ -14,6 +14,12 @@
   services.dbus.implementation = "broker";
 
   virtualisation.docker.storageDriver = "btrfs";
+
+  # show nvd diff afetr activation
+  system.activationScripts.report-changes = ''
+    PATH=$PATH:${lib.makeBinPath [ pkgs.nvd pkgs.nix ]}
+    nvd diff $(ls -dv /nix/var/nix/profiles/system-*-link | tail -2)
+  '';
 
   home-manager.users."${user}" = self.lib.mkUserHome { inherit system; config = ./home.nix; };
 
