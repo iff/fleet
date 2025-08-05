@@ -162,7 +162,6 @@ rec {
             }
           )
           (import ../system/nixos/profiles)
-          (import ../system/nixos/modules)
           (import (strToPath config ../system/nixos/hosts))
         ];
         specialArgs =
