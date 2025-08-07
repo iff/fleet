@@ -1,6 +1,6 @@
-# dots
+# fleet
 
-Collection of dotfiles managed by [nix]/[home-manager] and NixOS configuration.
+Collection of system configs managed by [nix]/[home-manager] and NixOS configuration.
 
 [home-manager]: https://github.com/nix-community/home-manager
 [nix]: https://nixos.org/
