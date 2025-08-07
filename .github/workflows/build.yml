@@ -50,7 +50,7 @@ jobs:
       - name: cachix
         uses: cachix/cachix-action@v15
         with:
-          name: iff-dotfiles
+          name: iff-fleet
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
       - name: build target
