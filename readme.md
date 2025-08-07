@@ -7,6 +7,8 @@ Collection of system configs managed by [nix]/[home-manager] and NixOS configura
 
 ## Setup
 
+On macOS use the nix installer provided by [determinate-systems].
+
 ### Script
 
 Get a Github API token for `gh`, then run
@@ -52,3 +54,4 @@ On Nixos run: `sudo nixos-rebuild switch --flake '.#$(hostname)'`
 [nix-man]: https://nixos.org/manual/nix/stable/
 [nixpkgs-man]: https://nixos.org/manual/nixpkgs/stable/
 [nixos-man]: https://nixos.org/manual/nixos/stable/
+[determinate-systems]: https://determinate.systems/nix-installer/
