@@ -41,6 +41,7 @@
       cron.enable = true;
       openssh.enable = true;
     };
+    programs.ssh.startAgent = true;
 
     virtualisation.docker = {
       enable = true;
@@ -68,7 +69,7 @@
     programs.mtr.enable = true;
     programs.gnupg.agent = {
       enable = true;
-      enableSSHSupport = true;
+      enableSSHSupport = false;
     };
 
     security.sudo = {
