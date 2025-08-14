@@ -1299,11 +1299,11 @@
         "web-devicons-nvim": "web-devicons-nvim_2"
       },
       "locked": {
-        "lastModified": 1754835740,
-        "narHash": "sha256-a3sfy/wiOfRqpklPMShxIbOtqOKKZ78TUqcgSAsOs54=",
+        "lastModified": 1755203310,
+        "narHash": "sha256-g2njapapdu5HC2o9Pa7veMo6itJFccwrEUYKX+a+ipY=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "e7a69a46d5ef82f614503f6e61603d1b7a23e0d5",
+        "rev": "753d24153d99550487c7664e11fb2fec05fe5a6a",
         "type": "github"
       },
       "original": {
