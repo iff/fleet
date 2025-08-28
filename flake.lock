@@ -639,11 +639,11 @@
         "web-devicons-nvim": "web-devicons-nvim"
       },
       "locked": {
-        "lastModified": 1756283520,
-        "narHash": "sha256-j9PRWQ5AwsPsD2nGkh5IEG4FuwObu4btBpEuA1HgbM0=",
+        "lastModified": 1756413322,
+        "narHash": "sha256-QXR1TqqgmS/8nWlhAmhSHyFzY04BbjDI1xtS9SYRDLQ=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "569a394757b22c74d98e702f6c0f967ac13cc556",
+        "rev": "fd541a18ece1aa5082c2bf2d4975e6213c422d69",
         "type": "github"
       },
       "original": {
