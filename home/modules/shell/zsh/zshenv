@@ -1,0 +1,3 @@
+setopt no_global_rcs
+if [[ -v __ZSHENV_SOURCED ]]; then return; fi
+export __ZSHENV_SOURCED=1

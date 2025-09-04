@@ -1,10 +1,17 @@
+source ${ZDOTDIR:-~}/.zshrc.d/config.zsh
+source ${ZDOTDIR:-~}/.zshrc.d/aliases.zsh
+source ${ZDOTDIR:-~}/.zshrc.d/prompt.zsh
+
+eval "$(direnv hook zsh)"
+
+## global hooks
+
 load_late=yes
 
 function zle-line-init {
     if [[ -v load_late ]]; then
         unset load_late
-        # TODO: slow setups
-        # completion.zsh
+        source ${ZDOTDIR:-~}/.zshrc.d/completion.zsh
     fi
     echo -ne "\e[6 q"  # steady beam
 }

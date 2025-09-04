@@ -1,6 +1,3 @@
-export LSCOLORS="exfxcxdxbxegedabagacad"
-export CLICOLOR=true
-
 ## misc options
 setopt extended_glob
 setopt interactive_comments  # allow comments in interactive use
@@ -10,7 +7,9 @@ setopt noautocd  # dont assume an implicit cd prefix for folder names
 setopt rm_star_silent  # no confirmation anymore for "rm *"-like
 
 ## completion options
-setopt always_to_end  # move to end of word after completion
+unsetopt menu_complete
+unsetopt flowcontrol
+setopt complete_aliases
 setopt always_to_end  # move to the end of word
 setopt auto_menu  # menu on second request
 setopt auto_remove_slash  # depending on next character
@@ -23,25 +22,31 @@ setopt auto_pushd  # cd does directory stack
 setopt pushd_ignore_dups  # dont add duplicates
 setopt pushd_minus  # flip + and - meaning when working with stack
 
-## history (partly managed by home-manager)
-# HISTFILE=~/.zsh_history
-# export HISTSIZE=1000000000  # "forever"
-# export SAVEHIST=1000000000  # "forever"
-setopt append_history
-# setopt extended_history
-# setopt hist_expire_dups_first
-# setopt hist_ignore_dups  # ignore duplication command history list
-# setopt hist_ignore_space
-setopt hist_save_no_dups
+## history
+unset HISTFILE
 setopt hist_verify
-setopt inc_append_history
-# setopt share_history
+
+export MANOPT='--no-justification --no-hyphenation'
+export MANPAGER='nvim +Man!'
+
+export VISUAL=nvim
+export EDITOR=nvim
+export SUDO_EDITOR=nvim
+
+LESS=''
+LESS+='--status-column '  # mark matched lines on the left side
+LESS+='--HILITE-UNREAD '  # mark next unread line (not working with --status-column?)
+LESS+='--RAW-CONTROL-CHARS '  # pass ansi colors
+LESS+='--chop-long-lines '  # don't wrap long lines
+# LESS+='--clear-screen '  # so that the view starts at the top always
+# LESS+='--no-init '  # don't clear the screen after exit
+LESS+='--jump-target=.3 '  # the target (for example when searching) is put at 1/3 from the top
+export LESS
+
 
 # vim mode for zle
 bindkey -v
 export KEYTIMEMOUT=1 # quicker reaction to mode change (might interfere with other things) (1=0.1seconds)
-
-ZLE_SPACE_SUFFIX_CHARS=$'&|'
 
 autoload -U up-line-or-beginning-search down-line-or-beginning-search insert-files edit-command-line
 zle -N up-line-or-beginning-search
@@ -53,18 +58,9 @@ zle -N edit-command-line
 bindkey -A viins main
 bindkey -M viins '^u' up-line-or-beginning-search
 bindkey -M viins '^e' down-line-or-beginning-search
-# TODO this is really cool, start using it
-# TODO ctrl-something does not know shift or not
-# TODO ^f is mapped later for fzf stuff, need one place to know what is what?
-# bindkey -M viins '^f' insert-files
 bindkey -M viins '^xf' insert-files
 bindkey -M viins '^xe' edit-command-line
 bindkey -M viins '^xh' run-help
-# TODO currently used by osh, but not for colemak
-# shift-enter would be nice ... not sure we can detect it
-# alternatively vim-style: \e-se
-# bindkey -M viins '^n' vi-open-line-below
-# TODO plus there might be a thing that on enter continuation pushes back the lines?
 
 # vim normal mode for colemak (stolen from dk)
 function {
@@ -181,21 +177,6 @@ function {
     bindkey -N viopp
     bindkey -M viopp $binds
 }
-
-export MANPAGER='nvim +Man!'
-export VISUAL=nvim
-export EDITOR=nvim
-export SUDO_EDITOR=nvim
-
-LESS=''
-LESS+='--status-column '  # mark matched lines on the left side
-LESS+='--HILITE-UNREAD '  # mark next unread line (not working with --status-column?)
-LESS+='--RAW-CONTROL-CHARS '  # pass ansi colors
-LESS+='--chop-long-lines '  # don't wrap long lines
-# LESS+='--clear-screen '  # so that the view starts at the top always
-# LESS+='--no-init '  # don't clear the screen after exit
-LESS+='--jump-target=.3 '  # the target (for example when searching) is put at 1/3 from the top
-export LESS
 
 ## FZF
 

@@ -1,20 +1,7 @@
-unsetopt menu_complete
-unsetopt flowcontrol
-setopt auto_menu
-setopt complete_in_word
-setopt always_to_end
-setopt auto_remove_slash
-
-# don't expand aliases _before_ completion has finished
-#   like: git comm-[tab]
-setopt complete_aliases
+ZLE_SPACE_SUFFIX_CHARS=$'&|'
 
 zstyle ':completion:*' verbose yes
-# TODO * vs *:default, unclear, both should work?
 zstyle ':completion:*:default' menu select
-# TODO more about this in zsh/complist modules with ZLS_COLORS and
-# also probably overwritten further down from omz copy
-# zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
@@ -56,6 +43,6 @@ function _complete_tm {
 }
 compctl -K _complete_tm tm
 
-# zmodload zsh/complist
-# autoload -U compinit
-# compinit -d ~/.zcompdump
+zmodload zsh/complist
+autoload -U compinit
+compinit -d ~/.zcompdump
