@@ -26,7 +26,6 @@ in
       font_normal = "ZedMono Nerd Font";
     };
     firefox.enable = true;
-    osh.enable = true;
     kanata.enable = true;
   };
 }

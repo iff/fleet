@@ -34,7 +34,6 @@ in
       font_size = 14.0;
       font_normal = "ZedMono Nerd Font";
     };
-    osh.enable = true;
     # syncthing.enable = true;
     firefox.enable = true;
   };

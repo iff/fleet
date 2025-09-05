@@ -11,6 +11,8 @@ load_late=yes
 function zle-line-init {
     if [[ -v load_late ]]; then
         unset load_late
+        source ${ZDOTDIR:-~}/.zshrc.d/osh_date.zsh
+        source ${ZDOTDIR:-~}/.zshrc.d/osh.zsh
         source ${ZDOTDIR:-~}/.zshrc.d/completion.zsh
         source ${ZDOTDIR:-~}/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
         ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
