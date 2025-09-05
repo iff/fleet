@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, lib, ... }: {
+{ config, pkgs, ... }: {
 
   home.file = {
     ".zshenv".source = ./zsh/zshenv;
@@ -15,7 +15,4 @@
       sha256 = "sha256-4rW2N+ankAH4sA6Sa5mr9IKsdAg7WTgrmyqJ2V1vygQ=";
     };
   };
-
-  # TODO and on urithiru?
-  # programs.zsh.enable = true;
 }

@@ -3,15 +3,15 @@ ZLE_SPACE_SUFFIX_CHARS=$'&|'
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:default' menu select
 
-zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
-
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
-zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 zstyle ':completion:*' special-dirs true
+zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories
 
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
+
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
 # go back to a named parent folder, or one up if no name given
 function .. {
