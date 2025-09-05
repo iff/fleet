@@ -57,12 +57,18 @@
     users.users.${user} = {
       hashedPassword = "$y$j9T$zVsqwbdQAF3uPBPoAtvDw0$Jqj.F2ERf2ZdfWaFkmrv/2s5AppXeZ53RJ6xBxjvHM8";
       isNormalUser = true;
-      extraGroups = [ "docker" "wheel" "systemd-journal" "audio" "video" "input" "networkmanager" ];
+      extraGroups = [ "docker" "wheel" "systemd-journal" "audio" "video" "input" "networkmanager" "wireshark" ];
       shell = pkgs.zsh;
       packages = with pkgs; [ ];
     };
 
     programs.zsh.enable = true;
+
+    programs.wireshark = {
+      enable = true;
+      package = pkgs.wireshark;
+    };
+
 
     # some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
