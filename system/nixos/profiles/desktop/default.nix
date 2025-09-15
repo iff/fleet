@@ -66,7 +66,7 @@ in
     ] ++ lib.optionals (cfg.wm == "hyprland") [
       inputs.hypr-contrib.packages.${pkgs.system}.grimblast
       hyprpaper
-      rofi-wayland
+      rofi
     ] ++ lib.optionals (cfg.wm == "dwm") [
       xorg.xinit
     ];
