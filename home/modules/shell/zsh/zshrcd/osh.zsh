@@ -37,7 +37,7 @@ add-zsh-hook precmd __osh_after
 
 
 function __osh_search {
-    BUFFER=$(__osh search --query=$BUFFER --session-id=$__osh_session_id --session-start=$__osh_session_start)
+    BUFFER=$(__osh sk --query=$BUFFER --session-id=$__osh_session_id --session-start=$__osh_session_start)
     CURSOR=$#BUFFER
     zle reset-prompt
 }
