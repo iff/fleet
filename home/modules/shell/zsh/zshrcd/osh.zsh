@@ -4,9 +4,6 @@ function __osh {
 
 autoload -U add-zsh-hook
 
-__osh_session_id=$(uuidgen)
-__osh_session_start=$(__osh_ts)
-
 function __osh_before {
     local command=''${1[0,-2]}
     if [[ $command != "" ]]; then
@@ -17,8 +14,13 @@ function __osh_before {
         )
     fi
 }
+add-zsh-hook zshaddhistory __osh_before
+
 function __osh_after {
     local exit_code=$?
+    if [[ ! -v __osh_session_id ]]; then
+        __osh_session_id=$(uuidgen)
+    fi
     if [[ -v __osh_current_command ]]; then
     __osh_current_command+=(
             --endtime $(__osh_ts)
@@ -29,15 +31,15 @@ function __osh_after {
         __osh append-event $__osh_current_command &!
         unset __osh_current_command
     fi
-    unset __osh_prefix_timestamp
-    unset __osh_prefix
 }
-add-zsh-hook zshaddhistory __osh_before
 add-zsh-hook precmd __osh_after
 
-
 function __osh_search {
-    BUFFER=$(__osh sk --query=$BUFFER --session-id=$__osh_session_id --session-start=$__osh_session_start)
+    if [[ -v __osh_session_id ]]; then
+        __osh_session_id=$(uuidgen)
+    fi
+    # BUFFER=$(__osh sk --query=$BUFFER --session-id=$__osh_session_id)
+    BUFFER=$(__osh sk --query=$BUFFER)
     CURSOR=$#BUFFER
     zle reset-prompt
 }
