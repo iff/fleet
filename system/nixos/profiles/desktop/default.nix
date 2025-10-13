@@ -4,7 +4,7 @@ with lib;
 let
   cfg = config.dots.profiles.desktop;
 
-  wmList = [ "dwm" "sway" "hyprland" ];
+  wmList = [ "dwm" "niri" "hyprland" ];
 in
 {
   options.dots.profiles.desktop = {
@@ -50,7 +50,7 @@ in
     environment.systemPackages = with pkgs; [
       pamixer
       pulsemixer
-    ] ++ lib.optionals (cfg.wm == "sway" || cfg.wm == "hyprland") [
+    ] ++ lib.optionals (cfg.wm == "niri" || cfg.wm == "hyprland") [
       xdg-utils
       glib
       dracula-theme
@@ -63,7 +63,7 @@ in
       wayland-utils
       egl-wayland
       wayland-protocols
-    ] ++ lib.optionals (cfg.wm == "hyprland") [
+      #
       inputs.hypr-contrib.packages.${pkgs.system}.grimblast
       hyprpaper
       rofi
@@ -72,7 +72,7 @@ in
     ];
 
     # does not seem to help with fuzzy font in browser
-    fonts.fontconfig = mkIf (cfg.wm == "hyprland") {
+    fonts.fontconfig = mkIf (cfg.wm == "hyprland" || cfg.wm == "niri") {
       antialias = true;
 
       # fixes antialiasing blur
@@ -122,26 +122,32 @@ in
 
     # wayland and sway setup below
 
-    programs.xwayland.enable = mkIf (cfg.wm == "sway" || cfg.wm == "hyprland") true;
+    environment.sessionVariables = mkIf (cfg.wm == "niri" || cfg.wm == "hyprland") {
+      NIXOS_OZONE_WL = "1";
+    };
+
+    programs.xwayland.enable = mkIf (cfg.wm == "hyprland") true;
 
     programs.hyprland = mkIf (cfg.wm == "hyprland") {
       enable = true;
       xwayland.enable = true;
     };
 
-    programs.sway = mkIf (cfg.wm == "sway") {
+    # TODO should be niri - for testing
+    programs.niri = mkIf (cfg.wm == "hyprland") {
       enable = true;
-      wrapperFeatures.gtk = true;
     };
+    # niri pulls gnome
+    services.gnome.gcr-ssh-agent.enable = false;
 
-    xdg.portal = mkIf (cfg.wm == "sway" || cfg.wm == "hyprland") {
+    xdg.portal = mkIf (cfg.wm == "niri" || cfg.wm == "hyprland") {
       enable = true;
       wlr.enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
       # gtkUsePortal = true;
     };
 
-    security.pam.services = mkIf (cfg.wm == "sway" || cfg.wm == "hyprland") {
+    security.pam.services = mkIf (cfg.wm == "niri" || cfg.wm == "hyprland") {
       swaylock = { };
     };
   };
