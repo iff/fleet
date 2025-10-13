@@ -73,6 +73,8 @@ in
       "waybar/config.jsonc".source = hypr/waybar.jsonc;
       "waybar/style.css".source = hypr/waybar.css;
       "hypr/hyprland.conf".source = hypr/hyprland.conf;
+      # TODO should go to niri.nix
+      "niri/config.kdl".source = hypr/niri.kdl;
       "hypr/hyprpaper.conf".text = ''
         preload = ${./moon.jpg}
         wallpaper = ,${./moon.jpg} 

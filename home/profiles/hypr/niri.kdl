@@ -301,7 +301,7 @@ window-rule {
 
 binds {
     Mod+Shift+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
-    Mod+P hotkey-overlay-title="Run an Application: rofi" { spawn "rofi -show combi -modes combi -combi-modes 'window,drun,run' -matching fuzzy"; }
+    Mod+P hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "combi" "-modes" "combi" "-combi-modes" "'window,drun,run'" "-matching" "fuzzy"; }
     Mod+O hotkey-overlay-title="Run an Application: firefox" { spawn "firefox"; }
     Ctrl+Mod+S hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
