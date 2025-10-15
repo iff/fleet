@@ -120,12 +120,7 @@ in
 
     programs.slock.enable = mkIf (cfg.wm == "dwm") true;
 
-    # wayland and sway setup below
-
-    environment.sessionVariables = mkIf (cfg.wm == "niri" || cfg.wm == "hyprland") {
-      NIXOS_OZONE_WL = "1";
-    };
-
+    # wayland and niri setup below
     programs.xwayland.enable = mkIf (cfg.wm == "hyprland") true;
 
     programs.hyprland = mkIf (cfg.wm == "hyprland") {
