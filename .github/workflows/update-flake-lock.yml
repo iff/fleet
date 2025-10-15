@@ -46,9 +46,8 @@ jobs:
           LAST_UPDATE=$(git log --all --grep="flake.lock: Update" --skip=1 -1 --format=%H)
 
           if [ -n "$LAST_UPDATE" ]; then
-            nix build github:iff/fleet/${LAST_UPDATE}#top.urithiru -o result-old
-            # TODO what system do we use?
-            nix build .#top.urithiru -o result-new
+            nix build github:iff/fleet/${LAST_UPDATE}#top.kharbranth -o result-old
+            nix build .#top.kharbranth -o result-new
 
             delimiter="$(openssl rand -hex 16)"
             echo "diff<<${delimiter}" >> "${GITHUB_OUTPUT}"
