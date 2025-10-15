@@ -40,15 +40,21 @@ jobs:
           name: iff-fleet
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
-      - name: compare with previous update
-        id: nvd
+      - name: build previous version
         run: |
           LAST_UPDATE=$(git log --all --grep="flake.lock: Update" --skip=1 -1 --format=%H)
-
           if [ -n "$LAST_UPDATE" ]; then
-            nix build github:iff/fleet/${LAST_UPDATE}#top.kharbranth -o result-old
-            nix build .#top.kharbranth -o result-new
+            git checkout ${LAST_UPDATE} flake.lock
+            nix build .#top.kharbranth -o result-old
+            git checkout HEAD flake.lock
+          fi
 
+      - name: build new version and compare
+        id: nvd
+        run: |
+          nix build .#top.kharbranth -o result-new
+
+          if [ -e result-old ]; then
             delimiter="$(openssl rand -hex 16)"
             echo "diff<<${delimiter}" >> "${GITHUB_OUTPUT}"
             echo "<details><summary>Package changes (nvd)</summary>" >> "${GITHUB_OUTPUT}"
