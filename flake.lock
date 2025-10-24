@@ -774,11 +774,11 @@
         "web-devicons-nvim": "web-devicons-nvim"
       },
       "locked": {
-        "lastModified": 1761122254,
-        "narHash": "sha256-YCyo28N5kYY+viB5OUvgUIr9+Zp577etXfLQQIjyCig=",
+        "lastModified": 1761304786,
+        "narHash": "sha256-4lgC9QULNDf8kKC8laBBxHbPDYHR8xO0ToCDopQdak0=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "c44544c2aec57e5479c157d53d41ca516b0aadd0",
+        "rev": "ad100dd88559603f8afaafc51cac2e7b7a01471f",
         "type": "github"
       },
       "original": {
