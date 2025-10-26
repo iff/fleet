@@ -2,37 +2,37 @@
   description = "home manager flake";
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixpkgs-unstable;
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     flake-utils.url = "github:numtide/flake-utils";
 
     home-manager = {
-      url = github:nix-community/home-manager;
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     hypr-contrib = {
-      url = github:hyprwm/contrib;
+      url = "github:hyprwm/contrib";
     };
 
     iff-dwm = {
-      url = github:iff/dwm/nixos;
+      url = "github:iff/dwm/nixos";
       flake = false;
     };
 
     osh-oxy = {
-      url = github:iff/osh-oxy;
+      url = "github:iff/osh-oxy";
       inputs.nixpkgs.follows = "nixpkgs";
       flake = true;
     };
 
     nihilistic-nvim = {
-      url = github:iff/nihilistic-nvim;
+      url = "github:iff/nihilistic-nvim";
       inputs.nixpkgs.follows = "nixpkgs";
       flake = true;
     };
 
     zsh-syntax-highlighting = {
-      url = github:zsh-users/zsh-syntax-highlighting;
+      url = "github:zsh-users/zsh-syntax-highlighting";
       flake = false;
     };
   };
@@ -62,7 +62,7 @@
       );
 
     in
-    rec {
+    {
       inherit pkgsBySystem;
       lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
 
