@@ -309,11 +309,11 @@
     "funky-formatter-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1759063337,
-        "narHash": "sha256-kjMT8e0ePVrWesFjUM2rT4gx7I96esBaxG8Kyjxvud0=",
+        "lastModified": 1761745741,
+        "narHash": "sha256-lRk+DBhb0iPF9cBQ01RToy9sfYUiAvbfp12Kt4UpG0M=",
         "owner": "dkuettel",
         "repo": "funky-formatter.nvim",
-        "rev": "bcd9b889e4c5cc94a67c9285829abafdaf3e2112",
+        "rev": "439ea695484475718f0282d1ca30a7bedeb57b26",
         "type": "github"
       },
       "original": {
@@ -774,11 +774,11 @@
         "web-devicons-nvim": "web-devicons-nvim"
       },
       "locked": {
-        "lastModified": 1761635021,
-        "narHash": "sha256-eTTZr9Biynh//CHYs3jy7+S68MJaft3GeZBZco4AqyY=",
+        "lastModified": 1761746602,
+        "narHash": "sha256-vGNGLuGSvWrXYawZ8UgNC3u+RNIHjcCMA8cd2q475Cg=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "2bd0fe79ebe0fdc6837ae357b732ceed4c552eef",
+        "rev": "5c102ec864f05861714a3188a71cfdc76307f8c6",
         "type": "github"
       },
       "original": {
