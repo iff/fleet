@@ -103,10 +103,10 @@ in
 
   programs.git = {
     enable = true;
-    userName = "Yves Ineichen";
+    settings.user.name = "Yves Ineichen";
     signing.key = "165AEDEB";
 
-    extraConfig = {
+    settings.extraConfig = {
       branch = {
         sort = "-committerdate";
       };
@@ -165,7 +165,7 @@ in
       };
     };
 
-    aliases = {
+    settings.aliases = {
       b = "branch -vv";
       ba = "branch -avv";
       c = "commit";
