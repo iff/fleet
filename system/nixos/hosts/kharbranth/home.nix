@@ -12,11 +12,13 @@ in
 {
   home.packages = with pkgs; [
     # ‘libsoup-2.74.3’ is marked as insecure, refusing to evaluate
-    # geeqie
+    geeqie
     google-chrome
     neovide
+    perf
     protonmail-desktop
     roam-research
+    samply
     spotify
     transmission_4-gtk
     vlc
