@@ -31,5 +31,5 @@ in
     };
   };
 
-  home.packages = [ inputs.osh-oxy.packages.${pkgs.system}.default ];
+  home.packages = [ inputs.osh-oxy.packages.${pkgs.stdenv.hostPlatform.system}.default ];
 }

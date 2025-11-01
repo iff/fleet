@@ -26,7 +26,7 @@
     pkgs.fontconfig
     pkgs.nerd-fonts.zed-mono
     # all systems with nvim
-    inputs.nihilistic-nvim.packages.${pkgs.system}.prod
+    inputs.nihilistic-nvim.packages.${pkgs.stdenv.hostPlatform.system}.prod
     # try
     pkgs.claude-code
   ];

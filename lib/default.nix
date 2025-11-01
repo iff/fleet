@@ -97,7 +97,6 @@ rec {
         pkgs = inputs.self.pkgsBySystem."${system}";
       in
       nixosSystem {
-        inherit system;
         modules = [
           (
             { name, ... }: {
