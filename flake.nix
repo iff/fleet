@@ -35,6 +35,10 @@
       url = "github:zsh-users/zsh-syntax-highlighting";
       flake = false;
     };
+
+    ltstatus = {
+      url = "github:dkuettel/ltstatus/main";
+    };
   };
 
   nixConfig = {

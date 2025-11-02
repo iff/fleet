@@ -1,21 +1,54 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 with lib;
 let
-  dwm-status = pkgs.writeScriptBin "dwm-status"
+  dwm-ltstatus = pkgs.writeScriptBin "dwm-ltstatus"
     ''
-      #!/usr/bin/env zsh
-      set -eux -o pipefail
-      
-      status () {
-        echo -n "$(date '+%d/%m %H:%M')"
+      #! /usr/bin/env -S ltstatus run
+
+      import os
+      import re
+      import subprocess
+      import threading
+      import time
+      from pathlib import Path
+
+      import ltstatus.monitor as m
+
+      sound_aliases = {
+          "iFi (by AMR) HD USB Audio Pro": "ifi",
+          "apm.zero": "apm",
+          "Dummy Output": "none",
       }
-      
-      while true
-      do
-        xsetroot -name "$(status)";
-        sleep 1m;
-      done
+
+      event = threading.Event()
+      with (
+          m.spotify(event) as spotify,
+          m.process_alerts(flags={"steam": re.compile(r".*steam.*")}) as alerts,
+          m.redshift(event) as redshift,
+          m.datetime() as datetime,
+          m.cpu() as cpu,
+          m.nvidia() as nvidia,
+      ):
+          while True:
+              event.wait(1)
+              event.clear()
+              segments = [
+                  spotify(),
+                  alerts(),
+                  f"󰬊 {cpu()}󰯾 {nvidia()}",
+                  redshift(),
+                  datetime(),
+              ]
+              segments = [s for s in segments if s != ""]
+              subprocess.run(
+                    args=[
+                          "xsetroot",
+                          "-name",
+                          " " + " | ".join(segments) + " ",
+                   ],
+                   check=True,
+              )
     '';
 
   cfg = config.dots.profiles.dwm;
@@ -31,8 +64,8 @@ in
       pkgs.feh
       pkgs.gthumb
       pkgs.scrot
-      # TODO try pkgs.dwm-status
-      dwm-status
+      inputs.ltstatus.packages.${pkgs.stdenv.hostPlatform.system}.app
+      dwm-ltstatus
     ];
 
     home.file.".xinitrc".text = ''
@@ -44,11 +77,14 @@ in
       xset s off
       setterm --blank 0 --powerdown 0
 
-      feh --bg-scale ${./mountains.jpg}
+      feh --bg-scale ${./moon.jpg}
       redshift -r -v & # |& ts '%F %T' >& $HOME/.log-redshift &
-      dwm-status &
+
+      dwm-ltstatus >& .log-dwm-status &
 
       dwm
+
+      kill %ltstatus || true
     '';
   };
 }
