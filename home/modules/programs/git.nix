@@ -165,7 +165,7 @@ in
       };
     };
 
-    settings.aliases = {
+    settings.alias = {
       b = "branch -vv";
       ba = "branch -avv";
       c = "commit";
