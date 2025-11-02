@@ -11,7 +11,6 @@ let
 in
 {
   home.packages = with pkgs; [
-    # ‘libsoup-2.74.3’ is marked as insecure, refusing to evaluate
     geeqie
     google-chrome
     neovide
@@ -22,18 +21,19 @@ in
     spotify
     transmission_4-gtk
     vlc
+    slack
     #
     switch
   ];
 
   dots = {
     profiles = {
-      hyprland.enable = true;
       linux.enable = true;
     };
     alacritty = {
       enable = true;
-      font_size = 14.0;
+      # for dwm, 14 for Hyprland/Niri
+      font_size = 13.0;
       font_normal = "ZedMono Nerd Font";
     };
     # syncthing.enable = true;

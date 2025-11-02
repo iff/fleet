@@ -61,7 +61,11 @@
           inherit system;
 
           config.allowUnfreePredicate = pkg: builtins.elem (self.lib.getName pkg)
-            [ "1password" "1password-gui" "1password-cli" "claude-code" "google-chrome" "keymapp" "nvidia-settings" "nvidia-x11" "roam-research" "spotify" "steam" "steam-unwrapped" ];
+            [ "1password" "1password-gui" "1password-cli" "claude-code" "google-chrome" "keymapp" "nvidia-settings" "nvidia-x11" "roam-research" "spotify" "steam" "steam-unwrapped" "slack" ];
+
+          # for cuda
+          # [ "cuda_cudart" "libcublas" "cuda_cccl" "cuda_nvcc" "libcurand" "libcusparse" "libnvjitlink" "libcufft" "cudnn" "cuda_nvrtc" ];
+          # config.cudaSupport = true;
         }
       );
 

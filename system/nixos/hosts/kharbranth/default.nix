@@ -27,7 +27,7 @@
     profiles = {
       desktop = {
         enable = true;
-        wm = "hyprland";
+        wm = "dwm";
       };
     };
   };

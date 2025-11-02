@@ -1,7 +1,9 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, user, ... }:
 
 with lib;
 let
+  cfg = config.dots.profiles.desktop;
+
   dwm-ltstatus = pkgs.writeScriptBin "dwm-ltstatus"
     ''
       #! /usr/bin/env -S ltstatus run
@@ -50,41 +52,53 @@ let
                    check=True,
               )
     '';
-
-  cfg = config.dots.profiles.dwm;
 in
 {
-  options.dots.profiles.dwm = {
-    enable = mkEnableOption "dwm profile";
-  };
-
-  config = mkIf cfg.enable {
-    home.packages = [
-      pkgs.dmenu-rs
-      pkgs.feh
-      pkgs.gthumb
-      pkgs.scrot
-      inputs.ltstatus.packages.${pkgs.stdenv.hostPlatform.system}.app
-      dwm-ltstatus
+  config = mkIf (cfg.enable && (cfg.wm == "dwm" || cfg.wm == "all")) {
+    environment.systemPackages = with pkgs; [
+      xorg.xinit
     ];
 
-    home.file.".xinitrc".text = ''
-      #!/usr/bin/env zsh
-      set -eux -o pipefail
+    services.xserver = {
+      windowManager.dwm = {
+        enable = true;
+        package = pkgs.dwm.overrideAttrs {
+          src = builtins.getAttr "iff-dwm" inputs;
+        };
+      };
+      displayManager.startx.enable = true;
+    };
 
-      # monitor never off
-      xset -dpms
-      xset s off
-      setterm --blank 0 --powerdown 0
+    programs.slock.enable = true;
 
-      feh --bg-scale ${./moon.jpg}
-      redshift -r -v & # |& ts '%F %T' >& $HOME/.log-redshift &
+    home-manager.users.${user} = {
+      home.packages = [
+        pkgs.dmenu-rs
+        pkgs.feh
+        pkgs.gthumb
+        pkgs.scrot
+        inputs.ltstatus.packages.${pkgs.stdenv.hostPlatform.system}.app
+        dwm-ltstatus
+      ];
 
-      dwm-ltstatus >& .log-dwm-status &
+      home.file.".xinitrc".text = ''
+        #!/usr/bin/env zsh
+        set -eux -o pipefail
 
-      dwm
+        # monitor never off
+        xset -dpms
+        xset s off
+        setterm --blank 0 --powerdown 0
 
-      kill %ltstatus || true
-    '';
+        feh --bg-scale ${./backgrounds/moon.jpg}
+        redshift -r -v & # |& ts '%F %T' >& $HOME/.log-redshift &
+
+        dwm-ltstatus >& .log-dwm-status &
+
+        dwm
+
+        kill %ltstatus || true
+      '';
+    };
   };
 }

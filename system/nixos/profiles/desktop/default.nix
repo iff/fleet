@@ -1,18 +1,31 @@
-{ config, lib, pkgs, inputs, user, ... }:
+{ config, lib, pkgs, user, ... }:
 
 with lib;
 let
   cfg = config.dots.profiles.desktop;
 
-  wmList = [ "dwm" "niri" "hyprland" ];
+  wmList = [ "dwm" "niri" "hyprland" "all" ];
 in
 {
+  imports = [
+    ./dwm.nix
+    ./hyprland.nix
+    ./niri.nix
+    ./wlsunset.nix
+    ./wayland-overrides.nix
+  ];
+
   options.dots.profiles.desktop = {
     enable = mkEnableOption "desktop profile";
     wm = mkOption {
       description = "window manager";
       type = types.enum (wmList);
       default = "hyprland";
+    };
+    enableWaylandOverrides = mkOption {
+      description = "Enable wayland-specific package overrides (e.g., ozone flags for Chrome)";
+      type = types.bool;
+      default = false;
     };
   };
 
@@ -44,52 +57,34 @@ in
     services.dbus.enable = true;
     services.dbus.packages = [ pkgs.gcr ];
 
+    # NOTE currently no bluetooth devices
     # hardware.bluetooth.enable = true;
     # services.blueman.enable = true;
 
     environment.systemPackages = with pkgs; [
       pamixer
       pulsemixer
-    ] ++ lib.optionals (cfg.wm == "niri" || cfg.wm == "hyprland") [
-      xdg-utils
-      glib
-      dracula-theme
-      adwaita-icon-theme
-      mako
-      wl-clipboard
-      wlr-randr
-      wayland
-      wayland-scanner
-      wayland-utils
-      egl-wayland
-      wayland-protocols
-      #
-      inputs.hypr-contrib.packages.${pkgs.stdenv.hostPlatform.system}.grimblast
-      hyprpaper
-      rofi
-    ] ++ lib.optionals (cfg.wm == "dwm") [
-      xorg.xinit
     ];
 
-    # does not seem to help with fuzzy font in browser
-    fonts.fontconfig = mkIf (cfg.wm == "hyprland" || cfg.wm == "niri") {
-      antialias = true;
-
-      # fixes antialiasing blur
-      hinting = {
-        enable = true;
-        # style = "slight"; # no difference
-        # autohint = true; # no difference
-      };
-
-      subpixel = {
-        rgba = "rgb";
-        lcdfilter = "default";
-      };
-    };
+    # fonts.fontconfig = mkIf (cfg.wm == "hyprland" || cfg.wm == "niri") {
+    #   antialias = true;
+    #
+    #   # fixes antialiasing blur
+    #   hinting = {
+    #     enable = true;
+    #     # style = "slight"; # no difference
+    #     # autohint = true; # no difference
+    #   };
+    #
+    #   subpixel = {
+    #     rgba = "rgb";
+    #     lcdfilter = "default";
+    #   };
+    # };
 
     hardware.graphics = {
       enable = true;
+      enable32Bit = true;
     };
 
     hardware.nvidia = {
@@ -102,48 +97,17 @@ in
       nvidiaSettings = true;
     };
 
+    # TODO seems to be needed for wayland to get nvidia drivers?
     services.xserver = {
+      enable = true;
       # load nvidia driver for Xorg and Wayland (under xserver)
       videoDrivers = [ "nvidia" ];
-    } // mkIf (cfg.wm == "dwm") {
-      enable = true;
       xkb.layout = "us";
-      # no display manager (https://nixos.wiki/wiki/Using_X_without_a_Display_Manager)
-      displayManager.startx.enable = true;
-      windowManager.dwm = {
-        enable = true;
-        package = pkgs.dwm.overrideAttrs {
-          src = builtins.getAttr "iff-dwm" inputs;
-        };
-      };
-    };
-
-    programs.slock.enable = mkIf (cfg.wm == "dwm") true;
-
-    # wayland and niri setup below
-    programs.xwayland.enable = mkIf (cfg.wm == "hyprland") true;
-
-    programs.hyprland = mkIf (cfg.wm == "hyprland") {
-      enable = true;
-      xwayland.enable = true;
-    };
-
-    # TODO should be niri - for testing
-    programs.niri = mkIf (cfg.wm == "hyprland") {
-      enable = true;
-    };
-    # niri pulls gnome
-    services.gnome.gcr-ssh-agent.enable = false;
-
-    xdg.portal = mkIf (cfg.wm == "niri" || cfg.wm == "hyprland") {
-      enable = true;
-      wlr.enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-      # gtkUsePortal = true;
-    };
-
-    security.pam.services = mkIf (cfg.wm == "niri" || cfg.wm == "hyprland") {
-      swaylock = { };
+      displayManager.xserverArgs = [
+        "-nolisten tcp" # enableTCP = false;
+        "-ardelay 200" # autoRepeatDelay = 200;
+        "-arinterval 20" #  autoRepeatInterval = 20;
+      ];
     };
   };
 }

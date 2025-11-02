@@ -1,5 +1,5 @@
 { ... }:
 
 {
-  imports = [ ./darwin.nix ./dwm.nix ./hyprland.nix ./linux.nix ];
+  imports = [ ./darwin.nix ./linux.nix ];
 }
