@@ -75,13 +75,11 @@
       lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
 
       homeConfigurations = mapAttrs' intoHomeManager {
-        # roshar = { system = "aarch64-darwin"; };
         urithiru = { system = "aarch64-darwin"; };
       };
 
       nixosConfigurations = mapAttrs' intoNixOs {
         kharbranth = { };
-        # shadesmar = { user = "yineichen"; };
       };
 
       # CI build helper
