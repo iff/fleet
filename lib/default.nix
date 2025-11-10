@@ -12,7 +12,7 @@ let
     else x;
 in
 rec {
-  mkUserHome = { config, system ? "x86_64-linux" }:
+  mkUserHome = { config }:
     { lib, pkgs, ... }: {
       imports = [
         (import ../home/common)
@@ -55,7 +55,7 @@ rec {
             imports =
               let
                 userConf = strToFile config ../home/hosts;
-                home = mkUserHome { inherit system; config = userConf; };
+                home = mkUserHome { config = userConf; };
               in
               [ home ];
 
@@ -87,7 +87,7 @@ rec {
           let
             self = inputs.self;
           in
-          { inherit inputs name self system; };
+          { inherit inputs name self; };
       }
     );
 
@@ -107,6 +107,7 @@ rec {
             { inputs, ... }: {
               nixpkgs = {
                 inherit pkgs;
+                hostPlatform = system;
                 overlays = [
                   # Waybar overlay for experimental features (used by hyprland/sway profiles)
                   (final: prev: {
@@ -156,7 +157,7 @@ rec {
                     self = inputs.self;
                   in
                   # NOTE: Cannot pass name to home-manager as it passes `name` in to set the `hmModule`
-                  { inherit inputs self system user; };
+                  { inherit inputs self user; };
               };
             }
           )
@@ -167,7 +168,7 @@ rec {
           let
             self = inputs.self;
           in
-          { inherit inputs name self system user; };
+          { inherit inputs name self user; };
       }
     );
 }

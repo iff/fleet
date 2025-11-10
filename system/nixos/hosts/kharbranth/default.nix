@@ -1,4 +1,4 @@
-{ pkgs, user, lib, self, system, ... }:
+{ pkgs, user, lib, self, ... }:
 
 {
   imports = [ ./hardware.nix ];
@@ -21,7 +21,7 @@
     nvd diff $(find /nix/var/nix/profiles -name "system-*-link" -type l | sort -V | tail -2) || echo "No previous nixos generation found"
   '';
 
-  home-manager.users."${user}" = self.lib.mkUserHome { inherit system; config = ./home.nix; };
+  home-manager.users."${user}" = self.lib.mkUserHome { config = ./home.nix; };
 
   dots = {
     profiles = {

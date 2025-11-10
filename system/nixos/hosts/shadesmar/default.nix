@@ -1,4 +1,4 @@
-{ user, self, system, ... }:
+{ user, self, ... }:
 
 {
   imports = [ ./hardware.nix ];
@@ -30,7 +30,7 @@
   services.dbus.implementation = "broker";
   services.blueman.enable = true;
 
-  home-manager.users."${user}" = self.lib.mkUserHome { inherit system; config = ./home.nix; };
+  home-manager.users."${user}" = self.lib.mkUserHome { config = ./home.nix; };
 
   dots = {
     profiles = {
