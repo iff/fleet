@@ -71,6 +71,27 @@ in
 
     programs.slock.enable = true;
 
+    location = {
+      provider = "manual";
+      latitude = 47.4;
+      longitude = 8.5;
+    };
+
+    services = {
+      redshift = {
+        enable = true;
+        temperature = {
+          day = 5700;
+          night = 3200;
+        };
+        brightness = {
+          day = "1.0";
+          night = "0.7";
+        };
+        extraOptions = [ "-m" "randr" "-t" "1" ];
+      };
+    };
+
     home-manager.users.${user} = {
       home.packages = [
         pkgs.dmenu-rs

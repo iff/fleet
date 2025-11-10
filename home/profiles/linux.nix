@@ -14,14 +14,6 @@ let
       scrot ~/sshots/'%Y-%m-%d--%H:%M:%S.png' --silent --exec 'gthumb $f'
     '';
 
-  susp = pkgs.writeScriptBin "susp"
-    ''
-      #!/usr/bin/env zsh
-
-      slock &
-      systemctl suspend
-    '';
-
   lvm-overview = pkgs.writeScriptBin "lvm-overview"
     ''
       #!/usr/bin/python3
@@ -79,33 +71,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    # targets.genericLinux.enable = true;
-
     home.packages = [
       loop
       lvm-overview
       sshot
-      susp
-      pkgs.redshift
     ];
-
-    services = {
-      redshift = {
-        enable = true;
-        temperature = {
-          day = 5700;
-          night = 3200;
-        };
-        provider = "manual";
-        latitude = 47.4;
-        longitude = 8.5;
-        settings = {
-          redshift.adjustment-method = "randr";
-          redshift.transition = 1;
-          redshift.brightness-day = 1.0;
-          redshift.brightness-night = 0.7;
-        };
-      };
-    };
   };
 }
