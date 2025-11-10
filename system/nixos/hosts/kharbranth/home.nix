@@ -27,9 +27,6 @@ in
   ];
 
   dots = {
-    profiles = {
-      linux.enable = true;
-    };
     alacritty = {
       enable = true;
       # for dwm, 14 for Hyprland/Niri

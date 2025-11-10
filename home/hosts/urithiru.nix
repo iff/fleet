@@ -17,9 +17,6 @@ in
   ];
 
   dots = {
-    profiles = {
-      darwin.enable = true;
-    };
     alacritty = {
       enable = true;
       font_size = 19.0;

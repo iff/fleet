@@ -1,9 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 with lib;
 let
-  cfg = config.dots.profiles.linux;
-
   sshot = pkgs.writeScriptBin "sshot"
     ''
       #!/usr/bin/env zsh
@@ -66,11 +64,7 @@ let
     '';
 in
 {
-  options.dots.profiles.linux = {
-    enable = mkEnableOption "linux profile";
-  };
-
-  config = mkIf cfg.enable {
+  config = mkIf pkgs.stdenv.isLinux {
     home.packages = [
       loop
       lvm-overview
