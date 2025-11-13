@@ -12,55 +12,15 @@ let
       # tmux new-session -A -D -e NN_XPS_CACHE=$HOME/.cache/xps -e nn=$HOME/envs/$session -s $session
     '';
 
-  tmux-git = pkgs.writeScriptBin "tmux-git"
-    ''
-      #!/usr/bin/env zsh
-      set -eu -o pipefail
-
-      if [[ $(pwd -P) == (/efs|/efs/*|/s3/*) ]]; then
-          print -- '󰒲'
-          return
-      fi
-
-      # TODO either . or nn/nn will be the path we need to show
-      local git_path
-      if git_path=$(git rev-parse --show-toplevel); then
-          # NOTE plain 'git status' with no arguments can be slow because it checks all submodules
-          # NOTE parsing like below is actually 2x faster than zsh's vcs_info
-          # NOTE --porcelain=v1 would be preferred, but then --show-stash is ignored
-          local args=(--branch --ignore-submodules=all --untracked-files=normal --ahead-behind --show-stash)
-          # could use 'timeout --kill-after=0.01s 0.01s cmd' to stop git info when it takes too long on a slow filesystem
-          (git -c advice.statusHints=false status $args |& awk -v ORS=''' '
-              BEGIN { has=1; flags=0; stashed=0 }
-              /^fatal: not a git repository/ { has=0 }
-              /^On branch / { print " " $3 " " }
-              /^HEAD detached at / { print " " $4 " " }
-              /^Your branch is up to date with / { }
-              /^Your branch is ahead of / { print " " }
-              /^Your branch is behind / { print " " }
-              /^Your branch and .+ have diverged/ { print " " }
-              /^nothing to commit, working tree clean/ { }
-              /^Unmerged paths:/ { print "󰅚"; flags++ }
-              /^Changes to be committed:/ { print "󰆗"; flags++ }
-              /^Changes not staged for commit:/ { print "󰙝"; flags++ }
-              /^Untracked files:/ { print ""; flags++ }
-              /^Your stash currently has / { stashed=1 }
-              END {
-                  if (has==0) print ""
-                  if (has==1 && flags==0) print "󰄴"
-                  if (has==1 && stashed==1) print " 󰊰"
-              }
-          ') || true
-          print -- ""
-      else
-          print -- '-'
-      fi
-    '';
+  tmux-git-prompt = pkgs.writeScriptBin "tmux-git-prompt" (builtins.readFile ./tmux-git-prompt);
 in
 {
   # FIXME alacritty and TMUX have issues with OSX native ncurses
   # see https://github.com/NixOS/nixpkgs/issues/204144
-  home.packages = [ tm tmux-git ] ++ lib.optionals pkgs.stdenv.isDarwin [ pkgs.ncurses ];
+  home.packages = [
+    tm
+    tmux-git-prompt
+  ] ++ lib.optionals pkgs.stdenv.isDarwin [ pkgs.ncurses ];
 
   programs.tmux = {
     enable = true;
@@ -93,7 +53,7 @@ in
       set -g status-style "fg=#abb1bb,bg=#232831"
 
       set -g status-left-style NONE
-      set -g status-left "#[fg=#232831,bg=#81a1c1,bold] #{session_name} #(tmux-git) #[fg=#81a1c1,bg=#232831,nobold,nounderscore,noitalics]"
+      set -g status-left "#[fg=#232831,bg=#81a1c1,bold] #{session_name} #(tmux-git-prompt) #[fg=#81a1c1,bg=#232831,nobold,nounderscore,noitalics]"
 
       set -g status-right-style NONE
       set -g status-right "#[fg=#232831,bg=#232831,nobold,nounderscore,noitalics][fg=#81a1c1,bg=#232831] #{prefix_highlight} #[fg=#abb1bb,bg=#232831,nobold,nounderscore,noitalics]#[fg=#232831,bg=#abb1bb] %H:%M #[fg=#81a1c1,bg=#abb1bb,nobold,nounderscore,noitalics]#[fg=#232831,bg=#81a1c1,bold] #h "

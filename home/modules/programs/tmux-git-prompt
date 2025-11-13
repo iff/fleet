@@ -1,0 +1,84 @@
+#!/usr/bin/env zsh
+set -eu -o pipefail
+
+# NOTE about using `git -c core.untrackedCache=true --no-optional-locks`
+# --no-optional-locks makes it so that we dont touch anything in .git and
+#   therefore we dont inotify ourselves in a feedback loop and we also dont
+#   trigger other tools (like nvim gitsigns) with events for no real changes to
+#   git in this folder.
+# -c core.untrackedCache=true can speed up things, but im not sure that still
+#   has an effect after disabling --no-optional-locks
+
+
+if ! git_path=$(git --no-optional-locks rev-parse --show-toplevel); then
+    return
+fi
+cd $git_path
+
+
+function monitor {
+    # NOTE i dont know if this is the right filter
+    events=(
+        --event modify
+        --event attrib
+        --event move
+        --event create
+        --event delete
+    )
+    echo init
+    inotifywait --quiet --monitor --recursive $events . 2>/dev/null
+}
+
+
+function rate-limit {
+    while read -r one; do
+        timeout 0.1s cat &>/dev/null || true
+        echo event
+        while [[ $((timeout 1s cat || true) | wc -l) != 0 ]]; do
+            echo burst
+        done
+    done
+}
+
+
+function status {
+
+    print -n -- " ${(D)git_path}"
+
+    # NOTE plain 'git status' with no arguments can be slow because it checks all submodules
+    # NOTE parsing like below is actually 2x faster than zsh's vcs_info
+    # NOTE --porcelain=v1 would be preferred, but then --show-stash is ignored
+    args=(--branch --ignore-submodules=all --untracked-files=normal --ahead-behind --show-stash)
+    # NOTE could use 'timeout --kill-after=0.01s 0.01s cmd' to stop git info when it takes too long on a slow filesystem
+    # TODO would be cool to show only icons when there is not enough space
+    (git -c advice.statusHints=false -c core.untrackedCache=true --no-optional-locks status $args |& awk -v ORS='' '
+        # exactly one of those will match
+        /^On branch / { print "   " $3 }
+        /^HEAD detached at / { print "  " $4 }
+
+        # exactly one of those will match
+        /^Your branch is up to date with / {print "   synced"  }
+        /^Your branch is ahead of / { print "   ahead" }
+        /^Your branch is behind / { print "   behind" }
+        /^Your branch and .+ have diverged/ { print "    diverged" }
+
+        # the first, or at least one of the others will match
+        /^nothing to commit, working tree clean/ { print "   clean" }
+        /^Unmerged paths:/ { print "  󰅗 unmerged" }
+        /^Changes to be committed:/ { print "  󰏬 uncommited" }
+        /^Changes not staged for commit:/ { print "  󰆖 unstaged" }
+        /^Untracked files:/ { print "  󰞋 untracked" }
+
+        # maybe matches
+        /^Your stash currently has / { print "  󰿠 stashes" }
+    ') || true
+
+    if git -c advice.statusHints=false -c core.untrackedCache=true --no-optional-locks submodule status |& grep + &>/dev/null; then
+        print -n -- '   sm'
+    fi
+
+    print
+}
+
+
+monitor | rate-limit | while read -r event; do status; done
