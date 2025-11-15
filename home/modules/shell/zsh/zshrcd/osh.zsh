@@ -38,8 +38,7 @@ function __osh_search {
     if [[ -v __osh_session_id ]]; then
         __osh_session_id=$(uuidgen)
     fi
-    # BUFFER=$(__osh sk --query=$BUFFER --session-id=$__osh_session_id)
-    BUFFER=$(__osh sk --query=$BUFFER)
+    BUFFER=$(__osh search --folder=$(pwd) --query=$BUFFER --session-id=$__osh_session_id)
     CURSOR=$#BUFFER
     zle reset-prompt
 }
