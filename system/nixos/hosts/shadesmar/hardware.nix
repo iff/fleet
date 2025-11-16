@@ -1,4 +1,10 @@
-{ config, lib, pkgs, modulesPath, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}:
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
@@ -6,7 +12,14 @@
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
     initrd = {
-      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "usb_storage"
+        "usbhid"
+        "sd_mod"
+      ];
       kernelModules = [ "dm-snapshot" ];
     };
 
@@ -45,7 +58,10 @@
     "/boot" = {
       device = "/dev/disk/by-uuid/2CDB-0C1A";
       fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
       depends = [ "/" ];
     };
     "/nix" = {
@@ -60,17 +76,21 @@
     };
   };
 
-  fileSystems."/scratch" =
-    {
-      device = "/dev/disk/by-uuid/923aa534-f79d-43fa-8532-fc6a5f0cfd6a";
-      fsType = "btrfs";
-      options = [ "noatime" "ssd" "discard=async" "space_cache=v2" "commit=120" ];
-    };
-  fileSystems."/data" =
-    {
-      device = "/dev/disk/by-uuid/dd44e584-a85b-481e-9772-339b1c6ecb7b";
-      fsType = "ext4";
-    };
+  fileSystems."/scratch" = {
+    device = "/dev/disk/by-uuid/923aa534-f79d-43fa-8532-fc6a5f0cfd6a";
+    fsType = "btrfs";
+    options = [
+      "noatime"
+      "ssd"
+      "discard=async"
+      "space_cache=v2"
+      "commit=120"
+    ];
+  };
+  fileSystems."/data" = {
+    device = "/dev/disk/by-uuid/dd44e584-a85b-481e-9772-339b1c6ecb7b";
+    fsType = "ext4";
+  };
 
   services.zfs.autoScrub.enable = true;
 

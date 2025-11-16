@@ -1,4 +1,10 @@
-{ pkgs, user, lib, self, ... }:
+{
+  pkgs,
+  user,
+  lib,
+  self,
+  ...
+}:
 
 {
   imports = [ ./hardware.nix ];
@@ -17,7 +23,12 @@
 
   # show nvd diff after activation
   system.activationScripts.report-changes = ''
-    PATH=$PATH:${lib.makeBinPath [ pkgs.nvd pkgs.nix ]}
+    PATH=$PATH:${
+      lib.makeBinPath [
+        pkgs.nvd
+        pkgs.nix
+      ]
+    }
     nvd diff $(find /nix/var/nix/profiles -name "system-*-link" -type l | sort -V | tail -2) || echo "No previous nixos generation found"
   '';
 

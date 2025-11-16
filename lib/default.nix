@@ -2,18 +2,16 @@
 
 with inputs.nixpkgs.lib;
 let
-  strToPath = x: path:
-    if builtins.typeOf x == "string"
-    then builtins.toPath ("${toString path}/${x}")
-    else x;
-  strToFile = x: path:
-    if builtins.typeOf x == "string"
-    then builtins.toPath ("${toString path}/${x}.nix")
-    else x;
+  strToPath =
+    x: path: if builtins.typeOf x == "string" then builtins.toPath ("${toString path}/${x}") else x;
+  strToFile =
+    x: path: if builtins.typeOf x == "string" then builtins.toPath ("${toString path}/${x}.nix") else x;
 in
 rec {
-  mkUserHome = { config }:
-    { lib, pkgs, ... }: {
+  mkUserHome =
+    { config }:
+    { lib, pkgs, ... }:
+    {
       imports = [
         (import ../home/common)
         (import ../home/modules)
@@ -23,13 +21,17 @@ rec {
 
       # For compatibility with nix-shell, nix-build, etc.
       home.file.".nixpkgs".source = inputs.nixpkgs;
-      home.sessionVariables."NIX_PATH" =
-        "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
+      home.sessionVariables."NIX_PATH" = "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
 
       # nvd diff after home-manager activation
       # TODO also shows diff if nothing changed..
       home.activation.report-changes = lib.hm.dag.entryAfter [ "installPackages" ] ''
-        PATH=$PATH:${lib.makeBinPath [ pkgs.nvd pkgs.nix ]}
+        PATH=$PATH:${
+          lib.makeBinPath [
+            pkgs.nvd
+            pkgs.nix
+          ]
+        }
         if [[ -d ~/.local/state/nix/profiles ]]; then
           nvd diff $(find ~/.local/state/nix/profiles -name "home-manager-*-link" -type l | sort -V | tail -2) || echo "No previous home-manager generation found"
         fi
@@ -39,7 +41,13 @@ rec {
       home.stateVersion = "24.05";
     };
 
-  intoHomeManager = name: { config ? name, user ? "iff", system ? "x86_64-linux" }:
+  intoHomeManager =
+    name:
+    {
+      config ? name,
+      user ? "iff",
+      system ? "x86_64-linux",
+    }:
     let
       pkgs = inputs.self.pkgsBySystem."${system}";
       username = user;
@@ -87,11 +95,19 @@ rec {
           let
             self = inputs.self;
           in
-          { inherit inputs name self; };
+          {
+            inherit inputs name self;
+          };
       }
     );
 
-  intoNixOs = name: { config ? name, user ? "iff", system ? "x86_64-linux" }:
+  intoNixOs =
+    name:
+    {
+      config ? name,
+      user ? "iff",
+      system ? "x86_64-linux",
+    }:
     nameValuePair name (
       let
         pkgs = inputs.self.pkgsBySystem."${system}";
@@ -99,12 +115,14 @@ rec {
       nixosSystem {
         modules = [
           (
-            { name, ... }: {
+            { name, ... }:
+            {
               networking.hostName = name;
             }
           )
           (
-            { inputs, ... }: {
+            { inputs, ... }:
+            {
               nixpkgs = {
                 inherit pkgs;
                 hostPlatform = system;
@@ -123,7 +141,8 @@ rec {
             }
           )
           (
-            { pkgs, ... }: {
+            { pkgs, ... }:
+            {
               nix = {
                 package = pkgs.nixVersions.latest;
                 extraOptions = "experimental-features = nix-command flakes";
@@ -131,36 +150,41 @@ rec {
             }
           )
           (
-            { inputs, ... }: {
+            { inputs, ... }:
+            {
               # re-expose self and nixpkgs as flakes.
               nix.registry = {
                 self.flake = inputs.self;
                 nixpkgs = {
-                  from = { id = "nixpkgs"; type = "indirect"; };
+                  from = {
+                    id = "nixpkgs";
+                    type = "indirect";
+                  };
                   flake = inputs.nixpkgs;
                 };
               };
             }
           )
           (
-            { ... }: {
+            { ... }:
+            {
               system.stateVersion = "24.05";
             }
           )
           (inputs.home-manager.nixosModules.home-manager)
-          (
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                extraSpecialArgs =
-                  let
-                    self = inputs.self;
-                  in
-                  # NOTE: Cannot pass name to home-manager as it passes `name` in to set the `hmModule`
-                  { inherit inputs self user; };
-              };
-            }
-          )
+          ({
+            home-manager = {
+              useGlobalPkgs = true;
+              extraSpecialArgs =
+                let
+                  self = inputs.self;
+                in
+                # NOTE: Cannot pass name to home-manager as it passes `name` in to set the `hmModule`
+                {
+                  inherit inputs self user;
+                };
+            };
+          })
           (import ../system/nixos/profiles)
           (import (strToPath config ../system/nixos/hosts))
         ];
@@ -168,7 +192,14 @@ rec {
           let
             self = inputs.self;
           in
-          { inherit inputs name self user; };
+          {
+            inherit
+              inputs
+              name
+              self
+              user
+              ;
+          };
       }
     );
 }

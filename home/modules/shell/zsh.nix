@@ -2,15 +2,18 @@
 
 let
   datefn =
-    if pkgs.stdenv.isDarwin then ''
-      function __osh_ts {
-          date '+%s'
-      }
-    '' else ''
-      function __osh_ts {
-          date '+%s.%N'
-      }
-    '';
+    if pkgs.stdenv.isDarwin then
+      ''
+        function __osh_ts {
+            date '+%s'
+        }
+      ''
+    else
+      ''
+        function __osh_ts {
+            date '+%s.%N'
+        }
+      '';
 in
 {
 

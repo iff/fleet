@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 let
@@ -26,7 +31,11 @@ in
     programs.alacritty = {
       enable = cfg.enable;
       # FIXME font can't be in basic and override here, need proper merger
-      settings = { font.normal.family = cfg.font_normal; font.size = cfg.font_size; } // lib.attrsets.recursiveUpdate (import ./alacritty/basics.nix) (import ./alacritty/colors.nix);
+      settings = {
+        font.normal.family = cfg.font_normal;
+        font.size = cfg.font_size;
+      }
+      // lib.attrsets.recursiveUpdate (import ./alacritty/basics.nix) (import ./alacritty/colors.nix);
     };
   };
 }

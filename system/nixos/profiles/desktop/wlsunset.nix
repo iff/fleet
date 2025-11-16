@@ -1,32 +1,36 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 
 with lib;
 let
   cfg = config.dots.profiles.desktop;
 
-  toggle-wlsunset = pkgs.writeScriptBin "toggle-wlsunset"
-    ''
-      #!/usr/bin/env zsh
-      set -eux -o pipefail
+  toggle-wlsunset = pkgs.writeScriptBin "toggle-wlsunset" ''
+    #!/usr/bin/env zsh
+    set -eux -o pipefail
 
-      if systemctl --user is-active --quiet wlsunset.service; then
-          systemctl --user stop wlsunset.service
-      else
-          systemctl --user start wlsunset.service
-      fi
-    '';
+    if systemctl --user is-active --quiet wlsunset.service; then
+        systemctl --user stop wlsunset.service
+    else
+        systemctl --user start wlsunset.service
+    fi
+  '';
 
-  wlsunset-status = pkgs.writeScriptBin "wlsunset-status"
-    ''
-      #!/usr/bin/env zsh
-      set -eux -o pipefail
+  wlsunset-status = pkgs.writeScriptBin "wlsunset-status" ''
+    #!/usr/bin/env zsh
+    set -eux -o pipefail
 
-      if systemctl --user is-active --quiet wlsunset.service; then
-          echo "on"
-      else
-          echo "off"
-      fi
-    '';
+    if systemctl --user is-active --quiet wlsunset.service; then
+        echo "on"
+    else
+        echo "off"
+    fi
+  '';
 in
 {
   config = mkIf (cfg.enable && (cfg.wm == "hyprland" || cfg.wm == "niri" || cfg.wm == "all")) {

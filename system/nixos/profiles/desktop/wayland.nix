@@ -1,4 +1,11 @@
-{ config, lib, pkgs, inputs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  user,
+  ...
+}:
 
 with lib;
 let

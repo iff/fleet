@@ -1,16 +1,21 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 
 with lib;
 let
   cfg = config.dots.profiles.desktop;
 
-  wm = pkgs.writeScriptBin "wm"
-    ''
-      #!/usr/bin/env zsh
-      set -eux -o pipefail
+  wm = pkgs.writeScriptBin "wm" ''
+    #!/usr/bin/env zsh
+    set -eux -o pipefail
 
-      exec Hyprland
-    '';
+    exec Hyprland
+  '';
 in
 {
   imports = [

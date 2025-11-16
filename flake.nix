@@ -51,17 +51,42 @@
     extra-experimental-features = "nix-command flakes";
   };
 
-  outputs = { self, flake-utils, home-manager, ... } @ inputs:
+  outputs =
+    {
+      self,
+      flake-utils,
+      home-manager,
+      ...
+    }@inputs:
     with self.lib;
 
     let
-      forEachSystem = genAttrs [ "x86_64-linux" "aarch64-darwin" ];
-      pkgsBySystem = forEachSystem (system:
+      forEachSystem = genAttrs [
+        "x86_64-linux"
+        "aarch64-darwin"
+      ];
+      pkgsBySystem = forEachSystem (
+        system:
         import inputs.nixpkgs {
           inherit system;
 
-          config.allowUnfreePredicate = pkg: builtins.elem (self.lib.getName pkg)
-            [ "1password" "1password-gui" "1password-cli" "claude-code" "google-chrome" "keymapp" "nvidia-settings" "nvidia-x11" "roam-research" "spotify" "steam" "steam-unwrapped" "slack" ];
+          config.allowUnfreePredicate =
+            pkg:
+            builtins.elem (self.lib.getName pkg) [
+              "1password"
+              "1password-gui"
+              "1password-cli"
+              "claude-code"
+              "google-chrome"
+              "keymapp"
+              "nvidia-settings"
+              "nvidia-x11"
+              "roam-research"
+              "spotify"
+              "steam"
+              "steam-unwrapped"
+              "slack"
+            ];
 
           # for cuda
           # [ "cuda_cudart" "libcublas" "cuda_cccl" "cuda_nvcc" "libcurand" "libcusparse" "libnvjitlink" "libcufft" "cudnn" "cuda_nvrtc" ];
@@ -75,7 +100,9 @@
       lib = import ./lib { inherit inputs; } // inputs.nixpkgs.lib;
 
       homeConfigurations = mapAttrs' intoHomeManager {
-        urithiru = { system = "aarch64-darwin"; };
+        urithiru = {
+          system = "aarch64-darwin";
+        };
       };
 
       nixosConfigurations = mapAttrs' intoNixOs {
@@ -85,12 +112,12 @@
       # CI build helper
       top =
         let
-          systems = genAttrs
-            (builtins.attrNames inputs.self.nixosConfigurations)
-            (attr: inputs.self.nixosConfigurations.${attr}.config.system.build.toplevel);
-          homes = genAttrs
-            (builtins.attrNames inputs.self.homeConfigurations)
-            (attr: inputs.self.homeConfigurations.${attr}.activationPackage);
+          systems = genAttrs (builtins.attrNames inputs.self.nixosConfigurations) (
+            attr: inputs.self.nixosConfigurations.${attr}.config.system.build.toplevel
+          );
+          homes = genAttrs (builtins.attrNames inputs.self.homeConfigurations) (
+            attr: inputs.self.homeConfigurations.${attr}.activationPackage
+          );
         in
         systems // homes;
     };

@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 let
@@ -30,18 +35,17 @@ in
       })
     ];
 
-    programs._1password-gui.package = lib.makeOverridable
-      (args:
-        pkgs.symlinkJoin {
-          name = "1password-gui";
-          paths = [ (pkgs._1password-gui.override args) ];
-          buildInputs = [ pkgs.makeWrapper ];
-          postBuild = ''
-            wrapProgram $out/bin/1password \
-              --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
-          '';
-        }
-      )
-      { };
+    programs._1password-gui.package = lib.makeOverridable (
+      args:
+      pkgs.symlinkJoin {
+        name = "1password-gui";
+        paths = [ (pkgs._1password-gui.override args) ];
+        buildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/1password \
+            --add-flags "--enable-features=UseOzonePlatform --ozone-platform=wayland"
+        '';
+      }
+    ) { };
   };
 }

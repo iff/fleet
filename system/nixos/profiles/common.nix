@@ -1,4 +1,11 @@
-{ config, inputs, lib, pkgs, user, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 
 {
   config = {
@@ -57,7 +64,16 @@
     users.users.${user} = {
       hashedPassword = "$y$j9T$zVsqwbdQAF3uPBPoAtvDw0$Jqj.F2ERf2ZdfWaFkmrv/2s5AppXeZ53RJ6xBxjvHM8";
       isNormalUser = true;
-      extraGroups = [ "docker" "wheel" "systemd-journal" "audio" "video" "input" "networkmanager" "wireshark" ];
+      extraGroups = [
+        "docker"
+        "wheel"
+        "systemd-journal"
+        "audio"
+        "video"
+        "input"
+        "networkmanager"
+        "wireshark"
+      ];
       shell = pkgs.zsh;
       packages = with pkgs; [ ];
     };
@@ -69,7 +85,6 @@
       package = pkgs.wireshark;
     };
 
-
     # some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     programs.mtr.enable = true;
@@ -80,25 +95,30 @@
 
     security.sudo = {
       enable = true;
-      extraRules = [{
-        commands = [
-          {
-            command = "${pkgs.systemd}/bin/reboot";
-            options = [ "NOPASSWD" ];
-          }
-          {
-            command = "${pkgs.systemd}/bin/poweroff";
-            options = [ "NOPASSWD" ];
-          }
-        ];
-        groups = [ "wheel" ];
-      }];
+      extraRules = [
+        {
+          commands = [
+            {
+              command = "${pkgs.systemd}/bin/reboot";
+              options = [ "NOPASSWD" ];
+            }
+            {
+              command = "${pkgs.systemd}/bin/poweroff";
+              options = [ "NOPASSWD" ];
+            }
+          ];
+          groups = [ "wheel" ];
+        }
+      ];
     };
 
     nix = {
       channel.enable = false;
       settings = {
-        experimental-features = [ "nix-command" "flakes" ];
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
         auto-optimise-store = true;
         trusted-users = [ "${user}" ];
       };
@@ -111,4 +131,3 @@
     };
   };
 }
-

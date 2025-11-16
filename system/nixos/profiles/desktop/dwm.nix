@@ -1,57 +1,63 @@
-{ config, lib, pkgs, inputs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  user,
+  ...
+}:
 
 with lib;
 let
   cfg = config.dots.profiles.desktop;
 
-  dwm-ltstatus = pkgs.writeScriptBin "dwm-ltstatus"
-    ''
-      #! /usr/bin/env -S ltstatus run
+  dwm-ltstatus = pkgs.writeScriptBin "dwm-ltstatus" ''
+    #! /usr/bin/env -S ltstatus run
 
-      import os
-      import re
-      import subprocess
-      import threading
-      import time
-      from pathlib import Path
+    import os
+    import re
+    import subprocess
+    import threading
+    import time
+    from pathlib import Path
 
-      import ltstatus.monitor as m
+    import ltstatus.monitor as m
 
-      sound_aliases = {
-          "iFi (by AMR) HD USB Audio Pro": "ifi",
-          "apm.zero": "apm",
-          "Dummy Output": "none",
-      }
+    sound_aliases = {
+        "iFi (by AMR) HD USB Audio Pro": "ifi",
+        "apm.zero": "apm",
+        "Dummy Output": "none",
+    }
 
-      event = threading.Event()
-      with (
-          m.spotify(event) as spotify,
-          m.process_alerts(flags={"steam": re.compile(r".*steam.*")}) as alerts,
-          m.redshift(event) as redshift,
-          m.datetime() as datetime,
-          m.cpu() as cpu,
-          m.nvidia() as nvidia,
-      ):
-          while True:
-              event.wait(1)
-              event.clear()
-              segments = [
-                  spotify(),
-                  alerts(),
-                  f"󰬊 {cpu()}󰯾 {nvidia()}",
-                  redshift(),
-                  datetime(),
-              ]
-              segments = [s for s in segments if s != ""]
-              subprocess.run(
-                    args=[
-                          "xsetroot",
-                          "-name",
-                          " " + " | ".join(segments) + " ",
-                   ],
-                   check=True,
-              )
-    '';
+    event = threading.Event()
+    with (
+        m.spotify(event) as spotify,
+        m.process_alerts(flags={"steam": re.compile(r".*steam.*")}) as alerts,
+        m.redshift(event) as redshift,
+        m.datetime() as datetime,
+        m.cpu() as cpu,
+        m.nvidia() as nvidia,
+    ):
+        while True:
+            event.wait(1)
+            event.clear()
+            segments = [
+                spotify(),
+                alerts(),
+                f"󰬊 {cpu()}󰯾 {nvidia()}",
+                redshift(),
+                datetime(),
+            ]
+            segments = [s for s in segments if s != ""]
+            subprocess.run(
+                  args=[
+                        "xsetroot",
+                        "-name",
+                        " " + " | ".join(segments) + " ",
+                 ],
+                 check=True,
+            )
+  '';
 in
 {
   config = mkIf (cfg.enable && (cfg.wm == "dwm" || cfg.wm == "all")) {
@@ -88,7 +94,12 @@ in
           day = "1.0";
           night = "0.7";
         };
-        extraOptions = [ "-m" "randr" "-t" "1" ];
+        extraOptions = [
+          "-m"
+          "randr"
+          "-t"
+          "1"
+        ];
       };
     };
 

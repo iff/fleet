@@ -1,10 +1,21 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 
 with lib;
 let
   cfg = config.dots.profiles.desktop;
 
-  wmList = [ "dwm" "niri" "hyprland" "all" ];
+  wmList = [
+    "dwm"
+    "niri"
+    "hyprland"
+    "all"
+  ];
 in
 {
   imports = [
@@ -106,7 +117,7 @@ in
       displayManager.xserverArgs = [
         "-nolisten tcp" # enableTCP = false;
         "-ardelay 200" # autoRepeatDelay = 200;
-        "-arinterval 20" #  autoRepeatInterval = 20;
+        "-arinterval 20" # autoRepeatInterval = 20;
       ];
     };
   };

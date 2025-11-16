@@ -1,13 +1,12 @@
 { pkgs, ... }:
 
 let
-  switch = pkgs.writeScriptBin "switch"
-    ''
-      #!/usr/bin/env zsh
-      set -eu -o pipefail
+  switch = pkgs.writeScriptBin "switch" ''
+    #!/usr/bin/env zsh
+    set -eu -o pipefail
 
-      sudo nixos-rebuild switch --flake .
-    '';
+    sudo nixos-rebuild switch --flake .
+  '';
 in
 {
   home.packages = with pkgs; [

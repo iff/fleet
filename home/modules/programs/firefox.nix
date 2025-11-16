@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.dots.firefox;
@@ -23,7 +28,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [
-      pkgs.firefox  # TODO HM module for config?
+      pkgs.firefox # TODO HM module for config?
       pkgs.stix-two # maybe for math fonts?
       dispatch
     ];
@@ -36,8 +41,15 @@ in
           genericName = "Web Browser";
           exec = "firefox-dispatch %U";
           terminal = false;
-          categories = [ "Application" "Network" "WebBrowser" ];
-          mimeType = [ "text/html" "text/xml" ];
+          categories = [
+            "Application"
+            "Network"
+            "WebBrowser"
+          ];
+          mimeType = [
+            "text/html"
+            "text/xml"
+          ];
         };
       };
       mimeApps = {
