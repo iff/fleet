@@ -37,6 +37,7 @@ let
         m.datetime() as datetime,
         m.cpu() as cpu,
         m.nvidia() as nvidia,
+        m.diskpie() as diskpie,
     ):
         while True:
             event.wait(1)
@@ -44,7 +45,7 @@ let
             segments = [
                 spotify(),
                 alerts(),
-                f"󰬊 {cpu()}󰯾 {nvidia()}",
+                f"󰬊 {cpu()}󰯾 {nvidia()}{diskpie()}",
                 redshift(),
                 datetime(),
             ]
