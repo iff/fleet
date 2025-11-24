@@ -379,11 +379,11 @@
     "lualine-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1760596863,
-        "narHash": "sha256-hdrAdG3hC2sAevQ6a9xizqPgEgnNKxuc5rBYn0pKM1c=",
+        "lastModified": 1763865090,
+        "narHash": "sha256-OpLZH+sL5cj2rcP5/T+jDOnuxd1QWLHCt2RzloffZOA=",
         "owner": "nvim-lualine",
         "repo": "lualine.nvim",
-        "rev": "3946f0122255bc377d14a59b27b609fb3ab25768",
+        "rev": "47f91c416daef12db467145e16bed5bbfe00add8",
         "type": "github"
       },
       "original": {
@@ -456,11 +456,11 @@
         "web-devicons-nvim": "web-devicons-nvim"
       },
       "locked": {
-        "lastModified": 1763725400,
-        "narHash": "sha256-pkSMT75KuzrOoM7eWkcDtYfLAFNYltChnjSssj08OnQ=",
+        "lastModified": 1763971031,
+        "narHash": "sha256-7B49Y9b/LAZdT3mofTxKenjpgfLuBMd60Y8mOphcJfo=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "25e47183f8dd33b8defedc0c55982a25a969b4c6",
+        "rev": "3c767ac0f0508c318178eddc9f4c01063d1cc626",
         "type": "github"
       },
       "original": {
@@ -552,11 +552,11 @@
     "nvim-lspconfig": {
       "flake": false,
       "locked": {
-        "lastModified": 1763324291,
-        "narHash": "sha256-cIsNInCeKH4Ilci3AEhDoaLOzMtkYnp3hgaOdNoGmQE=",
+        "lastModified": 1763880753,
+        "narHash": "sha256-huuWVUKo6CmxjXYRnGv8tUs+7bo85gNyL8vVnreiTAU=",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "781e4bdf427d0fb17ceef2ee4db172a29825fd73",
+        "rev": "30a2b191bccf541ce1797946324c9329e90ec448",
         "type": "github"
       },
       "original": {
@@ -870,11 +870,11 @@
     "telescope-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1762931078,
-        "narHash": "sha256-7DHFXZxUtPUQkpy2zjC2lwhj7isBCyEwh9LbtqAjSFs=",
+        "lastModified": 1763414201,
+        "narHash": "sha256-6hrylUCc6KlcbnMgcJNJhbX2Cgu0YHKoMPOqpaKRljE=",
         "owner": "nvim-telescope",
         "repo": "telescope.nvim",
-        "rev": "3a12a853ebf21ec1cce9a92290e3013f8ae75f02",
+        "rev": "83a3a713d6b2d2a408491a1b959e55a7fa8678e8",
         "type": "github"
       },
       "original": {
