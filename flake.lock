@@ -456,11 +456,11 @@
         "web-devicons-nvim": "web-devicons-nvim"
       },
       "locked": {
-        "lastModified": 1763971031,
-        "narHash": "sha256-7B49Y9b/LAZdT3mofTxKenjpgfLuBMd60Y8mOphcJfo=",
+        "lastModified": 1764398079,
+        "narHash": "sha256-2I1GgDdRB1nWGwDJ7+vg+tgTGeBz9YGGvQTRS6/wypk=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "3c767ac0f0508c318178eddc9f4c01063d1cc626",
+        "rev": "2383ba1ba124b1c18a2943dfb746102fe5ae63d2",
         "type": "github"
       },
       "original": {
