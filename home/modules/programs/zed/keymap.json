@@ -1,0 +1,96 @@
+[
+  {
+    // "context": "VimControl && !menu && vim_mode != operator && vim_mode != visual",
+    // basic movement
+    "context": "!menu && vim_mode == normal && vim_mode != operator && vim_mode != visual",
+    "bindings": {
+      "n": "vim::Left",
+      "e": "vim::Down",
+      "u": "vim::Up",
+      "i": "vim::Right",
+      "h": "vim::PageDown",
+      "k": "vim::PageUp",
+      "space n": "vim::StartOfLine",
+      "space i": "vim::EndOfLine",
+      "y": "vim::NextWordStart",
+      "space y": "vim::NextWordEnd",
+      "l": "vim::PreviousWordStart",
+      "space l": "vim::PreviousWordEnd",
+      "space u": "vim::StartOfDocument",
+      "space e": "vim::EndOfDocument"
+    }
+  },
+  {
+    "context": "Editor && !menu && vim_mode == insert",
+    "bindings": {
+      "escape": ["workspace::SendKeystrokes", "escape :w enter"]
+    }
+  },
+  {
+    "context": "vim_mode == replace",
+    "bindings": {
+      "'": "vim::AnyQuotes",
+      "(": "vim::AnyBrackets",
+      "n": "vim::CurrentLine",
+      "e": "vim::Word"
+    }
+  },
+  {
+    // "context": "vim_mode == normal || vim_mode == visual || vim_mode == operator",
+    "context": "vim_mode == visual",
+    "bindings": {
+        "r": "vim::PushChange",
+        "i": ["vim::PushObject", { "around": false }],
+        "w": "vim::Word",
+        "e": ["workspace::SendKeystrokes", "i w"],
+        "t u": "vim::SelectLargerSyntaxNode",
+        "t e": "vim::SelectSmallerSyntaxNode"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "escape": "editor::Cancel",
+      ":": "command_palette::Toggle",
+      ".": "vim::Repeat",
+      "ctrl-w": "vim::Undo",
+      "ctrl-f": "vim::Redo",
+      "r": "vim::PushChange",
+      // insert moves
+      "s n": "vim::InsertBefore",
+      "s i": "vim::InsertAfter",
+      "s u": "vim::InsertLineAbove",
+      "s e": "vim::InsertLineBelow",
+      "s o": "vim::InsertEndOfLine",
+      "s m": "vim::InsertFirstNonWhitespace",
+      // navigation
+      "t m": "tab_switcher::Toggle",
+      "t n": ["workspace::SendKeystrokes", "cmd-p"],
+      "t t": "editor::GoToDefinition",
+      "t e": "outline::Toggle",
+      "t u": "project_symbols::Toggle",
+      "t r": "editor::FindAllReferences",
+      "= =": "editor::Format",
+      // lsp
+      "a .": "editor::Hover",
+      "a o": "editor::Rename",
+      "a ;": "editor::ToggleCodeActions",
+      "t d d": "editor::GoToDiagnostic",
+      "t d e": "diagnostics::DeployCurrentFile",
+      "t d u": "diagnostics::Deploy",
+      // visual
+      "v": "vim::ToggleVisual",
+      // window
+      "w w": "pane::SplitLeft",
+      "w ,": "pane::CloseActiveItem",
+      "w i": "workspace::ActivatePaneRight",
+      "w n": "workspace::ActivatePaneLeft",
+      "w e": "workspace::ActivatePaneDown",
+      "w u": "workspace::ActivatePaneUp",
+      // copy and paste
+      // TODO missing paste with direction
+      "c": "vim::PushYank",
+      "p": "vim::Paste",
+    }
+  }
+]

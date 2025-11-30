@@ -23,5 +23,6 @@ in
     };
     firefox.enable = true;
     kanata.enable = true;
+    zed.enable = true;
   };
 }
