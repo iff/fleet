@@ -5,10 +5,15 @@
   "vim_mode": true,
   "load_direnv": "shell_hook",
   "cursor_blink": false,
-  "buffer_font_size": 17.0,
-  "buffer_font_weight": 300,
+  "buffer_font_family": "ZedMono Nerd Font",
+  "buffer_font_size": 19.0,
+  "buffer_font_weight": 400,
   "when_closing_with_no_tabs": "close_window",
   "on_last_window_closed": "quit_app",
+  "active_pane_modifiers": {
+    "border_size": 0.0,
+    // "inactive_opacity": 1.0
+  },
   "terminal": {
     "alternate_scroll": "off",
     "blinking": "terminal_controlled",
