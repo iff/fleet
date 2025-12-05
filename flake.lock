@@ -456,11 +456,11 @@
         "web-devicons-nvim": "web-devicons-nvim"
       },
       "locked": {
-        "lastModified": 1764775503,
-        "narHash": "sha256-A/UwQReDwNnC616dppGK/ur6HlwqPrcxHgDOhZ/5y9E=",
+        "lastModified": 1764962705,
+        "narHash": "sha256-/jDtoncNI9pLeTxo01L3gUlSjQpbcB6sQNXVkkPj+bA=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "d62dd530f0b589d2ce127eff994a67f4173c1bfc",
+        "rev": "ff7bf431e1c69c2f13cc9e6450863cbc1fd05271",
         "type": "github"
       },
       "original": {
@@ -574,11 +574,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1764148777,
-        "narHash": "sha256-iF03024PSH0pUcNi1ldN38Kow9usDNBG3i/VbU1s2fk=",
+        "lastModified": 1764753336,
+        "narHash": "sha256-KCcDuwm3Zj8agrIOB3liobcm5fmbMuXoT9rksBfko7s=",
         "owner": "iff",
         "repo": "osh-oxy",
-        "rev": "ed53a2405ce4251121fd81cf84dbcd33dfc2061f",
+        "rev": "558a5c462d14432298857e9bd7fb1a0133f0f6a1",
         "type": "github"
       },
       "original": {
