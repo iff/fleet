@@ -1,3 +1,9 @@
+function tess {
+    tmux capture-pane -peJ -S - -E - > tess.data
+    nvim -R -c 'terminal cat tess.data'
+    rm tess.data
+}
+
 alias reload=". ~/.zshrc"
 alias ls="eza --header --git --time-style=relative --icons --no-permissions --no-user --long --mounts --sort=name"
 alias lr="ls --sort=newest"
