@@ -93,6 +93,7 @@ in
   home.packages = [
     pkgs.gh
     pkgs.git
+    pkgs.moreutils
     #
     git-ssh-dispatch
     gpr
