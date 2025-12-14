@@ -23,17 +23,17 @@ rec {
       home.file.".nixpkgs".source = inputs.nixpkgs;
       home.sessionVariables."NIX_PATH" = "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
 
-      # nvd diff after home-manager activation
+      # dix diff after home-manager activation
       # TODO also shows diff if nothing changed..
       home.activation.report-changes = lib.hm.dag.entryAfter [ "installPackages" ] ''
         PATH=$PATH:${
           lib.makeBinPath [
-            pkgs.nvd
+            pkgs.dix
             pkgs.nix
           ]
         }
         if [[ -d ~/.local/state/nix/profiles ]]; then
-          nvd diff $(find ~/.local/state/nix/profiles -name "home-manager-*-link" -type l | sort -V | tail -2) || echo "No previous home-manager generation found"
+          dix $(find ~/.local/state/nix/profiles -name "home-manager-*-link" -type l | sort -V | tail -2) || echo "No previous home-manager generation found"
         fi
       '';
 

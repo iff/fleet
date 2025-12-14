@@ -20,7 +20,7 @@
     pkgs.eza
     pkgs.fd
     pkgs.jq
-    pkgs.nvd
+    pkgs.dix
     pkgs.procs
     # fonts
     pkgs.fontconfig

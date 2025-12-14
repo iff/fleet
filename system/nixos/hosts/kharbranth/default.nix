@@ -21,15 +21,15 @@
 
   virtualisation.docker.storageDriver = "btrfs";
 
-  # show nvd diff after activation
+  # show dix diff after activation
   system.activationScripts.report-changes = ''
     PATH=$PATH:${
       lib.makeBinPath [
-        pkgs.nvd
+        pkgs.dix
         pkgs.nix
       ]
     }
-    nvd diff $(find /nix/var/nix/profiles -name "system-*-link" -type l | sort -V | tail -2) || echo "No previous nixos generation found"
+    dix $(find /nix/var/nix/profiles -name "system-*-link" -type l | sort -V | tail -2) || echo "No previous nixos generation found"
   '';
 
   home-manager.users."${user}" = self.lib.mkUserHome { config = ./home.nix; };
