@@ -15,7 +15,7 @@ in
     neovide
     perf
     protonmail-desktop
-    roam-research
+    # roam-research
     samply
     spotify
     transmission_4-gtk
