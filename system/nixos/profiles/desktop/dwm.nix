@@ -110,7 +110,7 @@ in
         pkgs.feh
         pkgs.gthumb
         pkgs.scrot
-        inputs.ltstatus.packages.${pkgs.stdenv.hostPlatform.system}.app
+        inputs.ltstatus.packages.${pkgs.stdenv.hostPlatform.system}.default
         dwm-ltstatus
       ];
 
