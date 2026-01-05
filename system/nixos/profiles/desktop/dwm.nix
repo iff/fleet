@@ -63,6 +63,7 @@ in
 {
   config = mkIf (cfg.enable && (cfg.wm == "dwm" || cfg.wm == "all")) {
     environment.systemPackages = with pkgs; [
+      inotify-tools
       xorg.xinit
     ];
 

@@ -234,11 +234,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1767299973,
-        "narHash": "sha256-LnPcT6g2oXJPUk53qkSA31vOZYfBjhoaIV3RqfiFSZc=",
+        "lastModified": 1767624034,
+        "narHash": "sha256-9ziZDHu+aSxDdOMzV7v/UgRN8BWGoL7RIQLLx16TlVM=",
         "owner": "dkuettel",
         "repo": "ltstatus",
-        "rev": "531124350a3d4915735f7635d67cb2162e4b9191",
+        "rev": "3c1195fe94b633822917abdb6e300113ba6f57e9",
         "type": "github"
       },
       "original": {
