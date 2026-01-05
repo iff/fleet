@@ -1,6 +1,6 @@
 [core]
     sshCommand = git-ssh-dispatch
-    editor = nvim
+    editor = v
     # no SIGPIPE exit codes (usually 128+13=141) if you exit less before reading all piped input
     # but potentially slow, because sponge first consumes, before it passes on
     pager = zsh -c 'sponge | less -S'
@@ -24,7 +24,7 @@
     defaultBranch = "main"
 [merge]
     conflictstyle = "zdiff3"
-    tool = "nvim"
+    tool = "v"
 [push]
     autoSetupRemote = true
     default = simple

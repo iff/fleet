@@ -27,11 +27,11 @@ unset HISTFILE
 setopt hist_verify
 
 export MANOPT='--no-justification --no-hyphenation'
-export MANPAGER='nvim +Man!'
+export MANPAGER='v +Man!'
 
-export VISUAL=nvim
-export EDITOR=nvim
-export SUDO_EDITOR=nvim
+export VISUAL=v
+export EDITOR=v
+export SUDO_EDITOR=v
 
 LESS=''
 LESS+='--status-column '  # mark matched lines on the left side
