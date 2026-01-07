@@ -1,20 +1,5 @@
 { inputs, pkgs, ... }:
 
-let
-  datefn =
-    if pkgs.stdenv.isDarwin then
-      ''
-        function __osh_ts {
-            date '+%s'
-        }
-      ''
-    else
-      ''
-        function __osh_ts {
-            date '+%s.%N'
-        }
-      '';
-in
 {
 
   home.file = {
@@ -24,7 +9,6 @@ in
       recursive = true;
       source = ./zsh/zshrcd;
     };
-    ".zshrc.d/osh_date.zsh".text = datefn;
     # TODO that should come as a flake input? or can we keep it as submodules? it makes it complicated with recursive above
     ".zshrc.d/zsh-syntax-highlighting".source = pkgs.fetchFromGitHub {
       owner = "zsh-users";

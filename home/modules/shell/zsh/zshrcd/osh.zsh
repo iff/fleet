@@ -2,6 +2,10 @@ function __osh {
     osh-oxy $@
 }
 
+function __osh_ts {
+    echo $(($(date +%s) * 1000))
+}
+
 autoload -U add-zsh-hook
 
 function __osh_before {
