@@ -4,13 +4,10 @@
   imports = [ ./hardware.nix ];
 
   services.openssh = {
-    enable = true;
     ports = [ 3438 ];
     settings = {
       # AllowUsers = [ "xxx" ];
       X11Forwarding = false;
-      PasswordAuthentication = false;
-      PermitRootLogin = "no";
     };
   };
 
