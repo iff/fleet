@@ -4,6 +4,12 @@ function tess {
     rm tess.data
 }
 
+function take {
+    # mkdir and cd dir
+    mkdir -p $1
+    cd $1
+}
+
 alias reload=". ~/.zshrc"
 alias ls="eza --header --git --time-style=relative --icons --no-permissions --no-user --long --mounts --sort=name"
 alias lr="ls --sort=newest"
