@@ -29,6 +29,7 @@
     inputs.nihilistic-nvim.packages.${pkgs.stdenv.hostPlatform.system}.default
     # try
     pkgs.claude-code
+    pkgs.jujutsu
   ];
 
   programs.direnv = {
