@@ -5,12 +5,13 @@ let
     #!/usr/bin/env zsh
     set -eu -o pipefail
 
-    sudo nixos-rebuild switch --flake .
+    nixos-rebuild switch --sudo --flake .
   '';
 in
 {
   home.packages = with pkgs; [
     geeqie
+    ghostty
     google-chrome
     neovide
     perf
@@ -21,6 +22,7 @@ in
     transmission_4-gtk
     vlc
     slack
+    zed-editor
     #
     switch
   ];
