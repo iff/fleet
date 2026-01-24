@@ -93,6 +93,7 @@ in
   home.packages = [
     pkgs.gh
     pkgs.git
+    pkgs.jujutsu
     pkgs.moreutils
     #
     git-ssh-dispatch
@@ -101,4 +102,5 @@ in
   ];
 
   xdg.configFile."git/config".source = ./git-config;
+  xdg.configFile."jj/config.toml".source = ./jujutsu-config.toml;
 }

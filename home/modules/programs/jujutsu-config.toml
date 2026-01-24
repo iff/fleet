@@ -1,0 +1,24 @@
+[user]
+name = "Yves Ineichen"
+email = "iff@yvesineichen.com"
+
+[aliases]
+dlog = ["log", "-r"]
+l = ["log", "-r", "(trunk()..@):: | (trunk()..@)-"]
+tug = [
+    "bookmark",
+    "move",
+    "--from",
+    "closest_bookmark(@)",
+    "--to",
+    "closest_pushable(@)",
+]
+
+[revset-aliases]
+"closest_bookmark(to)" = "heads(::to & bookmarks())"
+"closest_pushable(to)" = "heads(::to & mutable() & ~description(exact:\"\") & (~empty() | merges()))"
+"desc(x)" = "description(x)"
+"pending()" = ".. ~ ::tags() ~ ::remote_bookmarks() ~ @ ~ private()"
+
+[git]
+write-change-id-header = true
