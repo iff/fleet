@@ -25,6 +25,9 @@ in
     zed-editor
     #
     switch
+    #
+    cudaPackages.cuda_nvcc
+    cudaPackages.cudatoolkit
   ];
 
   dots = {

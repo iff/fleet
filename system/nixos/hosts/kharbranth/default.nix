@@ -17,6 +17,22 @@
 
   services.tailscale.enable = true;
 
+  # services.sshguard = {
+  #   enable = true;
+  #   whitelist = [
+  #     "100.64.0.0/10" # tailscale
+  #     "192.168.0.0/16" # local network
+  #   ];
+  #   attack_threshold = 20; # block after 2 failed attempts
+  #   blocktime = 300;
+  #   detection_time = 3600; # 1 hour detection window
+  # };
+
+  # services.ollama = {
+  #   enable = true;
+  #   acceleration = "cuda";
+  # };
+
   services.dbus.implementation = "broker";
 
   virtualisation.docker.storageDriver = "btrfs";
