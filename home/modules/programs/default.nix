@@ -4,6 +4,7 @@
   imports = [
     ./alacritty.nix
     ./firefox.nix
+    ./ghostty.nix
     ./git.nix
     ./kanata.nix
     ./syncthing.nix
