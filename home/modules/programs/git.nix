@@ -57,6 +57,11 @@ let
             user="Yves Ineichen iff@yvesineichen.com"
             ;;
 
+        (git@github.com:verion-eda/*)
+            key=private
+            user="Yves Ineichen iff@yvesineichen.com"
+            ;;
+
         (git@github.com:wereHamster/*)
             key=private
             user="Yves Ineichen iff@yvesineichen.com"
