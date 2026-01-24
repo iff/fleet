@@ -86,10 +86,33 @@
               "steam"
               "steam-unwrapped"
               "slack"
-            ];
 
-          # for cuda
-          # [ "cuda_cudart" "libcublas" "cuda_cccl" "cuda_nvcc" "libcurand" "libcusparse" "libnvjitlink" "libcufft" "cudnn" "cuda_nvrtc" ];
+              # for cuda
+              "cuda_cudart"
+              "libcublas"
+              "cuda_cccl"
+              "cuda_nvcc"
+              "libcurand"
+              "libcusparse"
+              "libnvjitlink"
+              "libcufft"
+              "cudnn"
+              "cuda_nvrtc"
+              #
+              "cuda-merged"
+              "cuda_cuobjdump"
+              "cuda_gdb"
+              "cuda_nvdisasm"
+              "cuda_nvprune"
+              "cuda_cupti"
+              "cuda_cuxxfilt"
+              "cuda_nvml_dev"
+              "cuda_nvtx"
+              "cuda_profiler_api"
+              "cuda_sanitizer_api"
+              "libcusolver"
+              "libnpp"
+            ];
           # config.cudaSupport = true;
         }
       );
