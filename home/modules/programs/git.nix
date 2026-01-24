@@ -42,6 +42,21 @@ let
             user="Yves Ineichen iff@yvesineichen.com"
             ;;
 
+        (git@github.com:mbssacosta/*)
+            key=private
+            user="Yves Ineichen iff@yvesineichen.com"
+            ;;
+
+        (git@github.com:dakies/*)
+            key=private
+            user="Yves Ineichen iff@yvesineichen.com"
+            ;;
+
+        (git@tangled.org:iff.io/*)
+            key=private
+            user="Yves Ineichen iff@yvesineichen.com"
+            ;;
+
         (git@github.com:wereHamster/*)
             key=private
             user="Yves Ineichen iff@yvesineichen.com"
