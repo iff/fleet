@@ -18,4 +18,4 @@ alias ll="eza --header --git --time-style=long-iso --icons --group --long --moun
 alias md="mkdir -p"
 alias man="man --no-justification"
 alias k="kubectl"
-alias dk="docker kill $(docker ps -q)"
+(( $+commands[docker] )) && alias dk="docker kill $(docker ps -q)"
