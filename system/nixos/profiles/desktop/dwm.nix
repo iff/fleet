@@ -75,6 +75,8 @@ in
         };
       };
       displayManager.startx.enable = true;
+      upscaleDefaultCursor = true;
+      dpi = 163;
     };
 
     programs.slock.enable = true;
