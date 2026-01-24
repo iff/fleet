@@ -1,3 +1,6 @@
 - try sudo-rs
 - maybe https://github.com/acrion/wayland-font-dpi?tab=readme-ov-file fixes firefox font issues
+- towards using direnv/flakes per project for formatter and lsp server and dont install global?
+    o scripts to setup project using envs in https://github.com/iff/envs
+- migrate from fzf to skim
 x try niri: https://github.com/YaLTeR/niri
