@@ -5,7 +5,7 @@ let
     #!/usr/bin/env zsh
     set -eu -o pipefail
 
-    home-manager switch --flake '.#urithiru'
+    home-manager switch --flake '.#urithiru' -v --log-format internal-json |& ${pkgs.nix-output-monitor}/bin/nom --json
   '';
 in
 {
@@ -13,6 +13,7 @@ in
 
   home.packages = [
     switch
+    pkgs.zsh
   ];
 
   dots = {
