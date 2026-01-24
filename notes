@@ -3,4 +3,16 @@
 - towards using direnv/flakes per project for formatter and lsp server and dont install global?
     o scripts to setup project using envs in https://github.com/iff/envs
 - migrate from fzf to skim
+- perf config:
+  ```
+  [tui]
+  report = on
+  annotate = on
+  top = on
+
+  [report]
+  sort_order = comm,dso,symbol
+  percent-limit = 0
+  children = true
+  ```
 x try niri: https://github.com/YaLTeR/niri
