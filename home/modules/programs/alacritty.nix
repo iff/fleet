@@ -12,6 +12,11 @@ in
 {
   options.dots.alacritty = {
     enable = mkEnableOption "enable alacritty";
+    decorations = mkOption {
+      description = "alacritty window decorations";
+      type = types.str;
+      default = "None";
+    };
     font_size = mkOption {
       description = "alacritty font size";
       type = types.number;
@@ -34,6 +39,7 @@ in
       settings = {
         font.normal.family = cfg.font_normal;
         font.size = cfg.font_size;
+        window.decorations = cfg.decorations;
       }
       // lib.attrsets.recursiveUpdate (import ./alacritty/basics.nix) (import ./alacritty/colors.nix);
     };

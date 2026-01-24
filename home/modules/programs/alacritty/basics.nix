@@ -2,7 +2,6 @@
   window = {
     dynamic_padding = true;
     dynamic_title = true;
-    decorations = "None";
   };
 
   selection = {

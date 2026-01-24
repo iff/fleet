@@ -19,6 +19,7 @@ in
   dots = {
     alacritty = {
       enable = true;
+      decorations = "Full";
       font_size = 19.0;
       font_normal = "ZedMono Nerd Font";
     };
