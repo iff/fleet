@@ -13,6 +13,14 @@ tug = [
     "--to",
     "closest_pushable(@)",
 ]
+lsd = [
+    "log",
+    "-r",
+    "::@ & (bookmarks() | remote_bookmarks())",
+    "--no-graph",
+    "-T",
+    'bookmarks ++ " " ++ remote_bookmarks ++ "\n"',
+]
 
 [revset-aliases]
 "closest_bookmark(to)" = "heads(::to & bookmarks())"
