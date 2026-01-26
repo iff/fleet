@@ -45,8 +45,9 @@ function status {
     print -n -- " ${(D)git_path}"
 
     if [[ -d $git_path/.jj ]]; then
-        branch=$(jj lsd | head -1 | awk '{print $1}' || true)
-        desc=$(jj log -r @ --no-graph -T 'if(description, description, "(no description)")' | head -1 || true)
+        # branch=$(jj lsd | head -1 | awk '{print $1}' || true)
+        branch=$(jj log -r '::@ & (bookmarks() | remote_bookmarks())' --ignore-working-copy --no-graph -T 'bookmarks ++ " " ++ remote_bookmarks ++ "\n"' | head -n 1 | awk '{print $1}' || true)
+        desc=$(jj log -r @ --ignore-working-copy --no-graph -T 'if(description, description, "(no description)")' | head -1 || true)
         print -n -- "    $branch   $desc"
         print
         return
