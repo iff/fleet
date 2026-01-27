@@ -1,6 +1,6 @@
 function tess {
     tmux capture-pane -peJ -S - -E - > tess.data
-    nvim -R -c 'terminal cat tess.data'
+    v -R -c 'terminal cat tess.data'
     rm tess.data
 }
 
