@@ -3,6 +3,8 @@ name = "Yves Ineichen"
 email = "iff@yvesineichen.com"
 
 [aliases]
+ba = ["bookmark", "list", "-a"]
+f = ["git", "fetch"]
 dlog = ["log", "-r"]
 l = ["log", "-r", "(trunk()..@):: | (trunk()..@)-"]
 tug = [
