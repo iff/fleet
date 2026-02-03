@@ -36,6 +36,7 @@
   services.dbus.implementation = "broker";
 
   virtualisation.docker.storageDriver = "btrfs";
+  hardware.nvidia-container-toolkit.enable = true;
 
   # show dix diff after activation
   system.activationScripts.report-changes = ''
