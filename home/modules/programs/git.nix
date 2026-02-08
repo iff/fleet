@@ -67,6 +67,16 @@ let
             user="Yves Ineichen iff@yvesineichen.com"
             ;;
 
+        (git@github.com:pulp-platform/*)
+            key=private
+            user="Yves Ineichen iff@yvesineichen.com"
+            ;;
+
+        (git@github.com:grantae/*)
+            key=private
+            user="Yves Ineichen iff@yvesineichen.com"
+            ;;
+
         (*)
             echo 'no match for' $target >&2
             exit 1
