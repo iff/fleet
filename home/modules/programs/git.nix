@@ -42,6 +42,16 @@ let
             user="Yves Ineichen iff@yvesineichen.com"
             ;;
 
+        (git@codeberg.org:yff/*)
+            key=private
+            user="Yves Ineichen iff@yvesineichen.com"
+            ;;
+
+        (git@codeberg.org:/yff/*)
+            key=private
+            user="Yves Ineichen iff@yvesineichen.com"
+            ;;
+
         (git@github.com:mbssacosta/*)
             key=private
             user="Yves Ineichen iff@yvesineichen.com"
