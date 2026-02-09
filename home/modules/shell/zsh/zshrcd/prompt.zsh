@@ -22,5 +22,5 @@ export PS1='$prompt_marker$prompt_alerts
 $prompt_path$prompt_jobs %E%k
  %F{15}%f '
 
-export PS4='%K{0}%F{10}[%N:%i %_]
-    %f%k %F{4}%f '
+# export PS4='%K{0}%F{10}[%N:%i %_]
+#     %f%k %F{4}%f '

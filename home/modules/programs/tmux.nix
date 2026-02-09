@@ -138,6 +138,9 @@ in
             bind -T copy-mode-vi C-u send-keys -X previous-prompt
             bind -T copy-mode-vi C-e send-keys -X next-prompt
             bind -T copy-mode-vi Escape send-keys -X cancel
+            bind -T copy-mode-vi 'v' send -X begin-selection
+            bind -T copy-mode-vi 'C-v' send -X rectangle-toggle
+            bind -T copy-mode-vi 'y' send -X copy-selection
     '';
   };
 
