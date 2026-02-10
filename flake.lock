@@ -319,11 +319,11 @@
         "telescope-ui-select-nvim": "telescope-ui-select-nvim"
       },
       "locked": {
-        "lastModified": 1770654926,
-        "narHash": "sha256-szsXYGtNlreJHolyV4P731tWM2BRs7H0VEyon7P/dxs=",
+        "lastModified": 1770749893,
+        "narHash": "sha256-z7jAtlSrQ+1xYG1G4RXKAw1VnvqxeGu2XvplF0rEsdk=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "4bde11f830707c339693c1b3dc8f3e95f4a1fdbf",
+        "rev": "b549eac2a1207afde58677e571ff7ba56100f746",
         "type": "github"
       },
       "original": {
@@ -437,11 +437,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1770578513,
-        "narHash": "sha256-aaBWn7vxKTcFfSnJBHVgG94kdvfN3Pt909tg7eDvPuQ=",
+        "lastModified": 1770711907,
+        "narHash": "sha256-mglFT/Ed0K/0/h1LqOSDtRuiZzm339B8/tRUVy+YtaA=",
         "owner": "iff",
         "repo": "osh-oxy",
-        "rev": "b147107a25ece41b4766b8aaed5e45e7733b5ee5",
+        "rev": "c697f7c75cc8adb1ad6e17e4ad7dd8348efbb3bd",
         "type": "github"
       },
       "original": {
