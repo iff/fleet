@@ -5,6 +5,8 @@ email = "iff@yvesineichen.com"
 [aliases]
 ba = ["bookmark", "list", "-a"]
 f = ["git", "fetch"]
+pu = ["git", "push"]
+ed = ["edit"]
 dlog = ["log", "-r"]
 l = ["log", "-r", "(trunk()..@):: | (trunk()..@)-"]
 tug = [
