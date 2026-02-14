@@ -25,12 +25,13 @@ lsd = [
     "-T",
     'bookmarks ++ " " ++ remote_bookmarks ++ "\n"',
 ]
+lg = ["log", "-r", "bookmarks() | fork_point(bookmarks())"]
 
 [revset-aliases]
 "closest_bookmark(to)" = "heads(::to & bookmarks())"
 "closest_pushable(to)" = "heads(::to & mutable() & ~description(exact:\"\") & (~empty() | merges()))"
 "desc(x)" = "description(x)"
-"pending()" = ".. ~ ::tags() ~ ::remote_bookmarks() ~ @ ~ private()"
+"pending()" = ".. ~ ::tags() ~ ::remote_bookmarks() ~ @"
 
 [git]
 write-change-id-header = true
