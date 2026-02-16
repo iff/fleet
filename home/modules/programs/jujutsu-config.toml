@@ -26,6 +26,7 @@ lsd = [
     'bookmarks ++ " " ++ remote_bookmarks ++ "\n"',
 ]
 lg = ["log", "-r", "bookmarks() | fork_point(bookmarks())"]
+dm = ["diff", "--from", "main", "--to", "@", "--"]
 
 [revset-aliases]
 "closest_bookmark(to)" = "heads(::to & bookmarks())"
