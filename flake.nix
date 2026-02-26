@@ -39,6 +39,10 @@
     ltstatus = {
       url = "github:dkuettel/ltstatus/main";
     };
+
+    nd = {
+      url = "github:dkuettel/nd/main";
+    };
   };
 
   nixConfig = {

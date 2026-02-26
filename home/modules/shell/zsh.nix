@@ -9,6 +9,9 @@
       recursive = true;
       source = ./zsh/zshrcd;
     };
+    ".zshrc.d/nd.zsh".source = "${
+      inputs.nd.packages.${pkgs.stdenv.hostPlatform.system}.shell
+    }/share/nd/activate.zsh";
     # TODO that should come as a flake input? or can we keep it as submodules? it makes it complicated with recursive above
     ".zshrc.d/zsh-syntax-highlighting".source = pkgs.fetchFromGitHub {
       owner = "zsh-users";

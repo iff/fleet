@@ -1,6 +1,7 @@
 source ${ZDOTDIR:-~}/.zshrc.d/config.zsh
 source ${ZDOTDIR:-~}/.zshrc.d/aliases.zsh
 source ${ZDOTDIR:-~}/.zshrc.d/prompt.zsh
+[[ -e ${ZDOTDIR:-~}/.zshrc.d/nd.zsh ]] && source ${ZDOTDIR:-~}/.zshrc.d/nd.zsh
 
 eval "$(direnv hook zsh)"
 
