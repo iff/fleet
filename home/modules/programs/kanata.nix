@@ -10,22 +10,27 @@ let
   cfg = config.dots.kanata;
 
   kanata_agent = builtins.readFile ./kanata/org.kanata.agent.plist;
+  vhiddaemon = builtins.readFile ./kanata/org.example.karabiner-vhiddaemon.plist;
   install-kanata-service = pkgs.writeScriptBin "install-kanata-service" ''
     #!/usr/bin/env zsh
     set -eu -o pipefail
 
-    # needs https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice (v3.1.0)
+    # needs https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice (v6.2.0)
     # see https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/tree/main/dist
-    if [[ ! $(defaults read /Applications/.Karabiner-VirtualHIDDevice-Manager.app/Contents/Info.plist CFBundleVersion) == '3.1.0' ]]; then
+    if [[ ! $(defaults read /Applications/.Karabiner-VirtualHIDDevice-Manager.app/Contents/Info.plist CFBundleVersion) == '6.2.0' ]]; then
       echo 'wrong karabiner driver kit version' >&2
       exit 1
     fi
 
     # fix path/install - assume PATH?
-    if ! [ -x "$(command -v ~/bin/kanata)" ]; then
+    if ! [ -x "$(command -v ~/bin/kanata-new)" ]; then
       echo 'error: kanata is not in ~/bin' >&2
       exit 1
     fi
+
+    echo '${vhiddaemon}' | sudo tee /Library/LaunchDaemons/org.example.karabiner-vhiddaemon.plist
+    sudo chown root:wheel /Library/LaunchDaemons/org.example.karabiner-vhiddaemon.plist
+    sudo launchctl bootstrap system /Library/LaunchDaemons/org.example.karabiner-vhiddaemon.plist
 
     echo '${kanata_agent}' | sudo tee /Library/LaunchDaemons/org.kanata.agent.plist
     sudo chown root:wheel /Library/LaunchDaemons/org.kanata.agent.plist
@@ -49,6 +54,9 @@ let
 
     sudo launchctl bootout system /Library/LaunchDaemons/org.kanata.agent.plist
     sudo rm /Library/LaunchDaemons/org.kanata.agent.plist
+
+    sudo launchctl bootout system /Library/LaunchDaemons/org.example.karabiner-vhiddaemon.plist
+    sudo rm /Library/LaunchDaemons/org.example.karabiner-vhiddaemon.plist
   '';
 in
 {
