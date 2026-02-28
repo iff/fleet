@@ -36,3 +36,6 @@ dm = ["diff", "--from", "main", "--to", "@", "--"]
 
 [git]
 write-change-id-header = true
+
+[ui]
+diff-editor = ["v", "-c", "DiffEditor $left $right $output"]
