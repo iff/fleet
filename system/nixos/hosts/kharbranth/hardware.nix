@@ -9,6 +9,10 @@
 
   boot = {
     kernelModules = [ "kvm-amd" ];
+    # using ncu profiler without sudo
+    extraModprobeConfig = ''
+      options nvidia NVreg_RestrictProfilingToAdminUsers=0
+    '';
     extraModulePackages = [ ];
     initrd = {
       availableKernelModules = [
