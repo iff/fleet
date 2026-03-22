@@ -128,6 +128,13 @@ let
     # maybe zsh subshell in this path and remove/purge when returning?
     echo "new tree: $(realpath wt/$name)"
   '';
+
+  add-gha = pkgs.writeScriptBin "add-gha" ''
+    #!/usr/bin/env zsh
+    set -eu -o pipefail
+
+    git subtree add --prefix=.github https://github.com/iff/ci-conf.git main --squash
+  '';
 in
 {
   home.packages = [
@@ -136,6 +143,7 @@ in
     pkgs.jujutsu
     pkgs.moreutils
     #
+    add-gha
     git-ssh-dispatch
     gpr
     wt
