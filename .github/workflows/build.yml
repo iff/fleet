@@ -17,7 +17,7 @@ jobs:
         include:
           - os: ubuntu-latest
             target: kharbranth
-          - os: macos-14
+          - os: macos-latest
             target: urithiru
     runs-on: ${{ matrix.os }}
 
