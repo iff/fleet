@@ -7,6 +7,16 @@ let
 
     nixos-rebuild switch --sudo --flake .
   '';
+
+  widelands-2k = pkgs.writeScriptBin "widelands-2k" ''
+    #!${pkgs.zsh}/bin/zsh
+    set -eu -o pipefail
+    xrandr --output DP-0 --mode 1920x1080 --rate 160
+    function TRAPEXIT {
+        xrandr --output DP-0 --mode 3840x2160 --rate 160
+    }
+    widelands --fullscreen
+  '';
 in
 {
   home.packages = with pkgs; [
@@ -28,6 +38,10 @@ in
     #
     cudaPackages.cuda_nvcc
     cudaPackages.cudatoolkit
+    # games
+    beyond-all-reason
+    widelands
+    widelands-2k
   ];
 
   dots = {
