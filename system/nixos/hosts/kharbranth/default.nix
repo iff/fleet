@@ -11,6 +11,7 @@
 
   # TODO causing issues with DHCP often restarting loosing connection
   # networking.interfaces.enp0s31f6.useDHCP = true;
+  networking.interfaces.eno1.wakeOnLan.enable = true;
 
   programs.steam.enable = true;
   programs.steam.protontricks.enable = true;
