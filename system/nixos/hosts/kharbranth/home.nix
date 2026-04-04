@@ -36,7 +36,6 @@ in
     #
     switch
     #
-    cudaPackages.cuda_nvcc
     cudaPackages.cudatoolkit
     # games
     beyond-all-reason
