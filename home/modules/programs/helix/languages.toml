@@ -1,9 +1,21 @@
 [[language]]
 name = "rust"
 indent = { tab-width = 4, unit = "    " }
-auto-format = true
+auto-format = false
+formatter = { command = "rustfmt", args = [] }
 
 [language-server.rust-analyzer.config]
 check = { command = "clippy" }
+cargo = { allFeatures = true }
 diagnostics = { experimental = { enable = false } }
 inlayHints = { bindingModeHints = { enable = false }, closingBraceHints = { minLines = 25 } }
+
+[[language]]
+name = "toml"
+indent = { tab-width = 4, unit = "    " }
+auto-format = false
+formatter = { command = "taplo", args = [
+    "format",
+    "--option",
+    "indent_string=    ",
+] }
