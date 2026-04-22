@@ -75,8 +75,12 @@ in
         };
       };
       displayManager.startx.enable = true;
+      enableTearFree = true;
       upscaleDefaultCursor = true;
-      dpi = 163;
+      dpi = 220;
+      screenSection = ''
+        Option "metamodes" "5120x2880_120 +0+0"
+      '';
     };
 
     programs.slock.enable = true;
@@ -126,7 +130,14 @@ in
         xset s off
         setterm --blank 0 --powerdown 0
 
-        feh --bg-scale ${./backgrounds/moon.jpg}
+        # TODO
+        # GDK_SCALE=2
+        # GDK_DPI_SCALE=2
+        # QT_AUTO_SCREEN_SET_FACTOR=0
+        # QT_SCALE_FACTOR=2
+        # QT_FONT_DPI=220
+
+        feh --bg-scale ${./backgrounds/dusk.jpg}
         redshift -r -v & # |& ts '%F %T' >& $HOME/.log-redshift &
 
         dwm-ltstatus >& .log-dwm-status &
