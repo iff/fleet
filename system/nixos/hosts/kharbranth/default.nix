@@ -32,29 +32,6 @@
   #   detection_time = 3600; # 1 hour detection window
   # };
 
-  # services.ollama = {
-  #   enable = true;
-  #   acceleration = "cuda";
-  # };
-
-  services.printing = {
-    enable = true;
-    drivers = [ pkgs.brlaser ];
-  };
-  hardware.printers = {
-    ensurePrinters = [
-      {
-        name = "Brother_DCP_7060D";
-        location = "Home";
-        deviceUri = "usb://Brother/DCP-7060D?serial=E69753G2N229707";
-        model = "drv:///brlaser.drv/br7060d.ppd";
-        ppdOptions = {
-          PageSize = "A4";
-        };
-      }
-    ];
-  };
-
   # zsa trackpad - setting speed and reverting direction
   services.libinput = {
     enable = true;
