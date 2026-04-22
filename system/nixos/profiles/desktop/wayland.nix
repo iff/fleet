@@ -35,6 +35,7 @@ in
       enable = true;
       wlr.enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      config.common.default = [ "gtk" ];
     };
 
     security.pam.services = {
@@ -60,7 +61,7 @@ in
         "waybar/style.css".source = ./config/waybar.css;
         "hypr/hyprpaper.conf".text = ''
           wallpaper {
-              monitor = DP-2
+              monitor = DP-1
               path = ${./backgrounds/dusk.jpg}
               fit_mode = cover
           }

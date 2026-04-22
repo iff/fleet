@@ -1,4 +1,5 @@
 /* Define colors */ /* {{{ */
+@define-color border      #39404f;
 @define-color background  rgba(46, 52, 64, 0.7);
 @define-color warning     #bf616a;
 @define-color caution     #ebcb8b;
@@ -27,7 +28,7 @@
   font-family: "Zed Mono Nerd Font";
   font-size: 10pt;
   font-weight: bold;
-  border: 2.5px solid rgba(128, 128, 128, 1.0);
+  border: 1.5px solid @border;
   border-radius: 8px;
 }
 
