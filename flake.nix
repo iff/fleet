@@ -44,6 +44,10 @@
       url = "github:michel-kraemer/zsh-patina";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    iff-helix = {
+      url = "github:iff/helix/iff";
+    };
   };
 
   nixConfig = {

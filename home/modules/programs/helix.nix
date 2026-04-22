@@ -2,16 +2,18 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 
 with lib;
 let
   cfg = config.dots.helix;
+  helix = inputs.iff-helix.packages.${pkgs.stdenv.hostPlatform.system}.helix;
   h = pkgs.writeScriptBin "h" ''
     #!/usr/bin/env zsh
     set -eu -o pipefail
-    hx $@
+    ${helix}/bin/hx $@
   '';
 in
 {
@@ -21,7 +23,6 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [
-      pkgs.helix
       h
     ];
     home.file.".config/helix".source = ./helix;
