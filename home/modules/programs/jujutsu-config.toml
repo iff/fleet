@@ -9,6 +9,7 @@ pu = ["git", "push"]
 ed = ["edit"]
 dlog = ["log", "-r"]
 l = ["log", "-r", "(trunk()..@):: | (trunk()..@)-"]
+ll = ["log", "-T", "log_with_files"]
 tug = [
     "bookmark",
     "move",
@@ -27,15 +28,85 @@ lsd = [
 ]
 lg = ["log", "-r", "bookmarks() | fork_point(bookmarks())"]
 dm = ["diff", "--from", "main", "--to", "@", "--"]
+z = ["fuzzy_bookmark"]
+za = ["bookmark", "list", "-a"]
+fuzzy_bookmark = [
+    "util",
+    "exec",
+    "--",
+    "sh",
+    "-c",
+    """
+if [ "x$1" = "x" ]; then
+  jj bookmark list
+else
+  jj bookmark list -a -T 'separate("@", name, remote) ++ "\n"' 2> /dev/null | sort | uniq | fzf -f "$1" | head -n1 | xargs jj new
+fi
+""",
+    "",
+]
+pr = [
+    "util",
+    "exec",
+    "--",
+    "bash",
+    "-c",
+    """
+gh pr create --head $(jj log -r 'closest_bookmark(@)' -T 'bookmarks' --no-graph | cut -d ' ' -f 1)
+""",
+]
 
 [revset-aliases]
+"closest_merge(to)" = "heads(::to & merges())"
 "closest_bookmark(to)" = "heads(::to & bookmarks())"
 "closest_pushable(to)" = "heads(::to & mutable() & ~description(exact:\"\") & (~empty() | merges()))"
 "desc(x)" = "description(x)"
 "pending()" = ".. ~ ::tags() ~ ::remote_bookmarks() ~ @"
+'recent_work' = 'ancestors(visible_heads(), 3) & mutable()'
+
+# [revsets]
+# log = "(trunk()..@):: | (trunk()..@)-"
+
+[templates]
+draft_commit_description = '''
+  concat(
+    coalesce(description, default_commit_description, "\n"),
+    surround(
+      "\nJJ: This commit contains the following changes:\n", "",
+      indent("JJ:     ", diff.stat(72)),
+    ),
+    "\nJJ: ignore-rest\n",
+    diff.git(),
+  )
+'''
+
+[template-aliases]
+log_with_files = '''
+if(root,
+  format_root_commit(self),
+  label(if(current_working_copy, "working_copy"),
+    concat(
+      format_short_commit_header(self) ++ "\n",
+      separate(" ",
+        if(empty, label("empty", "(empty)")),
+        if(description,
+          description.first_line(),
+          label(if(empty, "empty"), description_placeholder),
+        ),
+      ) ++ "\n",
+      if(self.contained_in("recent_work"), diff.summary()),
+    ),
+  )
+)
+'''
 
 [git]
 write-change-id-header = true
 
 [ui]
+default-command = ["status"]
 diff-editor = ["v", "-c", "DiffEditor $left $right $output"]
+
+[fix.tools.rustfmt]
+command = ["cargo", "fmt", "--", "--emit=stdout"]
+patterns = ["glob:*.rs"]
