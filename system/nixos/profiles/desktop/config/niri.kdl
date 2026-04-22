@@ -9,10 +9,6 @@ spawn-at-startup "hyprpaper"
 
 environment {
     GDK_SCALE "2"
-    MOZ_ENABLE_WAYLAND "1"
-    QT_QPA_PLATFORM "wayland"
-    NIXOS_OZONE_WL "1"
-    ELECTRON_OZON_PLATFORM_HINT "auto"
     GTK_USE_PORTAL "1"
     XDG_CURRENT_DESKTOP "niri"
 }

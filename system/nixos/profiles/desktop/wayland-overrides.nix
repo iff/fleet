@@ -13,7 +13,10 @@ in
   config = mkIf (cfg.enable && cfg.enableWaylandOverrides) {
     # Wayland-specific package overrides for better native support
     environment.sessionVariables = {
+      MOZ_ENABLE_WAYLAND = "1";
+      QT_QPA_PLATFORM = "wayland";
       NIXOS_OZONE_WL = "1";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
     };
 
     nixpkgs.overlays = [
