@@ -15,6 +15,9 @@ jump-label-alphabet = "ntseriufhdywoa"
 [editor.auto-save]
 focus-lost = true
 
+[editor.auto-save.after-delay]
+enable = true
+
 [editor.lsp]
 display-inlay-hints = false
 # noisy but useful logs
@@ -43,8 +46,9 @@ mode.select = "SELECT"
 diagnostics = ["warning", "error"]
 workspace-diagnostics = ["warning", "error"]
 
-[editor.inline-diagnostics]
-cursor-line = "warning"
+# too jumpy/noisy
+# [editor.inline-diagnostics]
+# cursor-line = "warning"
 
 [keys.normal]
 
@@ -74,6 +78,7 @@ cursor-line = "warning"
 # changes
 "J" = "join_selections"
 "x" = "delete_char_forward"
+"v" = "select_mode"
 
 # search
 "N" = "search_prev"
@@ -165,14 +170,12 @@ cursor-line = "warning"
 # == Visual / Select mode entry ==
 # In helix, v enters select mode; motions then extend the selection.
 # This mimics pretty close to what we have been using in nvim lately.
-[keys.normal.v]
-# TODO not what I expect when moving up
-"n" = ["select_mode", "extend_to_line_bounds"]
-"." = "select_mode"
-"e" = "@miw"
-"u" = "@miW"
-"p" = "@mip"
-# "v" = "select_all"
+[keys.select]
+
+# TODO where do we bind them?
+# "e" = "@miw"
+# "u" = "@miW"
+# "p" = "@mip"
 
 "(" = "@mi("
 ")" = "@ma("
@@ -186,32 +189,21 @@ cursor-line = "warning"
 "'" = "@mi'"
 "`" = "@mi`"
 
-[keys.normal.v.space]
-"e" = "@maw"
-"u" = "@maW"
-"p" = "@map"
-'"' = '@ma"'
-"'" = "@ma'"
-"`" = "@ma`"
-
-
-[keys.select]
-
 # TODO
-"n" = "extend_to_line_bounds"
-"e" = "extend_line_down"
-"u" = "extend_line_up"
-"l" = "extend_prev_word_start"
+"i" = "extend_char_right"
+"n" = "extend_char_left"
+"e" = "extend_visual_line_down"
+"u" = "extend_visual_line_up"
+"o" = "extend_to_line_bounds"
+"l" = "extend_prev_word_start"  # TODO vs long_word
 "y" = "extend_next_word_start"
-# "C-l" = "extend_prev_long_word_start"
-# "C-y" = "extend_next_long_word_end"
 "k" = "page_up"
 "h" = "page_down"
 
 "v" = "normal_mode"
 
 "r" = "change_selection"
-"d" = "delete_selection"                        # TODO what is _noyank"
+"d" = "delete_selection"                        # TODO what is _noyank"?
 "J" = "join_selections"
 "c" = "yank_to_clipboard"
 "x" = ["yank_to_clipboard", "delete_selection"] # TODO just delete_selection?
@@ -219,6 +211,21 @@ cursor-line = "warning"
 
 "U" = "switch_to_uppercase"
 "E" = "switch_to_lowercase"
+
+[keys.select.space]
+# TODO
+"l" = "extend_prev_word_end"
+"y" = "extend_next_word_end"
+"k" = "half_page_up"
+"h" = "half_page_down"
+#
+"e" = "@maw"
+"u" = "@maW"
+"p" = "@map"
+'"' = '@ma"'
+"'" = "@ma'"
+"`" = "@ma`"
+
 
 # treesitter
 [keys.select.t]
@@ -232,14 +239,7 @@ cursor-line = "warning"
 [keys.select.","]
 "c" = "toggle_comments"
 
-# TODO
-[keys.select.space]
-"l" = "extend_prev_word_end"
-"y" = "extend_next_word_end"
-"k" = "half_page_up"
-"h" = "half_page_down"
-
 [keys.insert]
 "C-d" = ["normal_mode", ":wqa"]
-"C-o" = ["open_below", "normal_mode"] # TODO do I use this?
+# "C-o" = ["open_below", "normal_mode"] # TODO do I use this?
 "C-t" = "completion"
