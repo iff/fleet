@@ -34,6 +34,24 @@
   #   acceleration = "cuda";
   # };
 
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.brlaser ];
+  };
+  hardware.printers = {
+    ensurePrinters = [
+      {
+        name = "Brother_DCP_7060D";
+        location = "Home";
+        deviceUri = "usb://Brother/DCP-7060D?serial=E69753G2N229707";
+        model = "drv:///brlaser.drv/br7060d.ppd";
+        ppdOptions = {
+          PageSize = "A4";
+        };
+      }
+    ];
+  };
+
   services.dbus.implementation = "broker";
 
   virtualisation.docker.storageDriver = "btrfs";
