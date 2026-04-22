@@ -135,6 +135,30 @@ let
 
     git subtree add --prefix=.github https://github.com/iff/ci-conf.git main --squash
   '';
+
+  nnn = pkgs.writeScriptBin "nnn" ''
+    #!/usr/bin/env zsh
+    set -eu -o pipefail
+
+    cmd="${"1:-show"}"
+    (( $# )) && shift
+
+    selected=$(
+      jj log -r 'all()' --no-graph --color=always \
+        -T 'change_id.short(12) ++ " " ++ if(description, description.first_line(), "(no description)") ++ "\n"' \
+        | fzf \
+            --min-height=15 \
+            --cycle \
+            --ansi \
+            --prompt "jj $cmd> " \
+            --preview 'echo {} | awk "{for(i=1;i<=NF;i++) if(length(\$i)>=7){print \$i; exit}}" | xargs jj show --color=always ' \
+            --preview-window=right:60%
+    ) || exit 0
+
+    rev=$(echo "$selected" | awk '{for(i=1;i<=NF;i++) if(length($i)>=7){print $i; exit}}')
+
+    jj "$cmd" -r "$rev" "$@"
+  '';
 in
 {
   home.packages = [
