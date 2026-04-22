@@ -62,7 +62,7 @@ in
         "hypr/hyprpaper.conf".text = ''
           wallpaper {
               monitor = DP-1
-              path = ${./backgrounds/dusk.jpg}
+              path = ${./backgrounds/fluffy_galaxies.png}
               fit_mode = cover
           }
         '';
