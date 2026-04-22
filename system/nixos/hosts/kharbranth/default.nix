@@ -13,8 +13,11 @@
   # networking.interfaces.enp0s31f6.useDHCP = true;
   networking.interfaces.eno1.wakeOnLan.enable = true;
 
-  programs.steam.enable = true;
-  programs.steam.protontricks.enable = true;
+  programs.steam = {
+    enable = true;
+    protontricks.enable = true;
+    gamescopeSession.enable = true;
+  };
 
   services.tailscale.enable = true;
 
