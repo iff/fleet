@@ -1,14 +1,14 @@
 /* Define colors */ /* {{{ */
-@define-color background  rgba(21, 21, 32, 0.7);
-@define-color warning     #f38ba8;
-@define-color caution     #45475a;
-@define-color performance #f5c2e7;
-@define-color audio       #cba6f7;
-@define-color misc        #94e2d5;
-@define-color date        #a6e3a1;
-@define-color work        #b4befe;
-@define-color window      #b4befe;
-@define-color resize #eba0ac;
+@define-color background  rgba(46, 52, 64, 0.7);
+@define-color warning     #bf616a;
+@define-color caution     #ebcb8b;
+@define-color performance #c9826b;
+@define-color audio       #88c0d0;
+@define-color misc        #81a1c1;
+@define-color date        #a3be8c;
+@define-color work        #b48ead;
+@define-color window      #b48ead;
+@define-color resize      #d06f79;
 /* }}} */
 
 /* Reset all styles */ /* {{{ */
@@ -135,6 +135,10 @@
   color: @misc;
 }
 
+#window {
+  color: @window;
+}
+
 #clock {
   color: @date;
 }
@@ -145,8 +149,8 @@
 }
 
 #tray menu {
-  background: #3b4252;
-  color: #dee2ea;
+  background: #232831;
+  color: #c7cdd9;
 }
 
 /* Custom slashes as spacers */ /* {{{ */

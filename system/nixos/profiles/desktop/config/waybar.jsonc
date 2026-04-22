@@ -9,30 +9,29 @@
   "margin-right": 3,
 
   "modules-left": [
-    "tray",
-    "custom/spacer3",
-    "custom/spacer2",
-    "hyprland/workspaces",
-    "custom/spacer2",
-    "custom/spacer3"
+    // "custom/spacer3",
+    // "custom/spacer2",
+    "tray"
+    // "custom/spacer2",
+    // "custom/spacer3"
   ],
 
   "modules-center": [
-    "hyprland/window"
+    "niri/window"
   ],
 
   "modules-right": [
-    "custom/spacer1",
+    // "custom/spacer1",
     "cpu",
     "temperature",
     "memory",
     "custom/nvidia",
     "network",
-    "custom/spacer1",
+    // "custom/spacer1",
     "pulseaudio",
-    "custom/spacer1",
+    // "custom/spacer1",
     "custom/wlsunset",
-    "custom/spacer1",
+    // "custom/spacer1",
     "clock"
   ],
 
@@ -94,7 +93,7 @@
         "today": "<span color='#f5e0dc'><b><u>{}</u></b></span>"
       }
     },
-    "on-click": "google-chrome --app=https://calendar.google.com"
+    "on-click": "firefox https://calendar.proton.me"
   },
 
   "memory": {
