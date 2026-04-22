@@ -55,6 +55,16 @@
     ];
   };
 
+  # zsa trackpad - setting speed and reverting direction
+  services.libinput = {
+    enable = true;
+    touchpad = {
+      naturalScrolling = true;
+      accelSpeed = "1.0";
+      accelProfile = "adaptive";
+    };
+  };
+
   services.dbus.implementation = "broker";
 
   virtualisation.docker.storageDriver = "btrfs";
