@@ -59,8 +59,11 @@ in
         "waybar/config.jsonc".source = ./config/waybar.jsonc;
         "waybar/style.css".source = ./config/waybar.css;
         "hypr/hyprpaper.conf".text = ''
-          preload = ${./backgrounds/moon.jpg}
-          wallpaper = ,${./backgrounds/moon.jpg}
+          wallpaper {
+              monitor = DP-2
+              path = ${./backgrounds/dusk.jpg}
+              fit_mode = cover
+          }
         '';
       };
     };
