@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  inputs,
   user,
   ...
 }:
@@ -26,9 +25,10 @@ in
       wayland-utils
       egl-wayland
       wayland-protocols
-      inputs.hypr-contrib.packages.${pkgs.stdenv.hostPlatform.system}.grimblast
+      grimblast
       hyprpaper
-      rofi
+      # TODO anyrun hm config/file and plugins, fzf?
+      anyrun
     ];
 
     xdg.portal = {

@@ -4,16 +4,14 @@ hotkey-overlay {
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
-spawn-at-startup "waybar"
+
+// start with "niri-session -l"
 spawn-at-startup "hyprpaper"
 
 environment {
     GDK_SCALE "2"
     GTK_USE_PORTAL "1"
-    XDG_CURRENT_DESKTOP "niri"
 }
-
-spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP" "XDG_SESSION_TYPE"
 
 // ask clients to omit their client-side decorations if possible
 prefer-no-csd
@@ -75,7 +73,7 @@ layout {
         // fixed 1920
     }
 
-    default-column-width { proportion 0.5; }
+    default-column-width { proportion 0.66667; }
     // If you leave the brackets empty, the windows themselves will decide their initial width.
     // default-column-width {}
 
@@ -130,9 +128,16 @@ window-rule {
     clip-to-geometry true
 }
 
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 binds {
     Mod+Shift+Return hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
-    Mod+P hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "combi" "-modes" "combi" "-combi-modes" "'window,drun,run'" "-matching" "fuzzy"; }
+    // Mod+P hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "combi" "-modes" "combi" "-combi-modes" "'window,drun,run'" "-matching" "fuzzy"; }
+    Mod+P hotkey-overlay-title="Run an Application: anyrun" { spawn "anyrun"; }
     Mod+O hotkey-overlay-title="Run an Application: firefox" { spawn "firefox"; }
     Ctrl+Mod+S hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
@@ -254,7 +259,6 @@ binds {
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+E { quit; }
-    Ctrl+Alt+Delete { quit; }
 
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.

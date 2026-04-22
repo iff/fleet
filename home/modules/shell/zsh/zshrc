@@ -14,7 +14,8 @@ function zle-line-init {
         unset load_late
         source ${ZDOTDIR:-~}/.zshrc.d/osh.zsh
         source ${ZDOTDIR:-~}/.zshrc.d/completion.zsh
-        source ${ZDOTDIR:-~}/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+        # source ${ZDOTDIR:-~}/.zshrc.d/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+        eval "$(zsh-patina activate)"
         ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
         ZSH_HIGHLIGHT_MAXLENGTH=2000
     fi

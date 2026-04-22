@@ -192,24 +192,6 @@
         "type": "github"
       }
     },
-    "hypr-contrib": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1780083791,
-        "narHash": "sha256-epTJKmTCNL1Hm6/YdEWAgiOMVBSzC9/v/rjyOieP3yA=",
-        "owner": "hyprwm",
-        "repo": "contrib",
-        "rev": "bf1a7cdb086587e6bed6e8ecd285a81c01a11c54",
-        "type": "github"
-      },
-      "original": {
-        "owner": "hyprwm",
-        "repo": "contrib",
-        "type": "github"
-      }
-    },
     "iff-dwm": {
       "flake": false,
       "locked": {
@@ -246,7 +228,7 @@
     "ltstatus": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs",
         "pyproject-build-systems": "pyproject-build-systems",
         "pyproject-nix": "pyproject-nix",
         "uv2nix": "uv2nix"
@@ -301,7 +283,7 @@
     "nd": {
       "inputs": {
         "flake-utils": "flake-utils_3",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_2"
       },
       "locked": {
         "lastModified": 1780519657,
@@ -371,16 +353,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1712163089,
-        "narHash": "sha256-Um+8kTIrC19vD4/lUCN9/cU9kcOsD1O1m+axJqQPyMM=",
+        "lastModified": 1780203844,
+        "narHash": "sha256-K5sT4jTpGs15ADhviMKNBH38REpPf5Q6mM1+N6cArVE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fd281bd6b7d3e32ddfa399853946f782553163b5",
+        "rev": "b51242d7d43689db2f3be91bd05d5b24fbb469c4",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
+        "owner": "nixos",
+        "ref": "nixos-26.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -419,22 +401,6 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1780203844,
-        "narHash": "sha256-K5sT4jTpGs15ADhviMKNBH38REpPf5Q6mM1+N6cArVE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "b51242d7d43689db2f3be91bd05d5b24fbb469c4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-26.05",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_5": {
-      "locked": {
         "lastModified": 1780365719,
         "narHash": "sha256-QfWfccTN+70ZQ4m2qlU9PiKfz2Yppq94058iJyARNwc=",
         "owner": "nixos",
@@ -449,7 +415,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_6": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1744536153,
         "narHash": "sha256-awS2zRgF4uTwrOKwwiJcByDzDOdo3Q1rPZbiHQg/N38=",
@@ -506,7 +472,7 @@
     "ptags-nvim": {
       "inputs": {
         "flake-utils": "flake-utils_5",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_3",
         "pyproject-build-systems": "pyproject-build-systems_2",
         "pyproject-nix": "pyproject-nix_2",
         "uv2nix": "uv2nix_2"
@@ -649,19 +615,19 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "hypr-contrib": "hypr-contrib",
         "iff-dwm": "iff-dwm",
         "ltstatus": "ltstatus",
         "nd": "nd",
         "nihilistic-nvim": "nihilistic-nvim",
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_4",
         "osh-oxy": "osh-oxy",
+        "zsh-patina": "zsh-patina",
         "zsh-syntax-highlighting": "zsh-syntax-highlighting"
       }
     },
     "rust-overlay": {
       "inputs": {
-        "nixpkgs": "nixpkgs_6"
+        "nixpkgs": "nixpkgs_5"
       },
       "locked": {
         "lastModified": 1775358767,
@@ -864,6 +830,26 @@
       "original": {
         "owner": "pyproject-nix",
         "repo": "uv2nix",
+        "type": "github"
+      }
+    },
+    "zsh-patina": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1780735567,
+        "narHash": "sha256-hE7PFVE7CmLUALHwSfNWhwwXcy9ORiXYd4aP2Mg+c80=",
+        "owner": "michel-kraemer",
+        "repo": "zsh-patina",
+        "rev": "efe6e7593b9b21959996f0eee03b12db988b3e13",
+        "type": "github"
+      },
+      "original": {
+        "owner": "michel-kraemer",
+        "repo": "zsh-patina",
         "type": "github"
       }
     },

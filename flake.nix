@@ -10,10 +10,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hypr-contrib = {
-      url = "github:hyprwm/contrib";
-    };
-
     iff-dwm = {
       url = "github:iff/dwm/nixos";
       flake = false;
@@ -42,6 +38,11 @@
 
     nd = {
       url = "github:dkuettel/nd/main";
+    };
+
+    zsh-patina = {
+      url = "github:michel-kraemer/zsh-patina";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
