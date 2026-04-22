@@ -77,7 +77,11 @@
     profiles = {
       desktop = {
         enable = true;
-        wm = "dwm";
+        wm = [
+          "dwm"
+          "niri"
+        ];
+        enableWaylandOverrides = true;
       };
     };
   };

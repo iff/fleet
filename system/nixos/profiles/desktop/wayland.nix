@@ -11,7 +11,7 @@ let
   cfg = config.dots.profiles.desktop;
 in
 {
-  config = mkIf (cfg.enable && (cfg.wm == "hyprland" || cfg.wm == "niri" || cfg.wm == "all")) {
+  config = mkIf (cfg.enable && (builtins.elem "hyprland" cfg.wm || builtins.elem "niri" cfg.wm)) {
     environment.systemPackages = with pkgs; [
       xdg-utils
       glib

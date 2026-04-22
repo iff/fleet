@@ -14,7 +14,6 @@ let
     "dwm"
     "niri"
     "hyprland"
-    "all"
   ];
 in
 {
@@ -29,9 +28,9 @@ in
   options.dots.profiles.desktop = {
     enable = mkEnableOption "desktop profile";
     wm = mkOption {
-      description = "window manager";
-      type = types.enum (wmList);
-      default = "hyprland";
+      description = "window managers to install";
+      type = types.listOf (types.enum wmList);
+      default = [ "dwm" ];
     };
     enableWaylandOverrides = mkOption {
       description = "Enable wayland-specific package overrides (e.g., ozone flags for Chrome)";

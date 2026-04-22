@@ -14,7 +14,7 @@ in
     ./wayland.nix
   ];
 
-  config = mkIf (cfg.enable && (cfg.wm == "niri" || cfg.wm == "all")) {
+  config = mkIf (cfg.enable && builtins.elem "niri" cfg.wm) {
     programs.niri = {
       enable = true;
     };

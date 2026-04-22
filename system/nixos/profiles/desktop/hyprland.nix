@@ -22,7 +22,7 @@ in
     ./wayland.nix
   ];
 
-  config = mkIf (cfg.enable && (cfg.wm == "hyprland" || cfg.wm == "all")) {
+  config = mkIf (cfg.enable && builtins.elem "hyprland" cfg.wm) {
     programs.xwayland.enable = true;
 
     programs.hyprland = {

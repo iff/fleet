@@ -33,7 +33,7 @@
     profiles = {
       desktop = {
         enable = true;
-        wm = "hyprland";
+        wm = [ "hyprland" ];
       };
     };
   };

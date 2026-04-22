@@ -33,7 +33,7 @@ let
   '';
 in
 {
-  config = mkIf (cfg.enable && (cfg.wm == "hyprland" || cfg.wm == "niri" || cfg.wm == "all")) {
+  config = mkIf (cfg.enable && (builtins.elem "hyprland" cfg.wm || builtins.elem "niri" cfg.wm)) {
     home-manager.users.${user} = {
       home.packages = [
         toggle-wlsunset

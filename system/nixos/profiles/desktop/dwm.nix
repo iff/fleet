@@ -61,7 +61,7 @@ let
   '';
 in
 {
-  config = mkIf (cfg.enable && (cfg.wm == "dwm" || cfg.wm == "all")) {
+  config = mkIf (cfg.enable && builtins.elem "dwm" cfg.wm) {
     environment.systemPackages = with pkgs; [
       inotify-tools
       xinit
