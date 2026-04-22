@@ -140,8 +140,7 @@ let
     #!/usr/bin/env zsh
     set -eu -o pipefail
 
-    cmd="${"1:-show"}"
-    (( $# )) && shift
+    cmd="''${1:-show}"
 
     selected=$(
       jj log -r 'all()' --no-graph --color=always \
@@ -157,7 +156,7 @@ let
 
     rev=$(echo "$selected" | awk '{for(i=1;i<=NF;i++) if(length($i)>=7){print $i; exit}}')
 
-    jj "$cmd" -r "$rev" "$@"
+    jj "$cmd" -r "$rev" "''${@:2}"
   '';
 in
 {
@@ -171,6 +170,7 @@ in
     git-ssh-dispatch
     gpr
     wt
+    nnn
   ];
 
   xdg.configFile."git/config".source = ./git-config;
