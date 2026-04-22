@@ -6,7 +6,7 @@ formatter = { command = "rustfmt", args = [] }
 
 [language-server.rust-analyzer.config]
 check = { command = "clippy" }
-cargo = { allFeatures = true }
+cargo = { allTargets = true, allFeatures = true }
 diagnostics = { experimental = { enable = false } }
 inlayHints = { bindingModeHints = { enable = false }, closingBraceHints = { minLines = 25 } }
 

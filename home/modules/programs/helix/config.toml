@@ -1,3 +1,15 @@
+# TODO:
+# - surround_replace/add/delete (https://docs.helix-editor.com/surround.html)
+# - align_view_center
+# - kill_to_line_start, "Delete till start of line
+# - kill_to_line_end, "Delete till end of line"
+# - file_explorer
+# - flip_selections
+#
+# missing features:
+# - fuzzy find in current file -> implemented in my own fork
+# - window/buffer management, eg stack
+
 theme = "nordfox"
 
 [editor]
@@ -60,7 +72,6 @@ workspace-diagnostics = ["warning", "error"]
 "down" = "scroll_down"
 
 # Word movement
-# TODO not quiet correct
 "l" = "move_prev_word_start"
 "y" = "move_next_word_start"
 "C-l" = "move_prev_long_word_start"
@@ -71,6 +82,7 @@ workspace-diagnostics = ["warning", "error"]
 
 "<" = "jump_backward"
 ">" = "jump_forward"
+"%" = "match_brackets"
 
 "C-w" = "undo"
 "C-f" = "redo"
@@ -79,6 +91,7 @@ workspace-diagnostics = ["warning", "error"]
 "J" = "join_selections"
 "x" = "delete_char_forward"
 "v" = "select_mode"
+"o" = "no_op"               # TODO use?
 
 # search
 "N" = "search_prev"
@@ -102,6 +115,10 @@ workspace-diagnostics = ["warning", "error"]
 [keys.normal.'=']
 "=" = ":format"
 
+[keys.normal.g]
+"e" = "goto_next_change"
+"u" = "goto_prev_change"
+
 # paste
 [keys.normal.p]
 "u" = "paste_clipboard_before"
@@ -124,7 +141,7 @@ workspace-diagnostics = ["warning", "error"]
 "i" = "indent"
 
 [keys.normal.f]
-"f" = "global_search" # TODO fuzzy find in buffer na: filter manually with '%p ctrl-r %'
+"f" = "buffer_search" # TODO fuzzy find in buffer na: filter manually with '%p ctrl-r %'
 "n" = "rsearch"
 "i" = "search"
 # "," = "search_next"
@@ -152,9 +169,9 @@ workspace-diagnostics = ["warning", "error"]
 "c" = "changed_file_picker"     # TODO tc: diff to main -> here changed
 
 [keys.normal.t.d]
-"d" = "goto_next_diag"               # TODO should be next or prev?
-"e" = "diagnostics_picker"           # tde: buffer diagnostics
-"u" = "workspace_diagnostics_picker" # tdu: project diagnostics
+"d" = "goto_next_diag"               # TODO should wrap
+"e" = "diagnostics_picker"
+"u" = "workspace_diagnostics_picker"
 
 [keys.normal.a]
 "." = "hover"
@@ -166,14 +183,17 @@ workspace-diagnostics = ["warning", "error"]
 
 [keys.normal.","]
 "c" = "toggle_comments"
+# TODO :run-shell-command
 
 # == Visual / Select mode entry ==
 # In helix, v enters select mode; motions then extend the selection.
 # This mimics pretty close to what we have been using in nvim lately.
+# TODO to keep vn as select line (used a lot) move left/right is m/o
+# TODO select word under cursor is useful, but now clashes with up/down
 [keys.select]
 
 # TODO where do we bind them?
-# "e" = "@miw"
+"i" = "@miw"
 # "u" = "@miW"
 # "p" = "@mip"
 
@@ -190,17 +210,17 @@ workspace-diagnostics = ["warning", "error"]
 "`" = "@mi`"
 
 # TODO
-"i" = "extend_char_right"
-"n" = "extend_char_left"
+"o" = "extend_char_right"
+"m" = "extend_char_left"
 "e" = "extend_visual_line_down"
 "u" = "extend_visual_line_up"
-"o" = "extend_to_line_bounds"
+"n" = "extend_to_line_bounds"
 "l" = "extend_prev_word_start"  # TODO vs long_word
 "y" = "extend_next_word_start"
 "k" = "page_up"
 "h" = "page_down"
 
-"v" = "normal_mode"
+"v" = "exit_select_mode"
 
 "r" = "change_selection"
 "d" = "delete_selection"                        # TODO what is _noyank"?
@@ -208,6 +228,7 @@ workspace-diagnostics = ["warning", "error"]
 "c" = "yank_to_clipboard"
 "x" = ["yank_to_clipboard", "delete_selection"] # TODO just delete_selection?
 "p" = "replace_with_yanked"
+F11 = "save_selection"                          # to jump list
 
 "U" = "switch_to_uppercase"
 "E" = "switch_to_lowercase"
@@ -218,6 +239,8 @@ workspace-diagnostics = ["warning", "error"]
 "y" = "extend_next_word_end"
 "k" = "half_page_up"
 "h" = "half_page_down"
+"i" = "extend_to_line_end"
+"n" = "extend_to_line_start"
 #
 "e" = "@maw"
 "u" = "@maW"
@@ -241,5 +264,5 @@ workspace-diagnostics = ["warning", "error"]
 
 [keys.insert]
 "C-d" = ["normal_mode", ":wqa"]
-# "C-o" = ["open_below", "normal_mode"] # TODO do I use this?
 "C-t" = "completion"
+F11 = "signature_help"          # TODO does not work?
