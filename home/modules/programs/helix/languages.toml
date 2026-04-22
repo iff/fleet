@@ -1,0 +1,9 @@
+[[language]]
+name = "rust"
+indent = { tab-width = 4, unit = "    " }
+auto-format = true
+
+[language-server.rust-analyzer.config]
+check = { command = "clippy" }
+diagnostics = { experimental = { enable = false } }
+inlayHints = { bindingModeHints = { enable = false }, closingBraceHints = { minLines = 25 } }

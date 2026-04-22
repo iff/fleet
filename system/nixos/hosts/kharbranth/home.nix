@@ -51,7 +51,7 @@ in
       font_size = 13.0;
       font_normal = "ZedMono Nerd Font";
     };
-    # syncthing.enable = true;
+    helix.enable = true;
     firefox.enable = true;
   };
 }

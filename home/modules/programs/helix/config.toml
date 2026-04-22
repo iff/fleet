@@ -1,0 +1,238 @@
+# Helix config derived from nihilistic-nvim mappings
+# Movement: n/e/i/u = left/down/right/up (mirrors nvim config)
+# Notable differences from nvim version:
+#   - No operator-pending mode; helix is selection-first (select then operate)
+#   - No submode system (search/treesitter/shifts submodes won't switch bindings)
+#   - v prefix for visual selection is simplified
+#   - git UI not built-in; use :sh lazygit or similar
+#   - hop replaced by search (/)
+#   - No replace mode (R); helix only has single-char replace
+
+theme = "catppuccin_frappe"
+
+[editor]
+scrolloff = 8
+mouse = false
+indent-guides.render = true
+gutters = ["diagnostics", "diff"]
+auto-save = false
+completion-trigger-len = 1
+
+[editor.lsp]
+display-inlay-hints = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+# ─── Normal mode (flat keys first, subsections below) ───────────────────────
+
+[keys.normal]
+
+# == Movement (neiu = hjkl) ==
+"n" = "move_char_left"
+"e" = "move_line_down"
+"i" = "move_char_right"
+"u" = "move_line_up"
+
+# Arrow keys scroll the view
+"up" = "scroll_up"
+"down" = "scroll_down"
+
+# Word movement
+"l" = "move_prev_word_start"
+"y" = "move_next_word_start"
+"C-l" = "move_prev_long_word_start"
+"C-y" = "move_next_long_word_end"
+
+# Page movement (k=page up, h=page down)
+"k" = "page_up"
+"h" = "page_down"
+
+# Jump list (< = C-o, > = C-i in nvim)
+"<" = "jump_backward"
+">" = "jump_forward"
+
+# == Undo / Redo ==
+"C-w" = "undo"
+"C-f" = "redo"
+
+# == Changes ==
+"r" = "change_selection"      # nvim: c
+"d" = "delete_selection"      # nvim: d
+"J" = "join_selections"       # nvim: J
+"del" = "delete_char_forward" # nvim: x (<delete>)
+"." = "repeat_last_motion"
+
+# == Copy / Cut (c=yank to clipboard, x=cut to clipboard) ==
+"c" = "yank_to_clipboard"
+"x" = ["yank_to_clipboard", "delete_selection"]
+
+# == Search: next/prev match (uppercase of movement keys) ==
+# (nvim search submode: u=prev, e=next)
+"N" = "search_prev"
+"E" = "search_next"
+
+# == Save / Quit ==
+"C-s" = ":write"
+"C-d" = ":wqa"
+
+# == Format buffer ==
+"=" = ["select_all", "format_selections"]
+
+# == Paste (p prefix: pu=above, pe=below, pn=before, pi=after) ==
+[keys.normal.p]
+"u" = "paste_clipboard_before"
+"e" = "paste_clipboard_after"
+"n" = "paste_clipboard_before"
+"i" = "paste_clipboard_after"
+
+# == Insert commands (s prefix, mirrors nvim s prefix) ==
+[keys.normal.s]
+"n" = "insert_mode" # sn: insert before (i)
+"i" = "append_mode" # si: insert after (a)
+"o" = "insert_at_line_end" # so: EOL insert (A)
+"m" = [
+    "goto_first_nonwhitespace",
+    "insert_mode",
+] # sm: insert at first non-ws (^i)
+"u" = "open_above" # su: new line above (O)
+"e" = "open_below" # se: new line below (o)
+"." = "replace" # s.: replace (no R mode in helix)
+
+# == Indentation (z prefix, mirrors nvim shifts submode) ==
+[keys.normal.z]
+"n" = "unindent" # z+n: de-indent (<<)
+"i" = "indent"   # z+i: indent (>>)
+
+# == Search (f prefix) ==
+[keys.normal.f]
+"f" = "buffer_picker" # ff: fuzzy find in buffer (telescope equivalent)
+"n" = "rsearch"       # fn: search backwards
+"i" = "search"        # fi: search forward
+"," = "search_next"   # f,: helix auto-clears highlights; this just moves to next
+
+# == Windows (w prefix) ==
+[keys.normal.w]
+"w" = "vsplit"          # ww: new vertical split
+"s" = "hsplit"          # ws: horizontal split
+"u" = "jump_view_left"  # wu: prev window
+"e" = "jump_view_right" # we: next window
+"U" = "jump_view_up"
+"E" = "jump_view_down"
+"," = "wclose"          # w,: close window
+"d" = "wclose"          # wd: close window (no buffer-delete distinction in helix)
+"." = "wonly"           # w.: only window
+
+# == Jumps / Pickers (t prefix) ==
+[keys.normal.t]
+"t" = "goto_definition"         # tt: go to definition
+"r" = "goto_reference"          # tr: references
+"n" = "file_picker"             # tn: find files
+"g" = "global_search"           # tg: live grep
+"b" = "buffer_picker"           # tb: buffers
+"e" = "symbol_picker"           # te: buffer symbols
+"u" = "workspace_symbol_picker" # tu: project symbols
+"j" = "jumplist_picker"         # tj: jumplist
+
+[keys.normal.t.d]
+"d" = "goto_next_diag"               # tdd: next diagnostic
+"e" = "diagnostics_picker"           # tde: buffer diagnostics
+"u" = "workspace_diagnostics_picker" # tdu: project diagnostics
+
+# == LSP Actions (a prefix) ==
+[keys.normal.a]
+"." = "hover"         # a.: hover docs
+";" = "code_action"   # a;: code action
+"o" = "rename_symbol" # ao: rename symbol
+# "h" = no toggle_inlay_hints command in helix; set editor.lsp.display-inlay-hints in config instead
+"," = "diagnostics_picker"                       # a,: diagnostics
+"=" = "select_references_to_symbol_under_cursor" # a=: highlight references
+
+# == Comments (,c) and misc ==
+[keys.normal.","]
+"c" = "toggle_comments" # ,c: toggle comment
+
+# == Visual / Select mode entry (v prefix) ==
+# In helix, v enters select mode; motions then extend the selection.
+# Text objects use m prefix: mi( ma( mi{ ma{ etc.
+[keys.normal.v]
+"n" = ["select_mode", "extend_to_line_bounds"] # vn: line selection (V)
+"." = "select_mode"                            # v.: character select (v)
+"e" = ["select_mode", "extend_next_word_end"]  # ve: select word
+"v" = "select_all"                             # vv: select all
+
+# == Space prefix: extended navigation ==
+[keys.normal.space]
+"l" = "move_prev_word_end"       # <space>l: prev word end (ge)
+"y" = "move_next_word_end"       # <space>y: next word end (e)
+"n" = "goto_first_nonwhitespace" # <space>n: first non-ws in line (0^)
+"i" = "goto_line_end"            # <space>i: end of line ($)
+"u" = "goto_file_start"          # <space>u: top of file (gg)
+"e" = "goto_file_end"            # <space>e: end of file (G)
+"k" = "half_page_up"             # <space>k: half page up (C-u)
+"h" = "half_page_down"           # <space>h: half page down (C-d)
+"r" = "replace"                  # <space>r: replace single char
+"," = "goto_last_modification"   # <space>,: go to last insert (^`)
+# " " = "jump_to_word"             # <space><space>: jump (amp/hop equivalent)
+
+# ─── Select (visual) mode ───────────────────────────────────────────────────
+
+[keys.select]
+
+# == Movement (same remapping as normal) ==
+"n" = "extend_char_left"
+"e" = "extend_line_down"
+"i" = "extend_char_right"
+"u" = "extend_line_up"
+"l" = "extend_prev_word_start"
+"y" = "extend_next_word_start"
+"C-l" = "extend_prev_long_word_start"
+"C-y" = "extend_next_long_word_end"
+"k" = "page_up"
+"h" = "page_down"
+
+# == Exit select mode ==
+"v" = "normal_mode"
+
+# == Operations ==
+"r" = "change_selection"
+"d" = "delete_selection"
+"J" = "join_selections"
+"c" = "yank_to_clipboard"
+"x" = ["yank_to_clipboard", "delete_selection"]
+"p" = "paste_clipboard_after"
+"U" = "switch_to_uppercase"                     # nvim: U in visual
+"E" = "switch_to_lowercase"                     # nvim: u (E) in visual
+
+"C-s" = ":write"
+
+# == Indentation in visual (nvim: n=<gv, i=>gv) ==
+[keys.select.z]
+"n" = "unindent"
+"i" = "indent"
+
+# == Comments ==
+[keys.select.","]
+"c" = "toggle_comments"
+
+# == Space prefix in select mode ==
+[keys.select.space]
+"l" = "extend_prev_word_end"
+"y" = "extend_next_word_end"
+"k" = "half_page_up"
+"h" = "half_page_down"
+
+# ─── Insert mode ────────────────────────────────────────────────────────────
+
+[keys.insert]
+"C-s" = ["normal_mode", ":write"]
+"C-d" = ["normal_mode", ":wqa"]
+# nvim: C-o in insert splits to new empty line (approximate)
+"C-o" = ["open_below", "normal_mode"]
+# C-t triggers completion (C-n/C-p navigate it natively in helix)
+"C-t" = "completion"
