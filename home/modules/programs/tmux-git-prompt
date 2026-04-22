@@ -47,7 +47,7 @@ function status {
     if [[ -d $git_path/.jj ]]; then
         # branch=$(jj lsd | head -1 | awk '{print $1}' || true)
         branch=$(jj log -r '::@ & (bookmarks() | remote_bookmarks())' --ignore-working-copy --no-graph -T 'bookmarks ++ " " ++ remote_bookmarks ++ "\n"' | head -n 1 | awk '{print $1}' || true)
-        desc=$(jj log -r @ --ignore-working-copy --no-graph -T 'if(description, description, "(no description)")' | head -1 || true)
+        desc=$(jj log -r @ --ignore-working-copy --no-graph -T 'if(description, description, "()")' | head -1 | cut -c -10 || true)
         print -n -- "    $branch   $desc"
         print
         return
@@ -71,14 +71,14 @@ function status {
         /^Your branch and .+ have diverged/ { print "    diverged" }
 
         # the first, or at least one of the others will match
-        /^nothing to commit, working tree clean/ { print "   clean" }
-        /^Unmerged paths:/ { print "  󰅗 unmerged" }
-        /^Changes to be committed:/ { print "  󰏬 uncommited" }
-        /^Changes not staged for commit:/ { print "  󰆖 unstaged" }
-        /^Untracked files:/ { print "  󰞋 untracked" }
+        # /^nothing to commit, working tree clean/ { print "   clean" }
+        # /^Unmerged paths:/ { print "  󰅗 unmerged" }
+        # /^Changes to be committed:/ { print "  󰏬 uncommited" }
+        # /^Changes not staged for commit:/ { print "  󰆖 unstaged" }
+        # /^Untracked files:/ { print "  󰞋 untracked" }
 
         # maybe matches
-        /^Your stash currently has / { print "  󰿠 stashes" }
+        # /^Your stash currently has / { print "  󰿠 stashes" }
     ') || true
 
     if git -c advice.statusHints=false -c core.untrackedCache=true --no-optional-locks submodule status |& grep + &>/dev/null; then
