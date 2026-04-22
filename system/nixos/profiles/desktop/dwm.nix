@@ -137,7 +137,7 @@ in
         # QT_SCALE_FACTOR=2
         # QT_FONT_DPI=220
 
-        feh --bg-scale ${./backgrounds/dusk.jpg}
+        feh --bg-scale ${./backgrounds/fluffy_galaxies.png}
         redshift -r -v & # |& ts '%F %T' >& $HOME/.log-redshift &
 
         dwm-ltstatus >& .log-dwm-status &
