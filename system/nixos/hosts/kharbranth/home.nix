@@ -47,8 +47,8 @@ in
     alacritty = {
       enable = true;
       decorations = "None";
-      # for dwm, 14 for Hyprland/Niri
-      font_size = 12.0;
+      # for dwm 12, 13 for Niri
+      font_size = 13.0;
       font_normal = "ZedMono Nerd Font";
     };
     helix.enable = true;
