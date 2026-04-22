@@ -61,7 +61,7 @@ in
         "waybar/style.css".source = ./config/waybar.css;
         "hypr/hyprpaper.conf".text = ''
           wallpaper {
-              monitor = DP-1
+              monitor =
               path = ${./backgrounds/fluffy_galaxies.png}
               fit_mode = cover
           }

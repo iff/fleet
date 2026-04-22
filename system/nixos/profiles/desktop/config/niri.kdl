@@ -50,10 +50,11 @@ input {
     }
 }
 
-output "DP-1" {
+output "ASUSTek COMPUTER INC XG27JCG TBLMQS039011" {
     mode "5120x2880@119.994"
     scale 2.0
     transform "normal"
+    variable-refresh-rate
 }
 
 // https://yalter.github.io/niri/Configuration:-Layout
