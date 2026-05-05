@@ -28,6 +28,7 @@ in
       font_size = 19.0;
       font_normal = "ZedMono Nerd Font";
     };
+    helix.enable = true;
     firefox.enable = false;
     kanata.enable = true;
     zed.enable = true;
