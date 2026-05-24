@@ -26,6 +26,11 @@ in
       type = types.str;
       default = "Ubuntu Mono Nerd Font Complete Mono";
     };
+    font_style = mkOption {
+      description = "alacritty font weight/style (must match the font's style name, e.g. Regular, Medium, SemiBold, Bold)";
+      type = types.str;
+      default = "Regular";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -38,6 +43,7 @@ in
       # FIXME font can't be in basic and override here, need proper merger
       settings = {
         font.normal.family = cfg.font_normal;
+        font.normal.style = cfg.font_style;
         font.size = cfg.font_size;
         window.decorations = cfg.decorations;
       }
