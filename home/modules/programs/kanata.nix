@@ -23,7 +23,7 @@ let
     fi
 
     # fix path/install - assume PATH?
-    if ! [ -x "$(command -v ~/bin/kanata-new)" ]; then
+    if ! [ -x "$(command -v ~/bin/kanata)" ]; then
       echo 'error: kanata is not in ~/bin' >&2
       exit 1
     fi
@@ -37,6 +37,13 @@ let
     sudo launchctl bootstrap system /Library/LaunchDaemons/org.kanata.agent.plist
 
     echo 'add kanata exec to Input Monitoring'
+  '';
+
+  kanata-service = pkgs.writeScriptBin "kanata-service" ''
+    #!/usr/bin/env zsh
+    set -eu -o pipefail
+
+    sudo ~/bin/kanata --cfg ~/.config/kanata/config.kbd --nodelay
   '';
 
   restart-kanata = pkgs.writeScriptBin "restart-kanata" ''
@@ -69,6 +76,7 @@ in
     home.packages =
       [ ]
       ++ lib.optionals pkgs.stdenv.isDarwin [
+        kanata-service
         install-kanata-service
         restart-kanata
         uninstall-kanata-service
