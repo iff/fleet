@@ -1,5 +1,40 @@
 { pkgs, inputs, ... }:
 
+let
+  np = pkgs.writeScriptBin "np" ''
+    #!/usr/bin/env zsh
+    set -eu -o pipefail
+
+    if [[ $# -ne 2 ]]; then
+      echo "usage: np <name> <language>" >&2
+      exit 1
+    fi
+
+    name=$1
+    lang=$2
+    envs=$HOME/src/envs
+    template=$envs/$lang
+
+    if [[ ! -d $template ]]; then
+      echo "unknown language '$lang', available:" >&2
+      ls $envs >&2
+      exit 1
+    fi
+
+    dest=$HOME/src/$name
+
+    if [[ -e $dest ]]; then
+      echo "$dest already exists" >&2
+      exit 1
+    fi
+
+    mkdir -p $dest
+    cp $template/flake.nix $dest/flake.nix
+    echo 'use flake' > $dest/.envrc
+
+    cd $dest
+  '';
+in
 {
   home.stateVersion = "24.05";
 
@@ -15,6 +50,7 @@
   fonts.fontconfig.enable = true;
 
   home.packages = [
+    np
     pkgs._1password-cli
     pkgs.dua
     pkgs.eza
