@@ -20,7 +20,9 @@ let
   '';
 
   tmux-git-prompt = pkgs.writeScriptBin "tmux-git-prompt" (builtins.readFile ./tmux-git-prompt);
-  tmux-shell = "${inputs.nd.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/tmux-nd-shell";
+  nd-tmux-cmd = "${
+    inputs.nd.packages.${pkgs.stdenv.hostPlatform.system}.default
+  }/bin/nd-tmux-default-command";
 in
 {
   # FIXME alacritty and TMUX have issues with OSX native ncurses
@@ -151,7 +153,7 @@ in
             bind -T copy-mode-vi 'C-v' send -X rectangle-toggle
             bind -T copy-mode-vi 'y' send -X copy-selection
 
-            set-option -g default-shell ${tmux-shell}
+            set-option -g default-command ${nd-tmux-cmd}
     '';
   };
 
