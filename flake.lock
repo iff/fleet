@@ -230,11 +230,11 @@
     "lavish-layouts-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1783004541,
-        "narHash": "sha256-McdZ66jUD0hSZNVawKmTxEzRdBwmjX7LutUaBmtNsZM=",
+        "lastModified": 1784292142,
+        "narHash": "sha256-GRxVjE9BXAyIRhb6CgqvsWF3afZga3Q822pj9mccAYk=",
         "owner": "dkuettel",
         "repo": "lavish-layouts.nvim",
-        "rev": "0f412f702c3404d6f1961dc10e7c6a8d970baccf",
+        "rev": "eef2e9b399bd7cdb4fd448a0f09e8a73428f4a65",
         "type": "github"
       },
       "original": {
@@ -337,11 +337,11 @@
         "tree-sitter-lean": "tree-sitter-lean"
       },
       "locked": {
-        "lastModified": 1784203941,
-        "narHash": "sha256-UI7H3B4If5/MWb7uBqyJlRqQ9haSsyxOFuL68qWKAm8=",
+        "lastModified": 1784697590,
+        "narHash": "sha256-OdbEwnMe3hWcDbWev6ivuUHf2dqjKWrzgADsshFonf8=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "0acee8e7c11fb2b2366d7de50b6b1618f28349b8",
+        "rev": "ce99c76cb1f4f840cece458fc0065a68779973c3",
         "type": "github"
       },
       "original": {
@@ -433,11 +433,11 @@
     "nvim-lspconfig": {
       "flake": false,
       "locked": {
-        "lastModified": 1783882242,
-        "narHash": "sha256-VSrQgki5tR99EMBGF3bO/SbaNzGHNFcOelqSaq4RQAg=",
+        "lastModified": 1784308888,
+        "narHash": "sha256-UucKVsXkORQ1USvb3cgZ29lipUkwZzXeEFou1U7tx9A=",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "2c227d59589957fa4404b7de5f61d72c0a78a62d",
+        "rev": "e7ca2c95ba316a8b846d3f3546d407908c5c4ccb",
         "type": "github"
       },
       "original": {
@@ -449,11 +449,11 @@
     "nvim-treesitter-textobjects": {
       "flake": false,
       "locked": {
-        "lastModified": 1775552773,
-        "narHash": "sha256-fOpRElIwvsFWm4AwETx7fpC3RtdH2BpCfX4YHVitqw0=",
+        "lastModified": 1784459145,
+        "narHash": "sha256-naZ+p5RrC+uUyFRaksmozDfNgJRifff+9TDWx79DCPk=",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter-textobjects",
-        "rev": "851e865342e5a4cb1ae23d31caf6e991e1c99f1e",
+        "rev": "898ee307df58f854d11cd7edd06472574d48014e",
         "type": "github"
       },
       "original": {
