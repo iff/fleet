@@ -338,11 +338,11 @@
         "telescope-ui-select-nvim": "telescope-ui-select-nvim"
       },
       "locked": {
-        "lastModified": 1780929862,
-        "narHash": "sha256-ZZFg56oTfvlOSfdmZf585AnYicNTIu+bP/KoQxT9K1U=",
+        "lastModified": 1781350417,
+        "narHash": "sha256-W9sCtdG31WQ/uCWGViNuPaGnilfKno6a0D6x0d4Xpho=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "8530953f68c12da21418d8f0713bfe11c5301411",
+        "rev": "2a734ae9ef4b1e6df54c6a1280d80dff2eda0bd8",
         "type": "github"
       },
       "original": {
