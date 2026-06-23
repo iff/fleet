@@ -8,12 +8,28 @@
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
-    kernelModules = [ "kvm-amd" ];
+    consoleLogLevel = 3;
+    initrd.verbose = false;
+
+    # plymouth = {
+    #   enable = true;
+    #   themePackages = [ pkgs.adi1090x-plymouth-themes ];
+    #   theme = "infinite_seal";
+    #   # theme = "spin";
+    # };
+
+    kernelModules = [
+      "kvm-amd"
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia_uvm"
+      "nvidia_drm"
+    ];
     # using ncu profiler without sudo
-    extraModprobeConfig = ''
-      options nvidia NVreg_RestrictProfilingToAdminUsers=0
-    '';
-    extraModulePackages = [ ];
+    extraModprobeConfig = "";
+    extraModulePackages = [
+      # config.boot.kernelPackages.nvidia_x11
+    ];
     initrd = {
       availableKernelModules = [
         "nvme"
@@ -24,6 +40,14 @@
       kernelModules = [ "dm-snapshot" ];
     };
 
+    kernelParams = [
+      # "quiet"
+      # "rd.udev.log_level=3"
+      # "rd.systemd.show_status=auto"
+      # "video=DP-1:5120x2880-24@120"
+      # "nvidia-drm.modeset=1"
+    ];
+
     loader = {
       timeout = 0; # TODO or null for wait, or 0 for on-key?
       efi = {
@@ -33,7 +57,7 @@
       };
       systemd-boot = {
         enable = true;
-        configurationLimit = 100;
+        configurationLimit = 10;
         consoleMode = "0"; # all options often take long to appear
       };
     };
