@@ -268,22 +268,6 @@
         "type": "github"
       }
     },
-    "lualine-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1780194559,
-        "narHash": "sha256-6PjGu30Ed4/e/HQ3mIFQuUOxcCiti/71jjlMsjN7EoA=",
-        "owner": "nvim-lualine",
-        "repo": "lualine.nvim",
-        "rev": "221ce6b2d999187044529f49da6554a92f740a96",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nvim-lualine",
-        "repo": "lualine.nvim",
-        "type": "github"
-      }
-    },
     "mad-mappings-nvim": {
       "flake": false,
       "locked": {
@@ -344,7 +328,6 @@
         "funky-formatter-nvim": "funky-formatter-nvim",
         "hop-nvim": "hop-nvim",
         "lavish-layouts-nvim": "lavish-layouts-nvim",
-        "lualine-nvim": "lualine-nvim",
         "mad-mappings-nvim": "mad-mappings-nvim",
         "nightfox-nvim": "nightfox-nvim",
         "nixpkgs": [
@@ -358,11 +341,11 @@
         "telescope-ui-select-nvim": "telescope-ui-select-nvim"
       },
       "locked": {
-        "lastModified": 1782128375,
-        "narHash": "sha256-Z0XZ6I6NFUIWPpRp3nJC7mVyX87lPmC9zqa8TxNqlCU=",
+        "lastModified": 1782283877,
+        "narHash": "sha256-qSiqdSdJ/0iFfqTSHiP3r+rh+9bebIS4Lw1hOiXsKh4=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "bfc94f3a01599e95376160bdfd90e9c089e798be",
+        "rev": "56130af76ae7a6e1be723fe8160ef7738016fc93",
         "type": "github"
       },
       "original": {
