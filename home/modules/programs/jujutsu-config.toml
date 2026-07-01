@@ -28,20 +28,17 @@ lsd = [
 ]
 lg = ["log", "-r", "bookmarks() | fork_point(bookmarks())"]
 dm = ["diff", "--from", "main", "--to", "@", "--"]
-z = ["fuzzy_bookmark"]
+z = ["fzf_bookmark"]
 za = ["bookmark", "list", "-a"]
-fuzzy_bookmark = [
+fzf_bookmark = [
     "util",
     "exec",
     "--",
     "sh",
     "-c",
     """
-if [ "x$1" = "x" ]; then
-  jj bookmark list
-else
-  jj bookmark list -a -T 'separate("@", name, remote) ++ "\n"' 2> /dev/null | sort | uniq | fzf -f "$1" | head -n1 | xargs jj new
-fi
+selection=$(jj bookmark list -a -T 'separate("@", name, remote) ++ "\n"' 2> /dev/null | fzf) || exit 0
+jj new "$selection"
 """,
     "",
 ]
@@ -55,6 +52,11 @@ pr = [
 gh pr create --head $(jj log -r 'closest_bookmark(@)' -T 'bookmarks' --no-graph | cut -d ' ' -f 1)
 """,
 ]
+init = ["util", "exec", "--", "bash", "-c", """
+jj git init --colocate
+# only track origin branches, not upstream or others
+jj bookmark track 'glob:*@origin'
+"""]
 
 [revset-aliases]
 "closest_merge(to)" = "heads(::to & merges())"
