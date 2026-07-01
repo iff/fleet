@@ -26,7 +26,8 @@ in
       enable = true;
       decorations = "Full";
       font_size = 19.0;
-      font_normal = "ZedMono Nerd Font";
+      # font_normal = "ZedMono Nerd Font";
+      font_normal = "IosevkaTerm Nerd Font Mono";
     };
     helix.enable = true;
     firefox.enable = false;

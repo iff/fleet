@@ -49,7 +49,8 @@ in
       decorations = "None";
       # for dwm 12, 13 for Niri
       font_size = 13.0;
-      font_normal = "ZedMono Nerd Font";
+      # font_normal = "ZedMono Nerd Font";
+      font_normal = "IosevkaTerm Nerd Font Mono";
     };
     helix.enable = true;
     firefox.enable = true;

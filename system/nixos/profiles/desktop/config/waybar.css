@@ -25,7 +25,7 @@
 
 #waybar {
   background: @background;
-  font-family: "Zed Mono Nerd Font";
+  font-family: "IosevkaTerm Nerd Font Mono";
   font-size: 10pt;
   font-weight: bold;
   border: 1.5px solid @border;
@@ -33,7 +33,7 @@
 }
 
 #waybar button {
-  font-family: "Zed Mono Nerd Font";
+  font-family: "IosevkaTerm Nerd Font Mono";
   font-size: 10pt;
   font-weight: bold;
   transition-property: background-color;
