@@ -72,7 +72,8 @@
         enable = true;
         wm = [
           "dwm"
-          "niri"
+          # "niri"
+          "river"
         ];
         enableWaylandOverrides = true;
       };

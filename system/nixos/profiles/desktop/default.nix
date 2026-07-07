@@ -14,6 +14,7 @@ let
     "dwm"
     "niri"
     "hyprland"
+    "river"
   ];
 in
 {
@@ -21,6 +22,7 @@ in
     ./dwm.nix
     ./hyprland.nix
     ./niri.nix
+    ./river.nix
     ./wlsunset.nix
     ./wayland-overrides.nix
   ];
