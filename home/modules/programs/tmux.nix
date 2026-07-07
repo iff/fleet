@@ -12,8 +12,11 @@ let
 
     session=''${1:-$(basename `pwd`)}
 
-    tmux new-session -A -D -s $session -e nd_env=$PWD
-    # tmux new-session -A -D -e NN_XPS_CACHE=$HOME/.cache/xps -e nn=$HOME/envs/$session -s $session
+    if [[ -e $PWD/.nd ]]; then
+      tmux new-session -A -D -s $session -e nd_env=$PWD
+    else
+      tmux new-session -A -D -s $session
+    fi
   '';
 
   tmux-git-prompt = pkgs.writeScriptBin "tmux-git-prompt" (builtins.readFile ./tmux-git-prompt);
