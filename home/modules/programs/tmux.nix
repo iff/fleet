@@ -12,7 +12,7 @@ let
 
     session=''${1:-$(basename `pwd`)}
 
-    tmux new-session -A -D -s $session
+    tmux new-session -A -D -s $session -e nd_env=$PWD
     # tmux new-session -A -D -e NN_XPS_CACHE=$HOME/.cache/xps -e nn=$HOME/envs/$session -s $session
   '';
 
@@ -37,8 +37,6 @@ in
     terminal = "tmux-256color";
 
     extraConfig = ''
-            set-option -g default-shell ${tmux-shell}
-
             set -g status on
             set -g focus-events on
             set -g renumber-windows on
@@ -149,6 +147,8 @@ in
             bind -T copy-mode-vi 'v' send -X begin-selection
             bind -T copy-mode-vi 'C-v' send -X rectangle-toggle
             bind -T copy-mode-vi 'y' send -X copy-selection
+
+            set-option -g default-shell ${tmux-shell}
     '';
   };
 
