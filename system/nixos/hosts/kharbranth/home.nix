@@ -23,7 +23,7 @@ in
     geeqie
     ghostty
     google-chrome
-    neovide
+    # neovide
     perf
     protonmail-desktop
     # roam-research
@@ -31,16 +31,16 @@ in
     spotify
     transmission_4-gtk
     vlc
-    slack
+    # slack
     zed-editor
     #
     switch
     #
     cudaPackages.cudatoolkit
     # games
-    beyond-all-reason
-    widelands
-    widelands-2k
+    # beyond-all-reason
+    # widelands
+    # widelands-2k
   ];
 
   dots = {
