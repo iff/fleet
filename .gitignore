@@ -1,10 +1,11 @@
 *.db
 *.pyc
+.nd/
+.netrwhist
 tags
 tags-ja
-yank.txt_v2.txt
-.netrwhist
 vim/vim.symlink/.yank.txt_v2.txt
 vim/vim.symlink/bundle
 vim/vim.symlink/view
+yank.txt_v2.txt
 zsh/plugins.zsh.zwc
