@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 let
   tm = pkgs.writeScriptBin "tm" ''
@@ -12,6 +17,7 @@ let
   '';
 
   tmux-git-prompt = pkgs.writeScriptBin "tmux-git-prompt" (builtins.readFile ./tmux-git-prompt);
+  tmux-shell = "${inputs.nd.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/tmux-nd-shell";
 in
 {
   # FIXME alacritty and TMUX have issues with OSX native ncurses
@@ -31,6 +37,8 @@ in
     terminal = "tmux-256color";
 
     extraConfig = ''
+            set-option -g default-shell ${tmux-shell}
+
             set -g status on
             set -g focus-events on
             set -g renumber-windows on
