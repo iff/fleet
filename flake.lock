@@ -230,11 +230,11 @@
     "lavish-layouts-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1784292142,
-        "narHash": "sha256-GRxVjE9BXAyIRhb6CgqvsWF3afZga3Q822pj9mccAYk=",
+        "lastModified": 1784736379,
+        "narHash": "sha256-ieZqtU/iueS1lRpEYhvvBQiEwZE2m6HF7TzA1cc+pOc=",
         "owner": "dkuettel",
         "repo": "lavish-layouts.nvim",
-        "rev": "eef2e9b399bd7cdb4fd448a0f09e8a73428f4a65",
+        "rev": "920b1bb6a5bd7e3671a545ef94082edec3451351",
         "type": "github"
       },
       "original": {
@@ -337,11 +337,11 @@
         "tree-sitter-lean": "tree-sitter-lean"
       },
       "locked": {
-        "lastModified": 1784697590,
-        "narHash": "sha256-OdbEwnMe3hWcDbWev6ivuUHf2dqjKWrzgADsshFonf8=",
+        "lastModified": 1785132812,
+        "narHash": "sha256-2IzjdMG54cegSzBJO8K5ITKWIR5qGxcHJf8RSF2/Lzk=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "ce99c76cb1f4f840cece458fc0065a68779973c3",
+        "rev": "45bb12b218f3249f254638034287a6d5a0c8a302",
         "type": "github"
       },
       "original": {
@@ -433,11 +433,11 @@
     "nvim-lspconfig": {
       "flake": false,
       "locked": {
-        "lastModified": 1784308888,
-        "narHash": "sha256-UucKVsXkORQ1USvb3cgZ29lipUkwZzXeEFou1U7tx9A=",
+        "lastModified": 1785061322,
+        "narHash": "sha256-DP6osN9M8wTYqIAmTX6R+wzoSV3BhFonDjPZd3Kv0y4=",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "e7ca2c95ba316a8b846d3f3546d407908c5c4ccb",
+        "rev": "7ab79bb1b57160a537f427ac8a6026102f12b701",
         "type": "github"
       },
       "original": {
@@ -666,11 +666,11 @@
     "tree-sitter-lean": {
       "flake": false,
       "locked": {
-        "lastModified": 1782254639,
-        "narHash": "sha256-WT9cdOrtA4jV9zbZ6EPTadwAZBn4FQZkv8Dchcwisoc=",
+        "lastModified": 1784539032,
+        "narHash": "sha256-y7KpMnnv8NuUXC9EiqwwflDHMYwXtR0voLfDpdN7614=",
         "owner": "Julian",
         "repo": "tree-sitter-lean",
-        "rev": "dc5997b2744595eeb389e1ed9c4f5e727c5b655e",
+        "rev": "86c2bcb379fe0b2ad13d8b3411400deff75b2785",
         "type": "github"
       },
       "original": {
