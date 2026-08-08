@@ -15,7 +15,6 @@ in
     environment.systemPackages = with pkgs; [
       xdg-utils
       glib
-      dracula-theme
       adwaita-icon-theme
       mako
       wl-clipboard
