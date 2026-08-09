@@ -26,6 +26,6 @@
 
   home.packages = [
     inputs.osh-oxy.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.zsh-patina.packages.${pkgs.stdenv.hostPlatform.system}.default
+    pkgs.zsh-patina
   ];
 }

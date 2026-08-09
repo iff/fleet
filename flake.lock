@@ -546,7 +546,6 @@
         "nihilistic-nvim": "nihilistic-nvim",
         "nixpkgs": "nixpkgs_4",
         "osh-oxy": "osh-oxy",
-        "zsh-patina": "zsh-patina",
         "zsh-syntax-highlighting": "zsh-syntax-highlighting"
       }
     },
@@ -723,26 +722,6 @@
       "original": {
         "owner": "pyproject-nix",
         "repo": "uv2nix",
-        "type": "github"
-      }
-    },
-    "zsh-patina": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1786046587,
-        "narHash": "sha256-lsalJHGQIYRzHtqhtXlH0KRTAoW1CdAmvH3vSFR/NPY=",
-        "owner": "michel-kraemer",
-        "repo": "zsh-patina",
-        "rev": "63d033ce397becd7dc325171b7a9b933bda8ea6e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "michel-kraemer",
-        "repo": "zsh-patina",
         "type": "github"
       }
     },
