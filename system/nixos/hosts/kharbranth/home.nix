@@ -51,6 +51,8 @@ in
       font_size = 13.0;
       # font_normal = "ZedMono Nerd Font";
       font_normal = "IosevkaTerm Nerd Font Mono";
+      theme = "nordfox";
+      # theme = "everforest_dark_medium";
     };
     helix.enable = true;
     firefox.enable = true;

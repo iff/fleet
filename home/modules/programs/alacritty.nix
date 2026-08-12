@@ -31,23 +31,31 @@ in
       type = types.str;
       default = "Regular";
     };
+    theme = mkOption {
+      description = "alacritty color theme, from pkgs.alacritty-theme's share/alacritty-theme/*.toml";
+      type = types.enum (
+        map (lib.removeSuffix ".toml") (
+          builtins.attrNames (builtins.readDir "${pkgs.alacritty-theme}/share/alacritty-theme")
+        )
+      );
+      default = "nordfox";
+    };
   };
 
   config = mkIf cfg.enable {
     # FIXME alacritty and TMUX have issues with OSX native ncurses
     # see https://github.com/NixOS/nixpkgs/issues/204144
-    home.packages = [ ] ++ lib.optionals pkgs.stdenv.isDarwin [ pkgs.ncurses ];
+    home.packages = [ pkgs.alacritty-theme ] ++ lib.optionals pkgs.stdenv.isDarwin [ pkgs.ncurses ];
 
     programs.alacritty = {
       enable = cfg.enable;
-      # FIXME font can't be in basic and override here, need proper merger
-      settings = {
+      settings = lib.attrsets.recursiveUpdate (import ./alacritty/basics.nix) {
+        general.import = [ "${pkgs.alacritty-theme}/share/alacritty-theme/${cfg.theme}.toml" ];
         font.normal.family = cfg.font_normal;
         font.normal.style = cfg.font_style;
         font.size = cfg.font_size;
         window.decorations = cfg.decorations;
-      }
-      // lib.attrsets.recursiveUpdate (import ./alacritty/basics.nix) (import ./alacritty/colors.nix);
+      };
     };
   };
 }
