@@ -10,6 +10,7 @@ ed = ["edit"]
 dlog = ["log", "-r"]
 l = ["log", "-r", "(trunk()..@):: | (trunk()..@)-"]
 ll = ["log", "-T", "log_with_files"]
+rbm = ["rebase", "--onto", "trunk()"]
 tug = [
     "bookmark",
     "move",
