@@ -338,11 +338,11 @@
         "tree-sitter-lean": "tree-sitter-lean"
       },
       "locked": {
-        "lastModified": 1786423383,
-        "narHash": "sha256-XN8PqUBb6KYGj+xTqWZkpwS65r1TXWTcUCCqXOnQC4A=",
+        "lastModified": 1786522350,
+        "narHash": "sha256-MXCofiqzVakP8EEZkePF0T1d9OuPn0No9sv5ONeSUkY=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "8da1a48e923aff895dba9ea1a18b54b1f5d990fe",
+        "rev": "a6ae8e4aa3c8710ce1342273e0b6cb6f04b9c1be",
         "type": "github"
       },
       "original": {
