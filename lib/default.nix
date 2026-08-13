@@ -51,7 +51,8 @@ rec {
     let
       pkgs = inputs.self.pkgsBySystem."${system}";
       username = user;
-      homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
+      homeDirectory =
+        if pkgs.stdenv.hostPlatform.isDarwin then "/Users/${username}" else "/home/${username}";
     in
     nameValuePair name (
       inputs.home-manager.lib.homeManagerConfiguration {

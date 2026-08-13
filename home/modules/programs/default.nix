@@ -8,9 +8,9 @@
     ./ghostty.nix
     ./git.nix
     ./kanata.nix
+    ./radicle.nix
     ./syncthing.nix
     ./tmux.nix
-    # ./wezterm.nix
     ./zed.nix
   ];
 }

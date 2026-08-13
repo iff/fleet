@@ -45,7 +45,10 @@ in
   config = mkIf cfg.enable {
     # FIXME alacritty and TMUX have issues with OSX native ncurses
     # see https://github.com/NixOS/nixpkgs/issues/204144
-    home.packages = [ pkgs.alacritty-theme ] ++ lib.optionals pkgs.stdenv.isDarwin [ pkgs.ncurses ];
+    home.packages = [
+      pkgs.alacritty-theme
+    ]
+    ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ pkgs.ncurses ];
 
     programs.alacritty = {
       enable = cfg.enable;

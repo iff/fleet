@@ -75,7 +75,7 @@ in
     # in case we ever use it on another platform
     home.packages =
       [ ]
-      ++ lib.optionals pkgs.stdenv.isDarwin [
+      ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
         kanata-service
         install-kanata-service
         restart-kanata

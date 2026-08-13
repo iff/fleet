@@ -33,7 +33,7 @@ in
       dispatch
     ];
 
-    xdg = lib.mkIf (pkgs.stdenv.isLinux) {
+    xdg = lib.mkIf (pkgs.stdenv.hostPlatform.isLinux) {
       enable = true;
       desktopEntries = {
         firefox = {
