@@ -73,9 +73,9 @@
         wm = [
           "dwm"
           # "niri"
-          "river"
+          # "river"
         ];
-        enableWaylandOverrides = true;
+        enableWaylandOverrides = false;
       };
     };
   };

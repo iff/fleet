@@ -31,7 +31,6 @@ in
     spotify
     transmission_4-gtk
     vlc
-    # slack
     zed-editor
     #
     switch
@@ -47,8 +46,8 @@ in
     alacritty = {
       enable = true;
       decorations = "None";
-      # for dwm 12, 13 for Niri
-      font_size = 13.0;
+      # for dwm 12, 13 for wayland
+      font_size = 12.0;
       # font_normal = "ZedMono Nerd Font";
       font_normal = "IosevkaTerm Nerd Font Mono";
       theme = "nordfox";
