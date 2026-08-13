@@ -31,7 +31,7 @@ in
     tm
     tmux-git-prompt
   ]
-  ++ lib.optionals pkgs.stdenv.isDarwin [ pkgs.ncurses ];
+  ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ pkgs.ncurses ];
 
   programs.tmux = {
     enable = true;
@@ -72,8 +72,8 @@ in
             setw -g window-status-activity-style "underscore,fg=#7e8188,bg=#232831"
             setw -g window-status-separator ""
             setw -g window-status-style "NONE,fg=#7e8188,bg=#232831"
-            setw -g window-status-format "#[fg=#7e8188,bg=#232831] #I  #W "
-            setw -g window-status-current-format "#[fg=#c9826b,bg=#232831,bold] #I  #W "
+            setw -g window-status-format "#[fg=#7e8188,bg=#232831] #I  #{pane_current_command} "
+            setw -g window-status-current-format "#[fg=#c9826b,bg=#232831,bold] #I  #{pane_current_command} "
 
             # only show pane bare if more than one
             set-hook -g -w pane-focus-in { set-option -Fw pane-border-status '#{?#{e|>:#{window_panes},1},top,off}' }
@@ -133,7 +133,7 @@ in
             # move to new window
             bind-key Y break-pane
             # rename
-            bind-key , command-prompt 'rename-window %%'
+            # bind-key , command-prompt 'rename-window %%'
 
             bind a copy-mode
             bind -T copy-mode-vi u send-keys -X cursor-up
