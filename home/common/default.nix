@@ -1,6 +1,20 @@
 { pkgs, inputs, ... }:
 
 let
+  vv = pkgs.writeScriptBin "vv" ''
+    #!/usr/bin/env zsh
+    set -eu -o pipefail
+
+    exec ~/src/nihilistic-nvim/result/bin/v $@
+  '';
+
+  # hxs = pkgs.writeScriptBin "hxs" ''
+  #   #!/usr/bin/env zsh
+  #   set -eu -o pipefail
+  #
+  #   exec ~/src/hollow-helix/result/bin/hx $@
+  # '';
+
   np = pkgs.writeScriptBin "np" ''
     #!/usr/bin/env zsh
     set -eu -o pipefail
@@ -51,6 +65,7 @@ in
 
   home.packages = [
     np
+    vv
     pkgs._1password-cli
     pkgs.dua
     pkgs.eza
