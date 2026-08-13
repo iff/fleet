@@ -18,7 +18,7 @@ let
 in
 {
   options.dots.helix = {
-    enable = lib.mkEnableOption "enable helix";
+    enable = lib.mkOption { type = lib.types.bool; };
   };
 
   config = mkIf cfg.enable {

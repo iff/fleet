@@ -23,7 +23,7 @@ let
 in
 {
   options.dots.firefox = {
-    enable = lib.mkEnableOption "enable firefox";
+    enable = lib.mkOption { type = lib.types.bool; };
   };
 
   config = lib.mkIf cfg.enable {

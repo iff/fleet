@@ -11,7 +11,7 @@ let
 in
 {
   options.dots.alacritty = {
-    enable = mkEnableOption "enable alacritty";
+    enable = lib.mkOption { type = lib.types.bool; };
     decorations = mkOption {
       description = "alacritty window decorations";
       type = types.str;

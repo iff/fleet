@@ -56,5 +56,7 @@ in
     };
     helix.enable = true;
     firefox.enable = true;
+    helix.enable = true;
+    zed.enable = true;
   };
 }

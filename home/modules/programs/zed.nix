@@ -10,7 +10,7 @@ let
 in
 {
   options.dots.zed = {
-    enable = lib.mkEnableOption "enable zed";
+    enable = lib.mkOption { type = lib.types.bool; };
   };
 
   config = mkIf cfg.enable {
