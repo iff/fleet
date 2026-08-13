@@ -24,8 +24,6 @@ let
   }/bin/nd-tmux-default-command";
 in
 {
-  # FIXME alacritty and TMUX have issues with OSX native ncurses
-  # see https://github.com/NixOS/nixpkgs/issues/204144
   home.packages = [
     tm
     tmux-git-prompt
@@ -40,118 +38,119 @@ in
     terminal = "tmux-256color";
 
     extraConfig = ''
-            set -g status on
-            set -g focus-events on
-            set -g renumber-windows on
+      set -g status on
+      set -g focus-events on
+      set -g renumber-windows on
 
-            # status bar
-            set -g status-position top
-            set -g status-left-length 100
-            set -g status-right-length 50
-            set -g status-justify "left"
+      # status bar
+      set -g status-position top
+      set -g status-left-length 100
+      set -g status-right-length 50
+      set -g status-justify "left"
 
-            set -g mode-style "fg=#abb1bb,bg=#232831"
-            set -g message-style "fg=#abb1bb,bg=#232831"
-            set -g message-command-style "fg=#abb1bb,bg=#232831"
+      set -g mode-style "fg=#abb1bb,bg=#232831"
+      set -g message-style "fg=#abb1bb,bg=#232831"
+      set -g message-command-style "fg=#abb1bb,bg=#232831"
 
-            set -g pane-border-style "fg=#abb1bb"
-            set -g pane-active-border-style "fg=#81a1c1"
-            set -g pane-border-lines heavy
-            set -g pane-border-format " #{pane_index} "
+      set -g pane-border-style "fg=#abb1bb"
+      set -g pane-active-border-style "fg=#81a1c1"
+      set -g pane-border-lines heavy
+      set -g pane-border-format " #{pane_index} "
 
-            set -g status-style "fg=#abb1bb,bg=#232831"
+      set -g status-style "fg=#abb1bb,bg=#232831"
 
-            set -g status-left-style NONE
-            set -g status-left "#[fg=#81a1c1,bg=#232831,bold] #{session_name} #(tmux-git-prompt) "
+      set -g status-left-style NONE
+      set -g status-left "#[fg=#81a1c1,bg=#232831,bold] #{session_name} #(tmux-git-prompt) "
 
-            set -g status-right-style NONE
-            set -g status-right "#[fg=#81a1c1,bg=#232831] #{prefix_highlight} #[fg=#abb1bb,bg=#232831] %H:%M #[fg=#81a1c1,bg=#232831,bold] #h "
+      set -g status-right-style NONE
+      set -g status-right "#[fg=#81a1c1,bg=#232831] #{prefix_highlight} #[fg=#abb1bb,bg=#232831] %H:%M #[fg=#81a1c1,bg=#232831,bold] #h "
 
-            setw -g window-status-activity-style "underscore,fg=#7e8188,bg=#232831"
-            setw -g window-status-separator ""
-            setw -g window-status-style "NONE,fg=#7e8188,bg=#232831"
-            setw -g window-status-format "#[fg=#7e8188,bg=#232831] #I  #{pane_current_command} "
-            setw -g window-status-current-format "#[fg=#c9826b,bg=#232831,bold] #I  #{pane_current_command} "
+      setw -g window-status-activity-style "underscore,fg=#7e8188,bg=#232831"
+      setw -g window-status-separator ""
+      setw -g window-status-style "NONE,fg=#7e8188,bg=#232831"
+      setw -g window-status-format "#[fg=#7e8188,bg=#232831] #I  #{pane_current_command} "
+      setw -g window-status-current-format "#[fg=#c9826b,bg=#232831,bold] #I  #{pane_current_command} "
 
-            # only show pane bare if more than one
-            set-hook -g -w pane-focus-in { set-option -Fw pane-border-status '#{?#{e|>:#{window_panes},1},top,off}' }
+      # only show pane bare if more than one
+      set-hook -g -w pane-focus-in { set-option -Fw pane-border-status '#{?#{e|>:#{window_panes},1},top,off}' }
 
-            # set term caps
-            set-option -sa terminal-features 'alacritty:256:clipboard:ccolour:cstyle:focus:mouse:RGB:strikethrough:title:usstyle'
-            set-option -sa terminal-overrides 'alacritty:256:clipboard:ccolour:cstyle:focus:mouse:RGB:strikethrough:title:usstyle'
+      # set term caps
+      set-option -sa terminal-features 'alacritty:256:clipboard:ccolour:cstyle:focus:mouse:RGB:strikethrough:title:usstyle'
+      set-option -sa terminal-overrides 'alacritty:256:clipboard:ccolour:cstyle:focus:mouse:RGB:strikethrough:title:usstyle'
 
-            # keybindings
+      # keybindings
 
-            # unbind all
-            unbind -a -T prefix
-            unbind -a -T root
-            unbind -a -T copy-mode
-            unbind -a -T copy-mode-vi
+      # unbind all
+      unbind -a -T prefix
+      unbind -a -T root
+      unbind -a -T copy-mode
+      unbind -a -T copy-mode-vi
 
-            setw -g mode-keys vi
-            set-option -g status-keys vi
+      setw -g mode-keys vi
+      set-option -g status-keys vi
 
-            bind ';' command-prompt
-            bind d detach-client
+      bind ';' command-prompt
+      bind d detach-client
 
-            bind BSpace new-window -c "#{pane_current_path}"
-            bind Enter split-window -h -c "#{pane_current_path}"
-            bind Tab split-window -v -c "#{pane_current_path}"
+      bind BSpace new-window -c "#{pane_current_path}"
+      bind Enter split-window -h -c "#{pane_current_path}"
+      bind Tab split-window -v -c "#{pane_current_path}"
 
-            # confirm before killing a window or the server
-            bind g confirm kill-window
+      # confirm before killing a window or the server
+      bind g confirm kill-window
 
-            # navigate tmux sessions
-            bind-key Space new-window zsh -c "tmux list-sessions -F '#{session_name}' | fzf --preview-window=down,30% --preview 'tmux list-windows -t {}' --bind 'enter:become(tmux switch -t {})+abort'"
+      # navigate tmux sessions
+      bind-key Space new-window zsh -c "tmux list-sessions -F '#{session_name}' | fzf --preview-window=down,30% --preview 'tmux list-windows -t {}' --bind 'enter:become(tmux switch -t {})+abort'"
 
-            # pane selection
-            # bind F12 display-panes
-            bind-key F12 switch-client -T direct
+      # pane selection
+      # bind F12 display-panes
+      bind-key F12 switch-client -T direct
 
-            # windows
-            bind-key -T direct n select-window -t :1
-      	  bind-key -T direct e select-window -t :2
-        	  bind-key -T direct i select-window -t :3
-      	  bind-key -T direct o select-window -t :4
-            
-            # pane selection
-            bind-key -T direct h select-pane -t 1
-            bind-key -T direct , select-pane -t 2
-            bind-key -T direct . select-pane -t 3
-            bind-key -T direct / select-pane -t 4
+      # windows
+      bind-key -T direct n select-window -t :1
+      bind-key -T direct e select-window -t :2
+      bind-key -T direct i select-window -t :3
+      bind-key -T direct o select-window -t :4
 
-            # some movement
-            # bind-key h last-window
-            # bind-key k last-pane
-            # bind -r m select-window -t :-
-            # bind -r o select-window -t :+
+      # pane selection
+      bind-key -T direct h select-pane -t 1
+      bind-key -T direct , select-pane -t 2
+      bind-key -T direct . select-pane -t 3
+      bind-key -T direct / select-pane -t 4
 
-            # fullscreen pane
-            bind-key . resize-pane -Z
-            # move to new window
-            bind-key Y break-pane
-            # rename
-            # bind-key , command-prompt 'rename-window %%'
+      # some movement
+      # TODO bind those again?
+      # bind-key h last-window
+      # bind-key k last-pane
+      # bind -r m select-window -t :-
+      # bind -r o select-window -t :+
 
-            bind a copy-mode
-            bind -T copy-mode-vi u send-keys -X cursor-up
-            bind -T copy-mode-vi n send-keys -X cursor-left
-            bind -T copy-mode-vi i send-keys -X cursor-right
-            bind -T copy-mode-vi e send-keys -X cursor-down
-            bind -T copy-mode-vi m send-keys -X start-of-line
-            bind -T copy-mode-vi o send-keys -X end-of-line
-            bind -T copy-mode-vi h send-keys -X page-down
-            bind -T copy-mode-vi k send-keys -X page-up
-            bind -T copy-mode-vi C-h send-keys -X history-bottom
-            bind -T copy-mode-vi C-k send-keys -X history-top
-            bind -T copy-mode-vi C-u send-keys -X previous-prompt
-            bind -T copy-mode-vi C-e send-keys -X next-prompt
-            bind -T copy-mode-vi Escape send-keys -X cancel
-            bind -T copy-mode-vi 'v' send -X begin-selection
-            bind -T copy-mode-vi 'C-v' send -X rectangle-toggle
-            bind -T copy-mode-vi 'y' send -X copy-selection
+      # fullscreen pane
+      bind-key . resize-pane -Z
+      # move to new window
+      bind-key Y break-pane
+      # rename
+      # bind-key , command-prompt 'rename-window %%'
 
-            set-option -g default-command ${nd-tmux-cmd}
+      bind a copy-mode
+      bind -T copy-mode-vi u send-keys -X cursor-up
+      bind -T copy-mode-vi n send-keys -X cursor-left
+      bind -T copy-mode-vi i send-keys -X cursor-right
+      bind -T copy-mode-vi e send-keys -X cursor-down
+      bind -T copy-mode-vi m send-keys -X start-of-line
+      bind -T copy-mode-vi o send-keys -X end-of-line
+      bind -T copy-mode-vi h send-keys -X page-down
+      bind -T copy-mode-vi k send-keys -X page-up
+      bind -T copy-mode-vi C-h send-keys -X history-bottom
+      bind -T copy-mode-vi C-k send-keys -X history-top
+      bind -T copy-mode-vi C-u send-keys -X previous-prompt
+      bind -T copy-mode-vi C-e send-keys -X next-prompt
+      bind -T copy-mode-vi Escape send-keys -X cancel
+      bind -T copy-mode-vi 'v' send -X begin-selection
+      bind -T copy-mode-vi 'C-v' send -X rectangle-toggle
+      bind -T copy-mode-vi 'y' send -X copy-selection
+
+      set-option -g default-command ${nd-tmux-cmd}
     '';
   };
 
