@@ -545,8 +545,7 @@
         "nd": "nd",
         "nihilistic-nvim": "nihilistic-nvim",
         "nixpkgs": "nixpkgs_4",
-        "osh-oxy": "osh-oxy",
-        "zsh-syntax-highlighting": "zsh-syntax-highlighting"
+        "osh-oxy": "osh-oxy"
       }
     },
     "rust-overlay": {
@@ -722,22 +721,6 @@
       "original": {
         "owner": "pyproject-nix",
         "repo": "uv2nix",
-        "type": "github"
-      }
-    },
-    "zsh-syntax-highlighting": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1789641642,
-        "narHash": "sha256-6yqlW0AWQ2xzl27OqhGjb4MS7yxKnxzLC4g/6riIhn4=",
-        "owner": "zsh-users",
-        "repo": "zsh-syntax-highlighting",
-        "rev": "0bfcb582e71d3abe604ce67bc0fe5a21f377507e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "zsh-users",
-        "repo": "zsh-syntax-highlighting",
         "type": "github"
       }
     }
