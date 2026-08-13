@@ -111,5 +111,5 @@ default-command = ["status"]
 diff-editor = ["v", "-c", "DiffEditor $left $right $output"]
 
 [fix.tools.rustfmt]
-command = ["cargo", "fmt", "--", "--emit=stdout"]
-patterns = ["glob:*.rs"]
+command = ["rustfmt", "--emit=stdout"]
+patterns = ["glob:**/*.rs"]
