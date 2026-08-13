@@ -18,6 +18,7 @@ in
 
   home.packages = [
     switch
+    pkgs.bash
     pkgs.zsh
   ];
 
