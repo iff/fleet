@@ -28,6 +28,8 @@ in
       font_size = 19.0;
       font_normal = "IosevkaTerm Nerd Font Mono";
       font_style = "Light";
+      # theme = "everforest_dark_medium";
+      theme = "nordfox";
     };
     helix.enable = true;
     firefox.enable = false;
