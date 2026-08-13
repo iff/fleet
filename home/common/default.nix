@@ -58,15 +58,14 @@ in
     pkgs.jq
     pkgs.dix
     pkgs.procs
+    pkgs.yubikey-manager
     # fonts
     pkgs.fontconfig
     # pkgs.nerd-fonts.zed-mono
     pkgs.nerd-fonts.iosevka-term
-    # all systems with nvim
-    inputs.nihilistic-nvim.packages.${pkgs.stdenv.hostPlatform.system}.default
-    # try
-    pkgs.claude-code
+    #
     inputs.nd.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.nihilistic-nvim.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   programs.direnv = {
