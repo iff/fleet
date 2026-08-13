@@ -20,6 +20,11 @@
       vim
     ];
 
+    security.pki.caCertificateBlacklist = [
+      "Comodo AAA Services root"
+      "emSign ECC Root CA - G3"
+    ];
+
     programs._1password.enable = true;
     programs._1password-gui = {
       enable = true;
