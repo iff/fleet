@@ -39,7 +39,7 @@ function __osh_after {
 add-zsh-hook precmd __osh_after
 
 function __osh_search {
-    if [[ -v __osh_session_id ]]; then
+    if [[ ! -v __osh_session_id ]]; then
         __osh_session_id=$(uuidgen)
     fi
     BUFFER=$(__osh search --folder=$(pwd) --query=$BUFFER --session-id=$__osh_session_id)
