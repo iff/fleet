@@ -193,11 +193,11 @@
     "iff-dwm": {
       "flake": false,
       "locked": {
-        "lastModified": 1761945143,
-        "narHash": "sha256-l7wN95jXsRrcXpdIMUKjWvammxDhi3yolyOt7xN8D+I=",
+        "lastModified": 1789018337,
+        "narHash": "sha256-Vktagh+hhMys/dWwVzHbMykoH1pxwHKRc7nPBD31F9s=",
         "owner": "iff",
         "repo": "dwm",
-        "rev": "0b326e9c0cc37e53bae133abe8ee2c3f6614e8ff",
+        "rev": "8995e0051acb64e5ab3dfc2867866e14a0e0712d",
         "type": "github"
       },
       "original": {
