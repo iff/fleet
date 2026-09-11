@@ -161,32 +161,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1788487777,
-        "narHash": "sha256-Ro/e1N4ZR8/XaFF+sF9SgfPK79HM5YNEppzFj8p+0Ak=",
+        "lastModified": 1789150619,
+        "narHash": "sha256-Vsgv5atXkGWOOdLOL8oQLnZSGt1h140synPfFdwbyjU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "693e8ce0fb240a73c116a03cfd7b19269c87af88",
+        "rev": "e4345d5ae8aa1def34378d2a60ac5e6e4c8fd7c1",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "hop-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1786727969,
-        "narHash": "sha256-KZY2DbLuM3M8P2Rp6ngbSesmd5uRQBa5nNpWxawOed8=",
-        "owner": "smoka7",
-        "repo": "hop.nvim",
-        "rev": "6e83486f351066e38c3ae9daad2a4f01dfb262ad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "smoka7",
-        "repo": "hop.nvim",
         "type": "github"
       }
     },
@@ -305,11 +289,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1788377030,
-        "narHash": "sha256-0GIAuUiiFb9/Zbzv8HAXUEiofcrfSsAKKIY88zrgmbk=",
+        "lastModified": 1788859819,
+        "narHash": "sha256-1doNgJtafAli1uKXB8Os4c8R4eXHK5hnCrAFewEePaM=",
         "owner": "dkuettel",
         "repo": "nd",
-        "rev": "f9f9473c9f05f1e16db4e6ad49b8361e6c657bc0",
+        "rev": "8c56cf444be99849245504d938de77cd47885797",
         "type": "github"
       },
       "original": {
@@ -342,7 +326,6 @@
         "flake-utils": "flake-utils_4",
         "fugitive-nvim": "fugitive-nvim",
         "funky-formatter-nvim": "funky-formatter-nvim",
-        "hop-nvim": "hop-nvim",
         "indent-blankline-nvim": "indent-blankline-nvim",
         "lavish-layouts-nvim": "lavish-layouts-nvim",
         "mad-mappings-nvim": "mad-mappings-nvim",
@@ -355,11 +338,11 @@
         "tree-sitter-lean": "tree-sitter-lean"
       },
       "locked": {
-        "lastModified": 1788759404,
-        "narHash": "sha256-TP13qQh+0EYce4XxIjTy4MmTsmQ1waF0YmMw9L93QoU=",
+        "lastModified": 1788933596,
+        "narHash": "sha256-t36fggm45ImqSVKXD3g1msoZWbz/RNmiRbTMlVYyvJQ=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "9b0d9720a44f61a3d8385ba130c19c8e5db8d960",
+        "rev": "61e505ead677437dfcb9410c691040c6b197d7a4",
         "type": "github"
       },
       "original": {
@@ -418,11 +401,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1788400875,
-        "narHash": "sha256-JIHQ6xNAN53cdo6zZ72LRcQ9lpvnABCnNE4hldJ5uZU=",
+        "lastModified": 1789073787,
+        "narHash": "sha256-xfX/toC2QV707s06GbP4II/TxYF0fNQj7s5/LClNDKc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "5545adfad2e98de106a5544ca7067e03010410bd",
+        "rev": "aff8a0b28396750446e5537a96461bc4facdb287",
         "type": "github"
       },
       "original": {
