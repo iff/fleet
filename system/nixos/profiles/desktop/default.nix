@@ -67,7 +67,7 @@ in
     };
 
     services.dbus.enable = true;
-    services.dbus.packages = [ pkgs.gcr ];
+    services.dbus.packages = [ pkgs.gcr_4 ];
 
     # NOTE currently no bluetooth devices
     # hardware.bluetooth.enable = true;
