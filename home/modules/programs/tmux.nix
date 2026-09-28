@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   inputs,
   ...
@@ -30,8 +29,7 @@ in
   home.packages = [
     tm
     tmux-git-prompt
-  ]
-  ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ pkgs.ncurses ];
+  ];
 
   programs.tmux = {
     enable = true;
