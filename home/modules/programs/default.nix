@@ -8,7 +8,7 @@
     ./ghostty.nix
     ./git.nix
     ./kanata.nix
-    ./radicle.nix
+    # ./radicle.nix
     ./syncthing.nix
     ./tmux.nix
     ./zed.nix
