@@ -111,6 +111,7 @@
               "cuda_sanitizer_api"
               "libcusolver"
               "libnpp"
+              "libnvvm"
             ];
           # config.cudaSupport = true;
         }
