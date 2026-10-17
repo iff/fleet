@@ -100,6 +100,7 @@
               #
               "cuda-merged"
               "cuda_cuobjdump"
+              "cuda_crt"
               "cuda_gdb"
               "cuda_nvdisasm"
               "cuda_nvprune"
@@ -111,6 +112,8 @@
               "cuda_sanitizer_api"
               "libcusolver"
               "libnpp"
+              "libnvvm"
+              "cccl"
             ];
           # config.cudaSupport = true;
         }
