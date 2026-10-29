@@ -8,15 +8,15 @@ let
     nixos-rebuild switch --sudo --flake .
   '';
 
-  widelands-2k = pkgs.writeScriptBin "widelands-2k" ''
-    #!${pkgs.zsh}/bin/zsh
-    set -eu -o pipefail
-    xrandr --output DP-0 --mode 1920x1080 --rate 160
-    function TRAPEXIT {
-        xrandr --output DP-0 --mode 3840x2160 --rate 160
-    }
-    widelands --fullscreen
-  '';
+  # widelands-2k = pkgs.writeScriptBin "widelands-2k" ''
+  #   #!${pkgs.zsh}/bin/zsh
+  #   set -eu -o pipefail
+  #   xrandr --output DP-0 --mode 1920x1080 --rate 160
+  #   function TRAPEXIT {
+  #       xrandr --output DP-0 --mode 3840x2160 --rate 160
+  #   }
+  #   widelands --fullscreen
+  # '';
 in
 {
   home.packages = with pkgs; [
@@ -31,7 +31,7 @@ in
     spotify
     transmission_4-gtk
     vlc
-    zed-editor
+    # zed-editor
     #
     switch
     #
@@ -55,6 +55,6 @@ in
     };
     helix.enable = true;
     firefox.enable = true;
-    zed.enable = true;
+    zed.enable = false;
   };
 }
