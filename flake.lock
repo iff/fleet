@@ -141,11 +141,11 @@
     "funky-formatter-nvim": {
       "flake": false,
       "locked": {
-        "lastModified": 1792954105,
-        "narHash": "sha256-HY4+CsFt+gWzX54s/RZZaKTiV2EtZBMFYlg8AqV9fnM=",
+        "lastModified": 1793533088,
+        "narHash": "sha256-zjGZivOzxe9Z1u0JZckWOgsFGQLvTx5L1kCA2AAwUHo=",
         "owner": "dkuettel",
         "repo": "funky-formatter.nvim",
-        "rev": "99045c0c33fd7b493027a40c86e3492cc24c5526",
+        "rev": "8e369698ae1920c22a2b3b6260b837f21e0337dc",
         "type": "github"
       },
       "original": {
@@ -339,11 +339,11 @@
         "tree-sitter-lean": "tree-sitter-lean"
       },
       "locked": {
-        "lastModified": 1792998354,
-        "narHash": "sha256-cuZ1+c9iq1Xiwa9RVCunZ/Yd+n0zmv+bSeSUzRC7aMk=",
+        "lastModified": 1793610441,
+        "narHash": "sha256-zgtYBQEkl4yK/IfYhm7ZXVQWQba5a54LQD9RUJeDBfs=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "4912c5c2166cff667acbe62a457897dad62d465b",
+        "rev": "e1b7653279fba858cbab84bf7656f764310d4b96",
         "type": "github"
       },
       "original": {
@@ -435,11 +435,11 @@
     "nvim-lspconfig": {
       "flake": false,
       "locked": {
-        "lastModified": 1792504660,
-        "narHash": "sha256-y1yMOwXGWn/f8h9J2XM8hczCODrVjDjoONcUnhRY/r0=",
+        "lastModified": 1793446170,
+        "narHash": "sha256-/zLhjDnGgHSdRm+f4rKNGIowSfsbj2ZRHOtNVe3PdZk=",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "77b7432d4770d23b277d37923e5a08a442d8bb07",
+        "rev": "d8d2fda7aae57030452ce8cd6e770b1eb704514e",
         "type": "github"
       },
       "original": {
@@ -704,11 +704,11 @@
     "tree-sitter-lean": {
       "flake": false,
       "locked": {
-        "lastModified": 1791125107,
-        "narHash": "sha256-L62/JqAPc8e7RiNLo1t/gmSfilVI8nL6KYKKo2Kmegs=",
+        "lastModified": 1793543691,
+        "narHash": "sha256-3A4Ag3p3FjCD6BXdiEpDfTCsRWmTzH8IlyxRLFu4xvc=",
         "owner": "Julian",
         "repo": "tree-sitter-lean",
-        "rev": "916c44f4d89c970f66dd34a49e7ce848f4d29e72",
+        "rev": "0d28e5d6e8c4755f5df7ef9bde3b6ec6f59fae94",
         "type": "github"
       },
       "original": {
