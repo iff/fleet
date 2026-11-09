@@ -9,6 +9,10 @@
 {
   imports = [ ./hardware.nix ];
 
+  # man db
+  documentation.man.cache.enable = true;
+  documentation.dev.enable = true;
+
   # TODO causing issues with DHCP often restarting loosing connection
   # networking.interfaces.enp0s31f6.useDHCP = true;
   networking.interfaces.eno1.wakeOnLan.enable = true;
