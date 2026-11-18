@@ -1,7 +1,8 @@
 {
+  "disable_ai": true,
   "theme": "Nordfox - opaque",
   "autosave": "on_focus_change",
-  "enable_feedback": false,
+  // "enable_feedback": false,
   "vim_mode": true,
   "load_direnv": "shell_hook",
   "cursor_blink": false,
@@ -18,7 +19,7 @@
     "alternate_scroll": "off",
     "blinking": "terminal_controlled",
     "copy_on_select": true,
-    "font_family": "ZedMono Nerd Font",
+    "font_family": "IosevkaTerm Nerd Font Mono",
     "font_size": 17,
     "line_height": "standard",
     "working_directory": "current_project_directory"
@@ -52,7 +53,7 @@
     "breadcrumbs": true,
     "quick_actions": false
   },
-  "features": {
-    "edit_prediction_provider": "none"
-  },
+  "edit_predictions": {
+    "provider": "none"
+  }
 }
