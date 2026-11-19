@@ -211,22 +211,6 @@
         "type": "github"
       }
     },
-    "indent-blankline-nvim": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1788483448,
-        "narHash": "sha256-vVzaXiVgpn/CbgFSXOPHwaTdnKxW9fbI2Sse+BiJczw=",
-        "owner": "lukas-reineke",
-        "repo": "indent-blankline.nvim",
-        "rev": "f1e186e44d3b7f9ae918008e2c28ce37c6023d2d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "lukas-reineke",
-        "repo": "indent-blankline.nvim",
-        "type": "github"
-      }
-    },
     "lavish-layouts-nvim": {
       "flake": false,
       "locked": {
@@ -326,7 +310,6 @@
         "flake-utils": "flake-utils_4",
         "fugitive-nvim": "fugitive-nvim",
         "funky-formatter-nvim": "funky-formatter-nvim",
-        "indent-blankline-nvim": "indent-blankline-nvim",
         "lavish-layouts-nvim": "lavish-layouts-nvim",
         "mad-mappings-nvim": "mad-mappings-nvim",
         "nightfox-nvim": "nightfox-nvim",
@@ -339,11 +322,11 @@
         "tree-sitter-lean": "tree-sitter-lean"
       },
       "locked": {
-        "lastModified": 1795163342,
-        "narHash": "sha256-syPNPAqczG4henamNKAF5egwYtxW8enTP+TL0jlUZGE=",
+        "lastModified": 1795418569,
+        "narHash": "sha256-FAzPUB+T3QnBzzuExrxNRgdWCb5sHTlt0gqfjF1kifI=",
         "owner": "iff",
         "repo": "nihilistic-nvim",
-        "rev": "e57e3ff4dc697112057d2c5129c9c055e0d1f0d3",
+        "rev": "d772679df2d43551b9b79abd252cf9d7c29f01a7",
         "type": "github"
       },
       "original": {
@@ -435,11 +418,11 @@
     "nvim-lspconfig": {
       "flake": false,
       "locked": {
-        "lastModified": 1794769838,
-        "narHash": "sha256-nh4i/D9QzUgTqErY+1OliGc7n4usw2CpI45ngSfM5XU=",
+        "lastModified": 1795001595,
+        "narHash": "sha256-FywWiEGEuauWQzOONBLwxzc5cPfrMT/v2b6CTcYj7Nw=",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "6e72b89d499455611f09f46d13ee9f79325406e5",
+        "rev": "4648fd8ba5c678d7e2db75ae44ffac269bb589d8",
         "type": "github"
       },
       "original": {
@@ -704,11 +687,11 @@
     "tree-sitter-lean": {
       "flake": false,
       "locked": {
-        "lastModified": 1793543691,
-        "narHash": "sha256-3A4Ag3p3FjCD6BXdiEpDfTCsRWmTzH8IlyxRLFu4xvc=",
+        "lastModified": 1795249458,
+        "narHash": "sha256-P7UItFKk+tlp+pLRdzC6F3HOb3QXxL48dV0ioMO5teU=",
         "owner": "Julian",
         "repo": "tree-sitter-lean",
-        "rev": "0d28e5d6e8c4755f5df7ef9bde3b6ec6f59fae94",
+        "rev": "fefc2eff9a83eeb72cda44646709e40e33e09175",
         "type": "github"
       },
       "original": {
